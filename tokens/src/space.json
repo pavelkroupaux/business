@@ -21,7 +21,7 @@
       "narrow": { "value": "42rem", "type": "sizing" },
       "text":   { "value": "58rem", "type": "sizing" },
       "wide":   { "value": "72rem", "type": "sizing" },
-      "full":   { "value": "88rem", "type": "sizing" }
+      "bleed":  { "value": "88rem", "type": "sizing" }
     },
     "gutter": {
       "mobile":  { "value": "1.25rem", "type": "sizing" },

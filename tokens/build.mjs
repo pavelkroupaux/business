@@ -21,6 +21,43 @@ const TAILWIND_NAMESPACE = [
   // color-, radius-, shadow-, breakpoint-, font-weight- already match.
 ];
 
+/**
+ * Tailwind keywords that must never be used as the last segment of a token
+ * name, because emitting them into a Tailwind namespace silently redefines a
+ * built-in utility for the entire codebase.
+ *
+ * The one that bit us: `size.container.full` emits `--container-full`, and the
+ * `--container-*` namespace backs `w-*`/`max-w-*`/`min-w-*` — which redefined
+ * `w-full` from `100%` to `88rem` on every element using it. Renamed to
+ * `bleed`. This check makes that class of mistake fail the build instead of
+ * showing up as a mysterious layout bug.
+ */
+const RESERVED_LEAF = new Set([
+  'full', 'screen', 'auto', 'min', 'max', 'fit', 'px', 'none', 'dvh', 'dvw',
+]);
+
+/** Namespaces where a reserved leaf collides with a built-in utility. */
+const GUARDED_PREFIX = ['container-', 'spacing-', 'text-', 'font-', 'leading-', 'tracking-'];
+
+const assertNoUtilityCollisions = (tokens) => {
+  const clashes = tokens
+    .map((t) => toTailwindName(t.name))
+    .filter(
+      (name) =>
+        GUARDED_PREFIX.some((p) => name.startsWith(p)) &&
+        RESERVED_LEAF.has(name.split('-').pop())
+    );
+
+  if (clashes.length > 0) {
+    throw new Error(
+      `Token name(s) collide with built-in Tailwind utilities: ${[
+        ...new Set(clashes),
+      ].join(', ')}\n` +
+        `Rename the final segment — emitting these silently redefines a core utility.`
+    );
+  }
+};
+
 const toTailwindName = (name) => {
   for (const [from, to] of TAILWIND_NAMESPACE) {
     if (name.startsWith(from)) return to + name.slice(from.length);
@@ -35,6 +72,7 @@ const toTailwindName = (name) => {
 StyleDictionary.registerFormat({
   name: 'css/tailwind-theme',
   format: ({ dictionary }) => {
+    assertNoUtilityCollisions(dictionary.allTokens);
     const lines = dictionary.allTokens.map(
       (t) => `  --${toTailwindName(t.name)}: ${t.value};`
     );

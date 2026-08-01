@@ -1,13 +1,17 @@
 import type { ReactNode, ElementType } from 'react';
 import { cn } from './cn';
 
-export type ContainerWidth = 'narrow' | 'text' | 'wide' | 'full';
+export type ContainerWidth = 'narrow' | 'text' | 'wide' | 'bleed';
 
+/**
+ * These map to Tailwind's `--container-*` namespace, so the utility is
+ * `max-w-wide`, not `max-w-container-wide`.
+ */
 const WIDTH: Record<ContainerWidth, string> = {
-  narrow: 'max-w-container-narrow',
-  text: 'max-w-container-text',
-  wide: 'max-w-container-wide',
-  full: 'max-w-container-full',
+  narrow: 'max-w-narrow',
+  text: 'max-w-text',
+  wide: 'max-w-wide',
+  bleed: 'max-w-bleed',
 };
 
 export interface ContainerProps {
