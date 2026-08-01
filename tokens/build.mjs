@@ -43,6 +43,29 @@ StyleDictionary.registerFormat({
 });
 
 /**
+ * Metadata feed for the style guide: keeps each token's path, CSS variable
+ * name, resolved value and type, so the docs page is generated from the token
+ * set itself and cannot drift from it.
+ */
+StyleDictionary.registerFormat({
+  name: 'json/docs',
+  format: ({ dictionary }) =>
+    JSON.stringify(
+      dictionary.allTokens.map((t) => ({
+        path: t.path,
+        group: t.path[0],
+        name: t.name,
+        cssVar: `--${t.name}`,
+        tailwindVar: `--${toTailwindName(t.name)}`,
+        value: t.value,
+        type: t.type ?? t.$type ?? 'other',
+      })),
+      null,
+      2
+    ),
+});
+
+/**
  * Tailwind reads breakpoints from `--breakpoint-*`, colors from `--color-*`,
  * spacing from `--spacing-*`, etc. Our source names already align, so the
  * default `kebab` transform maps cleanly onto Tailwind's namespaces.
@@ -64,6 +87,13 @@ export default {
           format: 'css/tailwind-theme',
         },
       ],
+    },
+    // Uses the CSS transform group so names stay kebab-case and line up with
+    // the variables actually emitted into variables.css / theme.css.
+    docs: {
+      transformGroup: 'css',
+      buildPath: 'tokens/dist/',
+      files: [{ destination: 'tokens.docs.json', format: 'json/docs' }],
     },
     js: {
       transformGroup: 'js',
