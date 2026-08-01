@@ -1,0 +1,17 @@
+{
+  "name": "business-design-system",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Design system + site rebuild for pavelkroupa.com",
+  "type": "module",
+  "scripts": {
+    "tokens": "style-dictionary build --config tokens/build.mjs",
+    "tokens:watch": "nodemon --watch tokens/src -e json --exec \"npm run tokens\"",
+    "docs": "npm run tokens && node docs/build-docs.mjs",
+    "dev": "npm run tokens && npm --prefix site run dev",
+    "build": "npm run tokens && npm --prefix site run build"
+  },
+  "devDependencies": {
+    "style-dictionary": "^4.3.0"
+  }
+}

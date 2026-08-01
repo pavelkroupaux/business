@@ -1,0 +1,10 @@
+node_modules/
+tokens/dist/
+docs/dist/
+site/.next/
+site/out/
+.DS_Store
+*.log
+.env
+.env.local
+.vercel
