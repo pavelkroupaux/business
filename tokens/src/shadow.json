@@ -1,0 +1,30 @@
+{
+  "shadow": {
+    "none": { "value": "none", "type": "boxShadow" },
+    "xs":   { "value": "0 1px 2px 0 rgb(13 13 17 / 0.05)", "type": "boxShadow" },
+    "sm":   { "value": "0 1px 3px 0 rgb(13 13 17 / 0.08), 0 1px 2px -1px rgb(13 13 17 / 0.06)", "type": "boxShadow" },
+    "md":   { "value": "0 4px 12px -2px rgb(13 13 17 / 0.10), 0 2px 6px -2px rgb(13 13 17 / 0.06)", "type": "boxShadow" },
+    "lg":   { "value": "0 12px 28px -6px rgb(13 13 17 / 0.12), 0 4px 10px -4px rgb(13 13 17 / 0.07)", "type": "boxShadow" },
+    "xl":   { "value": "0 24px 56px -12px rgb(13 13 17 / 0.18)", "type": "boxShadow" }
+  },
+
+  "motion": {
+    "duration": {
+      "fast":   { "value": "120ms", "type": "duration" },
+      "normal": { "value": "220ms", "type": "duration" },
+      "slow":   { "value": "420ms", "type": "duration" }
+    },
+    "easing": {
+      "standard": { "value": "cubic-bezier(0.2, 0, 0, 1)",     "type": "cubicBezier" },
+      "entrance": { "value": "cubic-bezier(0.16, 1, 0.3, 1)",  "type": "cubicBezier" },
+      "exit":     { "value": "cubic-bezier(0.4, 0, 1, 1)",     "type": "cubicBezier" }
+    }
+  },
+
+  "zIndex": {
+    "base":    { "value": "0",   "type": "other" },
+    "sticky":  { "value": "100", "type": "other" },
+    "overlay": { "value": "200", "type": "other" },
+    "modal":   { "value": "300", "type": "other" }
+  }
+}

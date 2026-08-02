@@ -1,0 +1,6 @@
+<!-- [PLACEHOLDER] Generic monogram. Replace with the real favicon from the live site. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="14" fill="#0d0d11"/>
+  <text x="32" y="43" font-family="Inter, system-ui, sans-serif" font-size="30"
+        font-weight="600" fill="#ffffff" text-anchor="middle" letter-spacing="-1">PK</text>
+</svg>
