@@ -11,6 +11,10 @@ export const metadata: Metadata = {
   },
   description: site.tagline,
   metadataBase: new URL(site.url),
+  // robots.txt asks crawlers not to fetch these pages; this emits the noindex
+  // meta tag that also keeps them out of the index if a URL is discovered some
+  // other way (a shared link, a backlink), which robots.txt alone does not do.
+  robots: { index: false, follow: false, nocache: true },
 };
 
 export default function RootLayout({

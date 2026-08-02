@@ -1,0 +1,5 @@
+# The site is a work-in-progress rebuild carrying placeholder copy, so keep it
+# out of search results entirely. Remove this file (and the `robots` block in
+# app/layout.tsx) when the real content is in and the site should be indexed.
+User-agent: *
+Disallow: /
