@@ -1,0 +1,604 @@
+<title>Design system preview — pavelkroupa.com rebuild</title>
+<style>
+:root{
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+  --color-neutral-0: #ffffff;
+  --color-neutral-50: #f7f7f8;
+  --color-neutral-100: #ededf0;
+  --color-neutral-200: #d8d8de;
+  --color-neutral-300: #b8b8c2;
+  --color-neutral-400: #8f8f9d;
+  --color-neutral-500: #6e6e7e;
+  --color-neutral-600: #565664;
+  --color-neutral-700: #42424e;
+  --color-neutral-800: #2b2b34;
+  --color-neutral-900: #1a1a20;
+  --color-neutral-1000: #0d0d11;
+  --color-accent-50: #eef2ff;
+  --color-accent-100: #e0e7ff;
+  --color-accent-200: #c7d2fe;
+  --color-accent-300: #a5b4fc;
+  --color-accent-400: #818cf8;
+  --color-accent-500: #6366f1;
+  --color-accent-600: #4f46e5;
+  --color-accent-700: #4338ca;
+  --color-accent-800: #3730a3;
+  --color-accent-900: #312e81;
+  --color-bg-canvas: #ffffff;
+  --color-bg-subtle: #f7f7f8;
+  --color-bg-muted: #ededf0;
+  --color-bg-inverse: #0d0d11;
+  --color-text-primary: #0d0d11;
+  --color-text-secondary: #565664;
+  --color-text-muted: #8f8f9d;
+  --color-text-inverse: #ffffff;
+  --color-text-accent: #4f46e5;
+  --color-border-subtle: #ededf0;
+  --color-border-default: #d8d8de;
+  --color-border-strong: #b8b8c2;
+  --color-action-primary: #0d0d11;
+  --color-action-primary-hover: #2b2b34;
+  --color-action-on-primary: #ffffff;
+  --color-action-accent: #4f46e5;
+  --color-action-accent-hover: #4338ca;
+  --color-action-on-accent: #ffffff;
+  --color-focus-ring: #6366f1;
+  --radius-none: 0;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-pill: 999px;
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px 0 rgb(13 13 17 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(13 13 17 / 0.08), 0 1px 2px -1px rgb(13 13 17 / 0.06);
+  --shadow-md: 0 4px 12px -2px rgb(13 13 17 / 0.10), 0 2px 6px -2px rgb(13 13 17 / 0.06);
+  --shadow-lg: 0 12px 28px -6px rgb(13 13 17 / 0.12), 0 4px 10px -4px rgb(13 13 17 / 0.07);
+  --shadow-xl: 0 24px 56px -12px rgb(13 13 17 / 0.18);
+  --motion-duration-fast: 120ms;
+  --duration-fast: 120ms;
+  --motion-duration-normal: 220ms;
+  --duration-normal: 220ms;
+  --motion-duration-slow: 420ms;
+  --duration-slow: 420ms;
+  --motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --motion-easing-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-easing-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --z-index-base: 0;
+  --z-index-sticky: 100;
+  --z-index-overlay: 200;
+  --z-index-modal: 300;
+  --space-0: 0;
+  --spacing-0: 0;
+  --space-1: 0.25rem;
+  --spacing-1: 0.25rem;
+  --space-2: 0.5rem;
+  --spacing-2: 0.5rem;
+  --space-3: 0.75rem;
+  --spacing-3: 0.75rem;
+  --space-4: 1rem;
+  --spacing-4: 1rem;
+  --space-5: 1.5rem;
+  --spacing-5: 1.5rem;
+  --space-6: 2rem;
+  --spacing-6: 2rem;
+  --space-7: 2.5rem;
+  --spacing-7: 2.5rem;
+  --space-8: 3rem;
+  --spacing-8: 3rem;
+  --space-9: 4rem;
+  --spacing-9: 4rem;
+  --space-10: 5rem;
+  --spacing-10: 5rem;
+  --space-11: 6rem;
+  --spacing-11: 6rem;
+  --space-12: 8rem;
+  --spacing-12: 8rem;
+  --space-13: 10rem;
+  --spacing-13: 10rem;
+  --size-container-narrow: 42rem;
+  --container-narrow: 42rem;
+  --size-container-text: 58rem;
+  --container-text: 58rem;
+  --size-container-wide: 72rem;
+  --container-wide: 72rem;
+  --size-container-bleed: 88rem;
+  --container-bleed: 88rem;
+  --size-gutter-mobile: 1.25rem;
+  --size-gutter-tablet: 2rem;
+  --size-gutter-desktop: 3rem;
+  --font-family-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-family-display: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-display: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-family-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-size-xs: 0.75rem;
+  --text-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --text-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --text-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --text-lg: 1.125rem;
+  --font-size-xl: 1.375rem;
+  --text-xl: 1.375rem;
+  --font-size-2xl: 1.75rem;
+  --text-2xl: 1.75rem;
+  --font-size-3xl: 2.25rem;
+  --text-3xl: 2.25rem;
+  --font-size-4xl: 3rem;
+  --text-4xl: 3rem;
+  --font-size-5xl: 3.75rem;
+  --text-5xl: 3.75rem;
+  --font-size-6xl: 4.5rem;
+  --text-6xl: 4.5rem;
+  --font-line-height-tight: 1.1;
+  --leading-tight: 1.1;
+  --font-line-height-snug: 1.25;
+  --leading-snug: 1.25;
+  --font-line-height-normal: 1.5;
+  --leading-normal: 1.5;
+  --font-line-height-relaxed: 1.7;
+  --leading-relaxed: 1.7;
+  --font-letter-spacing-tighter: -0.03em;
+  --tracking-tighter: -0.03em;
+  --font-letter-spacing-tight: -0.015em;
+  --tracking-tight: -0.015em;
+  --font-letter-spacing-normal: 0em;
+  --tracking-normal: 0em;
+  --font-letter-spacing-wide: 0.04em;
+  --tracking-wide: 0.04em;
+  --font-letter-spacing-wider: 0.12em;
+  --tracking-wider: 0.12em;
+}
+/*! tailwindcss v4.3.3 | MIT License | https://tailwindcss.com */@layer properties{@supports (((-webkit-hyphens:none)) and (not (margin-trim:inline))) or ((-moz-orient:inline) and (not (color:rgb(from red r g b)))){*,::backdrop,:after,:before{--tw-border-style:solid;--tw-leading:initial;--tw-font-weight:initial;--tw-tracking:initial;--tw-backdrop-blur:initial;--tw-backdrop-brightness:initial;--tw-backdrop-contrast:initial;--tw-backdrop-grayscale:initial;--tw-backdrop-hue-rotate:initial;--tw-backdrop-invert:initial;--tw-backdrop-opacity:initial;--tw-backdrop-saturate:initial;--tw-backdrop-sepia:initial;--tw-ease:initial;--tw-content:"";--tw-shadow:0 0 #0000;--tw-shadow-color:initial;--tw-shadow-alpha:100%;--tw-inset-shadow:0 0 #0000;--tw-inset-shadow-color:initial;--tw-inset-shadow-alpha:100%;--tw-ring-color:initial;--tw-ring-shadow:0 0 #0000;--tw-inset-ring-color:initial;--tw-inset-ring-shadow:0 0 #0000;--tw-ring-inset:initial;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-offset-shadow:0 0 #0000;--tw-outline-style:solid}}}@layer theme{:host,:root{--font-sans:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;--font-mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;--color-neutral-200:#d8d8de;--color-neutral-300:#b8b8c2;--color-neutral-800:#2b2b34;--spacing:.25rem;--text-xs:.75rem;--text-xs--line-height:calc(1 / .75);--text-sm:.875rem;--text-sm--line-height:calc(1.25 / .875);--text-base:1rem;--text-base--line-height:calc(1.5 / 1);--text-lg:1.125rem;--text-lg--line-height:calc(1.75 / 1.125);--text-xl:1.375rem;--text-xl--line-height:calc(1.75 / 1.25);--text-2xl:1.75rem;--text-2xl--line-height:calc(2 / 1.5);--text-3xl:2.25rem;--text-3xl--line-height:calc(2.25 / 1.875);--text-4xl:3rem;--text-4xl--line-height:calc(2.5 / 2.25);--text-5xl:3.75rem;--text-5xl--line-height:1;--font-weight-medium:500;--font-weight-semibold:600;--tracking-tighter:-.03em;--tracking-tight:-.015em;--tracking-wide:.04em;--tracking-wider:.12em;--leading-tight:1.1;--leading-snug:1.25;--leading-normal:1.5;--leading-relaxed:1.7;--radius-sm:.25rem;--radius-md:.5rem;--radius-lg:.75rem;--radius-xl:1rem;--blur-md:12px;--default-transition-duration:.15s;--default-transition-timing-function:cubic-bezier(.4,0,.2,1);--default-font-family:var(--font-sans);--default-mono-font-family:var(--font-mono);--color-accent-50:#eef2ff;--color-accent-900:#312e81;--color-bg-canvas:#fff;--color-bg-subtle:#f7f7f8;--color-bg-muted:#ededf0;--color-bg-inverse:#0d0d11;--color-text-primary:#0d0d11;--color-text-secondary:#565664;--color-text-muted:#8f8f9d;--color-text-inverse:#fff;--color-text-accent:#4f46e5;--color-border-subtle:#ededf0;--color-border-default:#d8d8de;--color-border-strong:#b8b8c2;--color-action-primary:#0d0d11;--color-action-primary-hover:#2b2b34;--color-action-on-primary:#fff;--color-action-accent:#4f46e5;--color-action-accent-hover:#4338ca;--color-action-on-accent:#fff;--color-focus-ring:#6366f1;--radius-pill:999px;--ease-standard:cubic-bezier(.2,0,0,1);--z-index-sticky:100;--z-index-modal:300;--spacing-0:0;--spacing-1:.25rem;--spacing-2:.5rem;--spacing-3:.75rem;--spacing-4:1rem;--spacing-5:1.5rem;--spacing-6:2rem;--spacing-8:3rem;--spacing-9:4rem;--spacing-10:5rem;--spacing-11:6rem;--spacing-12:8rem;--container-narrow:42rem;--container-text:58rem;--container-wide:72rem;--container-bleed:88rem}}@layer base{*,::backdrop,:after,:before{box-sizing:border-box;border:0 solid;margin:0;padding:0}::file-selector-button{box-sizing:border-box;border:0 solid;margin:0;padding:0}:host,html{-webkit-text-size-adjust:100%;tab-size:4;line-height:1.5;font-family:var(--default-font-family,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji");font-feature-settings:var(--default-font-feature-settings,normal);font-variation-settings:var(--default-font-variation-settings,normal);-webkit-tap-highlight-color:transparent}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;-webkit-text-decoration:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:var(--default-mono-font-family,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace);font-feature-settings:var(--default-mono-font-feature-settings,normal);font-variation-settings:var(--default-mono-font-variation-settings,normal);font-size:1em}small{font-size:80%}sub,sup{vertical-align:baseline;font-size:75%;line-height:0;position:relative}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}:-moz-focusring:where(:not(iframe)){outline:auto}progress{vertical-align:baseline}summary{display:list-item}menu,ol,ul{list-style:none}audio,canvas,embed,iframe,img,object,svg,video{vertical-align:middle;display:block}img,video{max-width:100%;height:auto}button,input,optgroup,select,textarea{font:inherit;font-feature-settings:inherit;font-variation-settings:inherit;letter-spacing:inherit;color:inherit;opacity:1;background-color:#0000;border-radius:0}::file-selector-button{font:inherit;font-feature-settings:inherit;font-variation-settings:inherit;letter-spacing:inherit;color:inherit;opacity:1;background-color:#0000;border-radius:0}:where(select:is([multiple],[size])) optgroup{font-weight:bolder}:where(select:is([multiple],[size])) optgroup option{padding-inline-start:20px}::file-selector-button{margin-inline-end:4px}::placeholder{opacity:1}@supports (not ((-webkit-appearance:-apple-pay-button))) or (contain-intrinsic-size:1px){::placeholder{color:currentColor}@supports (color:color-mix(in lab,red,red)){::placeholder{color:color-mix(in oklab,currentcolor 50%,transparent)}}}textarea{resize:vertical}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-date-and-time-value{min-height:1lh;text-align:inherit}::-webkit-datetime-edit{display:inline-flex}::-webkit-datetime-edit-fields-wrapper{padding:0}::-webkit-datetime-edit,::-webkit-datetime-edit-year-field{padding-block:0}::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-month-field{padding-block:0}::-webkit-datetime-edit-hour-field,::-webkit-datetime-edit-minute-field{padding-block:0}::-webkit-datetime-edit-millisecond-field,::-webkit-datetime-edit-second-field{padding-block:0}::-webkit-datetime-edit-meridiem-field{padding-block:0}::-webkit-calendar-picker-indicator{line-height:1}:-moz-ui-invalid{box-shadow:none}button,input:where([type=button],[type=reset],[type=submit]){appearance:button}::file-selector-button{appearance:button}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[hidden]:where(:not([hidden=until-found])){display:none!important}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,:after,:before{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}body{background-color:var(--color-bg-canvas);color:var(--color-text-primary);font-family:var(--font-sans);line-height:var(--leading-normal);-webkit-font-smoothing:antialiased}h1,h2,h3,h4{font-weight:var(--font-weight-semibold);text-wrap:balance}}@layer components;@layer utilities{.pointer-events-none{pointer-events:none}.collapse{visibility:collapse}.visible{visibility:visible}.sr-only{clip-path:inset(50%);white-space:nowrap;border-width:0;width:1px;height:1px;margin:-1px;padding:0;position:absolute;overflow:hidden}.relative{position:relative}.sticky{position:sticky}.top-0{top:var(--spacing-0)}.z-sticky{z-index:var(--z-index-sticky)}.container{width:100%}@media (min-width:480px){.container{max-width:480px}}@media (min-width:768px){.container{max-width:768px}}@media (min-width:1024px){.container{max-width:1024px}}@media (min-width:1280px){.container{max-width:1280px}}@media (min-width:1536px){.container{max-width:1536px}}.mx-auto{margin-inline:auto}.mt-1{margin-top:var(--spacing-1)}.mt-2{margin-top:var(--spacing-2)}.mt-3{margin-top:var(--spacing-3)}.mt-4{margin-top:var(--spacing-4)}.mt-5{margin-top:var(--spacing-5)}.mt-6{margin-top:var(--spacing-6)}.mt-8{margin-top:var(--spacing-8)}.mt-9{margin-top:var(--spacing-9)}.mt-10{margin-top:var(--spacing-10)}.-mr-2{margin-right:calc(var(--spacing-2) * -1)}.mb-1{margin-bottom:var(--spacing-1)}.mb-3{margin-bottom:var(--spacing-3)}.mb-4{margin-bottom:var(--spacing-4)}.mb-5{margin-bottom:var(--spacing-5)}.mb-6{margin-bottom:var(--spacing-6)}.mb-8{margin-bottom:var(--spacing-8)}.block{display:block}.flex{display:flex}.grid{display:grid}.hidden{display:none}.inline-block{display:inline-block}.inline-flex{display:inline-flex}.aspect-\[4\/3\]{aspect-ratio:4/3}.aspect-\[16\/9\]{aspect-ratio:16/9}.h-16{height:calc(var(--spacing) * 16)}.h-full{height:100%}.min-h-screen{min-height:100vh}.w-full{width:100%}.max-w-\[16ch\]{max-width:16ch}.max-w-\[24ch\]{max-width:24ch}.max-w-\[36ch\]{max-width:36ch}.max-w-\[48ch\]{max-width:48ch}.max-w-\[52ch\]{max-width:52ch}.max-w-\[56ch\]{max-width:56ch}.max-w-\[60ch\]{max-width:60ch}.max-w-\[68ch\]{max-width:68ch}.max-w-bleed{max-width:var(--container-bleed)}.max-w-narrow{max-width:var(--container-narrow)}.max-w-text{max-width:var(--container-text)}.max-w-wide{max-width:var(--container-wide)}.flex-1{flex:1}.shrink-0{flex-shrink:0}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.items-start{align-items:flex-start}.justify-between{justify-content:space-between}.justify-center{justify-content:center}.gap-2{gap:var(--spacing-2)}.gap-3{gap:var(--spacing-3)}.gap-4{gap:var(--spacing-4)}.gap-5{gap:var(--spacing-5)}.gap-6{gap:var(--spacing-6)}.gap-8{gap:var(--spacing-8)}.gap-9{gap:var(--spacing-9)}.gap-11{gap:var(--spacing-11)}.overflow-hidden{overflow:hidden}.rounded-lg{border-radius:var(--radius-lg)}.rounded-md{border-radius:var(--radius-md)}.rounded-pill{border-radius:var(--radius-pill)}.rounded-sm{border-radius:var(--radius-sm)}.rounded-xl{border-radius:var(--radius-xl)}.border{border-style:var(--tw-border-style);border-width:1px}.border-t{border-top-style:var(--tw-border-style);border-top-width:1px}.border-b{border-bottom-style:var(--tw-border-style);border-bottom-width:1px}.border-border-default{border-color:var(--color-border-default)}.border-border-subtle{border-color:var(--color-border-subtle)}.border-transparent{border-color:#0000}.bg-accent-50{background-color:var(--color-accent-50)}.bg-action-accent{background-color:var(--color-action-accent)}.bg-action-primary{background-color:var(--color-action-primary)}.bg-bg-canvas{background-color:var(--color-bg-canvas)}.bg-bg-canvas\/85{background-color:#ffffffd9}@supports (color:color-mix(in lab,red,red)){.bg-bg-canvas\/85{background-color:color-mix(in oklab,var(--color-bg-canvas) 85%,transparent)}}.bg-bg-inverse{background-color:var(--color-bg-inverse)}.bg-bg-muted{background-color:var(--color-bg-muted)}.bg-bg-subtle{background-color:var(--color-bg-subtle)}.bg-neutral-800{background-color:var(--color-neutral-800)}.bg-transparent{background-color:#0000}.object-cover{object-fit:cover}.p-2{padding:var(--spacing-2)}.p-5{padding:var(--spacing-5)}.px-1\.5{padding-inline:calc(var(--spacing) * 1.5)}.px-3{padding-inline:var(--spacing-3)}.px-4{padding-inline:var(--spacing-4)}.px-5{padding-inline:var(--spacing-5)}.px-6{padding-inline:var(--spacing-6)}.py-0\.5{padding-block:calc(var(--spacing) * .5)}.py-1{padding-block:var(--spacing-1)}.py-2{padding-block:var(--spacing-2)}.py-3{padding-block:var(--spacing-3)}.py-4{padding-block:var(--spacing-4)}.py-6{padding-block:var(--spacing-6)}.py-9{padding-block:var(--spacing-9)}.py-10{padding-block:var(--spacing-10)}.py-11{padding-block:var(--spacing-11)}.pt-3{padding-top:var(--spacing-3)}.pt-8{padding-top:var(--spacing-8)}.pb-2{padding-bottom:var(--spacing-2)}.text-center{text-align:center}.text-2xl{font-size:var(--text-2xl);line-height:var(--tw-leading,var(--text-2xl--line-height))}.text-3xl{font-size:var(--text-3xl);line-height:var(--tw-leading,var(--text-3xl--line-height))}.text-base{font-size:var(--text-base);line-height:var(--tw-leading,var(--text-base--line-height))}.text-lg{font-size:var(--text-lg);line-height:var(--tw-leading,var(--text-lg--line-height))}.text-sm{font-size:var(--text-sm);line-height:var(--tw-leading,var(--text-sm--line-height))}.text-xl{font-size:var(--text-xl);line-height:var(--tw-leading,var(--text-xl--line-height))}.text-xs{font-size:var(--text-xs);line-height:var(--tw-leading,var(--text-xs--line-height))}.leading-relaxed{--tw-leading:var(--leading-relaxed);line-height:var(--leading-relaxed)}.leading-snug{--tw-leading:var(--leading-snug);line-height:var(--leading-snug)}.leading-tight{--tw-leading:var(--leading-tight);line-height:var(--leading-tight)}.font-medium{--tw-font-weight:var(--font-weight-medium);font-weight:var(--font-weight-medium)}.font-semibold{--tw-font-weight:var(--font-weight-semibold);font-weight:var(--font-weight-semibold)}.tracking-tight{--tw-tracking:var(--tracking-tight);letter-spacing:var(--tracking-tight)}.tracking-tighter{--tw-tracking:var(--tracking-tighter);letter-spacing:var(--tracking-tighter)}.tracking-wide{--tw-tracking:var(--tracking-wide);letter-spacing:var(--tracking-wide)}.tracking-wider{--tw-tracking:var(--tracking-wider);letter-spacing:var(--tracking-wider)}.text-balance{text-wrap:balance}.text-pretty{text-wrap:pretty}.text-accent-900{color:var(--color-accent-900)}.text-action-on-accent{color:var(--color-action-on-accent)}.text-action-on-primary{color:var(--color-action-on-primary)}.text-neutral-200{color:var(--color-neutral-200)}.text-neutral-300{color:var(--color-neutral-300)}.text-text-accent{color:var(--color-text-accent)}.text-text-inverse{color:var(--color-text-inverse)}.text-text-muted{color:var(--color-text-muted)}.text-text-primary{color:var(--color-text-primary)}.text-text-secondary{color:var(--color-text-secondary)}.uppercase{text-transform:uppercase}.underline{text-decoration-line:underline}.underline-offset-4{text-underline-offset:4px}.opacity-50{opacity:.5}.backdrop-blur-md{--tw-backdrop-blur:blur(var(--blur-md));-webkit-backdrop-filter:var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);backdrop-filter:var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,)}.transition-colors{transition-property:color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--tw-gradient-from,--tw-gradient-via,--tw-gradient-to;transition-timing-function:var(--tw-ease,var(--default-transition-timing-function));transition-duration:var(--tw-duration,var(--default-transition-duration))}.transition-shadow{transition-property:box-shadow;transition-timing-function:var(--tw-ease,var(--default-transition-timing-function));transition-duration:var(--tw-duration,var(--default-transition-duration))}.transition-transform{transition-property:transform,translate,scale,rotate;transition-timing-function:var(--tw-ease,var(--default-transition-timing-function));transition-duration:var(--tw-duration,var(--default-transition-duration))}.ease-standard{--tw-ease:var(--ease-standard);transition-timing-function:var(--ease-standard)}@media (hover:hover){.group-hover\:scale-\[1\.03\]:is(:where(.group):hover *){scale:1.03}}.before\:absolute:before{content:var(--tw-content);position:absolute}.before\:inset-0:before{content:var(--tw-content);inset:var(--spacing-0)}.before\:content-\[\'\'\]:before{--tw-content:"";content:var(--tw-content)}@media (hover:hover){.hover\:border-border-strong:hover{border-color:var(--color-border-strong)}.hover\:bg-action-accent-hover:hover{background-color:var(--color-action-accent-hover)}.hover\:bg-action-primary-hover:hover{background-color:var(--color-action-primary-hover)}.hover\:bg-bg-subtle:hover{background-color:var(--color-bg-subtle)}.hover\:text-text-primary:hover{color:var(--color-text-primary)}.hover\:no-underline:hover{text-decoration-line:none}.hover\:shadow-lg:hover{--tw-shadow:0 12px 28px -6px var(--tw-shadow-color,#0d0d111f),0 4px 10px -4px var(--tw-shadow-color,#0d0d1112);box-shadow:var(--tw-inset-shadow),var(--tw-inset-ring-shadow),var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow)}}.focus-visible\:outline-2:focus-visible{outline-style:var(--tw-outline-style);outline-width:2px}.focus-visible\:outline-offset-2:focus-visible{outline-offset:2px}.focus-visible\:outline-offset-4:focus-visible{outline-offset:4px}.focus-visible\:outline-focus-ring:focus-visible{outline-color:var(--color-focus-ring)}@media (min-width:480px){.sm\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (min-width:768px){.md\:mb-9{margin-bottom:var(--spacing-9)}.md\:flex{display:flex}.md\:hidden{display:none}.md\:h-20{height:calc(var(--spacing) * 20)}.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.md\:flex-row{flex-direction:row}.md\:items-end{align-items:flex-end}.md\:justify-between{justify-content:space-between}.md\:p-6{padding:var(--spacing-6)}.md\:px-6{padding-inline:var(--spacing-6)}.md\:py-10{padding-block:var(--spacing-10)}.md\:py-11{padding-block:var(--spacing-11)}.md\:py-12{padding-block:var(--spacing-12)}.md\:text-3xl{font-size:var(--text-3xl);line-height:var(--tw-leading,var(--text-3xl--line-height))}.md\:text-4xl{font-size:var(--text-4xl);line-height:var(--tw-leading,var(--text-4xl--line-height))}.md\:text-xl{font-size:var(--text-xl);line-height:var(--tw-leading,var(--text-xl--line-height))}}@media (min-width:1024px){.lg\:px-8{padding-inline:var(--spacing-8)}.lg\:text-5xl{font-size:var(--text-5xl);line-height:var(--tw-leading,var(--text-5xl--line-height))}}.\[\&_a\]\:text-text-accent a{color:var(--color-text-accent)}.\[\&_a\]\:underline a{text-decoration-line:underline}.\[\&_a\]\:underline-offset-2 a{text-underline-offset:2px}@media (hover:hover){.hover\:\[\&_a\]\:no-underline:hover a{text-decoration-line:none}}.\[\&_blockquote\]\:border-l-2 blockquote{border-left-style:var(--tw-border-style);border-left-width:2px}.\[\&_blockquote\]\:border-border-strong blockquote{border-color:var(--color-border-strong)}.\[\&_blockquote\]\:pl-5 blockquote{padding-left:var(--spacing-5)}.\[\&_blockquote\]\:text-text-primary blockquote{color:var(--color-text-primary)}.\[\&_blockquote\]\:italic blockquote{font-style:italic}.\[\&_h2\]\:mt-10 h2{margin-top:var(--spacing-10)}.\[\&_h2\]\:mb-4 h2{margin-bottom:var(--spacing-4)}.\[\&_h2\]\:text-2xl h2{font-size:var(--text-2xl);line-height:var(--tw-leading,var(--text-2xl--line-height))}.\[\&_h2\]\:font-semibold h2{--tw-font-weight:var(--font-weight-semibold);font-weight:var(--font-weight-semibold)}.\[\&_h2\]\:tracking-tight h2{--tw-tracking:var(--tracking-tight);letter-spacing:var(--tracking-tight)}.\[\&_h2\]\:text-text-primary h2{color:var(--color-text-primary)}.\[\&_h3\]\:mt-8 h3{margin-top:var(--spacing-8)}.\[\&_h3\]\:mb-3 h3{margin-bottom:var(--spacing-3)}.\[\&_h3\]\:text-xl h3{font-size:var(--text-xl);line-height:var(--tw-leading,var(--text-xl--line-height))}.\[\&_h3\]\:font-semibold h3{--tw-font-weight:var(--font-weight-semibold);font-weight:var(--font-weight-semibold)}.\[\&_h3\]\:tracking-tight h3{--tw-tracking:var(--tracking-tight);letter-spacing:var(--tracking-tight)}.\[\&_h3\]\:text-text-primary h3{color:var(--color-text-primary)}.\[\&_img\]\:rounded-lg img{border-radius:var(--radius-lg)}.\[\&_li\]\:mb-2 li{margin-bottom:var(--spacing-2)}.\[\&_ol\]\:mb-5 ol{margin-bottom:var(--spacing-5)}.\[\&_ol\]\:list-decimal ol{list-style-type:decimal}.\[\&_ol\]\:pl-5 ol{padding-left:var(--spacing-5)}.\[\&_p\]\:mb-5 p{margin-bottom:var(--spacing-5)}.\[\&_strong\]\:font-semibold strong{--tw-font-weight:var(--font-weight-semibold);font-weight:var(--font-weight-semibold)}.\[\&_strong\]\:text-text-primary strong{color:var(--color-text-primary)}.\[\&_ul\]\:mb-5 ul{margin-bottom:var(--spacing-5)}.\[\&_ul\]\:list-disc ul{list-style-type:disc}.\[\&_ul\]\:pl-5 ul{padding-left:var(--spacing-5)}.skip-link{left:-9999px;top:var(--spacing-4);z-index:var(--z-index-modal);position:absolute}.skip-link:focus{left:var(--spacing-4)}}@property --tw-border-style{syntax:"*";inherits:false;initial-value:solid}@property --tw-leading{syntax:"*";inherits:false}@property --tw-font-weight{syntax:"*";inherits:false}@property --tw-tracking{syntax:"*";inherits:false}@property --tw-backdrop-blur{syntax:"*";inherits:false}@property --tw-backdrop-brightness{syntax:"*";inherits:false}@property --tw-backdrop-contrast{syntax:"*";inherits:false}@property --tw-backdrop-grayscale{syntax:"*";inherits:false}@property --tw-backdrop-hue-rotate{syntax:"*";inherits:false}@property --tw-backdrop-invert{syntax:"*";inherits:false}@property --tw-backdrop-opacity{syntax:"*";inherits:false}@property --tw-backdrop-saturate{syntax:"*";inherits:false}@property --tw-backdrop-sepia{syntax:"*";inherits:false}@property --tw-ease{syntax:"*";inherits:false}@property --tw-content{syntax:"*";inherits:false;initial-value:""}@property --tw-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-shadow-color{syntax:"*";inherits:false}@property --tw-shadow-alpha{syntax:"<percentage>";inherits:false;initial-value:100%}@property --tw-inset-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-inset-shadow-color{syntax:"*";inherits:false}@property --tw-inset-shadow-alpha{syntax:"<percentage>";inherits:false;initial-value:100%}@property --tw-ring-color{syntax:"*";inherits:false}@property --tw-ring-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-inset-ring-color{syntax:"*";inherits:false}@property --tw-inset-ring-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-ring-inset{syntax:"*";inherits:false}@property --tw-ring-offset-width{syntax:"<length>";inherits:false;initial-value:0}@property --tw-ring-offset-color{syntax:"*";inherits:false;initial-value:#fff}@property --tw-ring-offset-shadow{syntax:"*";inherits:false;initial-value:0 0 #0000}@property --tw-outline-style{syntax:"*";inherits:false;initial-value:solid}
+
+/* ---- preview chrome (pv-) : deliberately outside the design system, so it
+       can never be mistaken for part of it ---- */
+.pv-doc { font-family: var(--font-sans); color: var(--color-text-primary); background: var(--color-neutral-50); }
+.pv-inner { max-width: 78rem; margin: 0 auto; padding: 2.5rem 1.25rem 5rem; }
+.pv-head h1 { font-size: clamp(1.75rem, 4vw, 2.75rem); letter-spacing: -0.03em; margin: 0 0 .75rem; font-weight: 600; }
+.pv-lede { color: var(--color-text-secondary); font-size: 1.0625rem; max-width: 62ch; margin: 0; line-height: 1.6; }
+.pv-warn { margin: 1.5rem 0 0; padding: 1rem 1.25rem; border-left: 3px solid var(--color-accent-500);
+           background: var(--color-accent-50); color: var(--color-accent-900); border-radius: 0 .5rem .5rem 0;
+           font-size: .9375rem; line-height: 1.6; max-width: 72ch; }
+.pv-warn strong { display:block; margin-bottom:.25rem; }
+.pv-sec { margin-top: 3.5rem; }
+.pv-sec > h2 { font-size: .8125rem; text-transform: uppercase; letter-spacing: .14em; color: var(--color-text-muted);
+               font-weight: 500; margin: 0 0 .25rem; }
+.pv-sec > .pv-note { color: var(--color-text-secondary); font-size: .9375rem; margin: 0 0 1.25rem; max-width: 68ch; }
+.pv-frame { border: 1px solid var(--color-border-default); border-radius: .75rem; overflow: hidden;
+            background: var(--color-bg-canvas); box-shadow: 0 1px 3px rgb(13 13 17 / .06); }
+.pv-frame-bar { display:flex; align-items:center; gap:.5rem; padding:.625rem .875rem;
+                border-bottom:1px solid var(--color-border-subtle); background: var(--color-neutral-50); }
+.pv-dot { width:.5rem; height:.5rem; border-radius:999px; background: var(--color-neutral-300); }
+.pv-frame-label { margin-left:.5rem; font-size:.75rem; font-family: var(--font-mono); color: var(--color-text-muted); }
+.pv-scroll { max-height: 40rem; overflow: auto; }
+.pv-tokens { background: var(--color-bg-canvas); border:1px solid var(--color-border-default);
+             border-radius:.75rem; padding: 1.5rem; }
+.pv-sub { font-size:.75rem; text-transform:uppercase; letter-spacing:.12em; color:var(--color-text-muted);
+          margin: 1.75rem 0 .75rem; font-weight:500; display:flex; align-items:center; gap:.5rem; }
+.pv-sub:first-child { margin-top:0; }
+.pv-kind { font-size:.625rem; letter-spacing:.06em; background:var(--color-neutral-100);
+           color:var(--color-text-secondary); border-radius:999px; padding:.125rem .5rem; }
+.pv-swatches { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:.75rem; }
+.pv-sw code { display:block; font-size:.6875rem; margin-top:.375rem; font-family:var(--font-mono); }
+.pv-sw span { display:block; font-size:.6875rem; color:var(--color-text-muted); font-family:var(--font-mono); }
+.pv-chip { height:56px; border-radius:.5rem; border:1px solid var(--color-border-subtle); }
+.pv-row { display:flex; align-items:center; gap:1rem; padding:.5rem 0; border-bottom:1px solid var(--color-border-subtle); flex-wrap:wrap; }
+.pv-row code { font-family:var(--font-mono); font-size:.8125rem; min-width:14rem; }
+.pv-row span { font-family:var(--font-mono); font-size:.8125rem; color:var(--color-text-muted); }
+.pv-row em { font-family:var(--font-mono); font-size:.6875rem; color:var(--color-text-accent); font-style:normal; }
+.pv-tsample { flex:0 0 5rem; line-height:1; letter-spacing:-.02em; }
+.pv-barwrap { flex:0 0 12rem; display:flex; align-items:center; }
+.pv-bar { height:14px; background:var(--color-accent-400); border-radius:3px; min-width:1px; }
+.pv-shadow { width:72px; height:40px; background:var(--color-bg-canvas); border-radius:.5rem; margin:.75rem; }
+.pv-radius { width:52px; height:52px; background:var(--color-neutral-100); border:1px solid var(--color-border-default); }
+.pv-grid2 { display:grid; gap:1.5rem; }
+@media (min-width: 60rem) { .pv-grid2 { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 40rem) { .pv-row code { min-width:0; } .pv-barwrap, .pv-tsample { flex-basis:6rem; } }
+</style>
+
+<div class="pv-doc"><div class="pv-inner">
+  <header class="pv-head">
+    <h1>Design system preview</h1>
+    <p class="pv-lede">
+      The rebuild of pavelkroupa.com as a token-driven system — Next.js 15 and
+      Tailwind v4, with every visual value coming from <code>tokens/src</code>.
+      Everything below is rendered from the real components and the real tokens.
+    </p>
+    <div class="pv-warn">
+      <strong>The values are placeholders, not the brand.</strong>
+      The live site could not be reached from the build environment, so the palette,
+      type ramp and copy are a neutral scaffold standing in until the real ones are
+      available. What is real here is the structure: the token pipeline, the component
+      API and behaviour, and the page layout. Swapping in the brand values is an edit
+      to the token JSON — no component changes.
+    </div>
+  </header>
+
+  <section class="pv-sec">
+    <h2>Home page</h2>
+    <p class="pv-note">The full page, composed only from design system components. Scroll inside the frame.</p>
+    <div class="pv-frame">
+      <div class="pv-frame-bar"><span class="pv-dot"></span><span class="pv-dot"></span><span class="pv-dot"></span>
+        <span class="pv-frame-label">/</span></div>
+      <div class="pv-scroll">
+        <div><div class="mx-auto w-full px-5 md:px-6 lg:px-8 max-w-wide"><div class="flex h-16 items-center justify-between md:h-20"><a href="/" class="rounded-sm text-base font-semibold tracking-tight text-text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus-ring">Pavel Kroupa</a><nav aria-label="Primary" class="hidden items-center gap-6 md:flex"><a href="/portfolio" class="rounded-sm text-sm transition-colors duration-fast ease-standard focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus-ring text-text-secondary hover:text-text-primary">Work</a><a href="/about" class="rounded-sm text-sm transition-colors duration-fast ease-standard focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus-ring text-text-secondary hover:text-text-primary">About</a><a href="/contact" class="rounded-sm text-sm transition-colors duration-fast ease-standard focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus-ring text-text-secondary hover:text-text-primary">Contact</a><a href="/contact" class="rounded-pill bg-action-primary px-4 py-2 text-sm font-medium text-action-on-primary transition-colors duration-fast ease-standard hover:bg-action-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring">Get in touch</a></nav><button type="button" aria-expanded="false" aria-controls="mobile-nav" class="-mr-2 rounded-md p-2 text-text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring md:hidden"><span class="sr-only">Open menu</span><svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M3 7h16"></path><path d="M3 15h16"></path></svg></button></div></div></div>
+        <main><section class="bg-bg-canvas text-text-primary py-11 md:py-12"><div class="mx-auto w-full px-5 md:px-6 lg:px-8 max-w-wide"><div class="flex flex-col"><p class="mb-5 text-sm font-medium tracking-wider uppercase text-text-muted">Product design &amp; leadership</p><h1 class="max-w-[16ch] text-3xl leading-tight font-semibold tracking-tighter text-balance md:text-4xl lg:text-5xl">Design leadership and innovation</h1><p class="mt-6 max-w-[52ch] text-lg leading-relaxed text-pretty md:text-xl text-text-secondary">Digital product manager and designer working at the intersection of technology, psychology and anthropology — leading teams to ship user-centred products.</p><div class="mt-8 flex flex-wrap gap-4"><a href="/portfolio" class="inline-flex items-center justify-center rounded-pill font-medium transition-colors duration-normal ease-standard focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring bg-action-primary text-action-on-primary hover:bg-action-primary-hover border border-transparent text-base px-5 py-3 gap-2">View work</a><a href="/contact" class="inline-flex items-center justify-center rounded-pill font-medium transition-colors duration-normal ease-standard focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring bg-bg-canvas text-text-primary border border-border-default hover:border-border-strong hover:bg-bg-subtle text-base px-5 py-3 gap-2">Get in touch</a></div></div></div></section><section class="bg-bg-subtle text-text-primary py-11 md:py-12"><div class="mx-auto w-full px-5 md:px-6 lg:px-8 max-w-wide"><div class="mb-8 flex flex-col gap-5 md:mb-9 md:flex-row md:items-end md:justify-between"><div class=""><p class="mb-3 text-sm font-medium tracking-wider uppercase text-text-muted">Selected work</p><h2 class="max-w-[24ch] text-2xl leading-snug font-semibold tracking-tight text-balance text-text-primary md:text-3xl">Projects</h2><p class="mt-4 max-w-[56ch] text-lg leading-relaxed text-pretty text-text-secondary">A few things worth showing. Replace this section once the real project list is available.</p></div><div class="shrink-0"><a href="/portfolio" class="inline-flex items-center justify-center rounded-pill font-medium transition-colors duration-normal ease-standard focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring bg-transparent text-text-secondary border border-transparent hover:text-text-primary hover:bg-bg-subtle text-sm px-4 py-2 gap-2">All work →</a></div></div><div class="grid gap-5 md:grid-cols-2"><article class="group relative flex flex-col overflow-hidden rounded-xl border border-border-subtle bg-bg-canvas transition-shadow duration-normal ease-standard hover:shadow-lg"><div class="flex flex-1 flex-col p-5 md:p-6"><div class="mb-4 flex flex-wrap gap-2"><span class="inline-flex items-center rounded-pill px-3 py-1 text-xs font-medium tracking-wide bg-bg-muted text-text-secondary">Product design</span><span class="inline-flex items-center rounded-pill px-3 py-1 text-xs font-medium tracking-wide bg-bg-muted text-text-secondary">Fintech</span></div><h3 class="font-semibold tracking-tight text-text-primary text-2xl"><a href="/portfolio/coinmate" class="rounded-sm before:absolute before:inset-0 before:content-[''] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus-ring">Designing a Simple Cryptocurrency Exchange</a></h3><p class="mt-3 text-base leading-relaxed text-pretty text-text-secondary">How even a cryptocurrency exchange can be made simple and approachable, by prioritising clarity and empowering users.</p></div></article><article class="group relative flex flex-col overflow-hidden rounded-xl border border-border-subtle bg-bg-canvas transition-shadow duration-normal ease-standard hover:shadow-lg"><div class="flex flex-1 flex-col p-5"><div class="mb-4 flex flex-wrap gap-2"><span class="inline-flex items-center rounded-pill px-3 py-1 text-xs font-medium tracking-wide bg-bg-muted text-text-secondary">Placeholder</span></div><h3 class="font-semibold tracking-tight text-text-primary text-xl"><a href="/portfolio/placeholder-project" class="rounded-sm before:absolute before:inset-0 before:content-[''] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus-ring">Second project placeholder</a></h3><p class="mt-3 text-base leading-relaxed text-pretty text-text-secondary">Not a real project. Present so the work grid can be reviewed with more than one card in it.</p></div></article></div></div></section><section class="bg-bg-inverse text-text-inverse py-11 md:py-12"><div class="mx-auto w-full px-5 md:px-6 lg:px-8 max-w-text"><div class="flex flex-col items-start gap-6"><h2 class="text-2xl leading-snug font-semibold tracking-tight text-balance md:text-3xl">Looking for a design partner?</h2><p class="max-w-[48ch] text-lg leading-relaxed text-neutral-300">Tell me about the problem you are working on.</p><a href="/contact" class="inline-flex items-center justify-center rounded-pill font-medium transition-colors duration-normal ease-standard focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring bg-bg-canvas text-text-primary border border-border-default hover:border-border-strong hover:bg-bg-subtle text-base px-5 py-3 gap-2">Start a conversation</a></div></div></section><!--$--><!--/$--></main>
+        <footer><div class="mx-auto w-full px-5 md:px-6 lg:px-8 max-w-wide"><div class="flex flex-col gap-9 py-10 md:flex-row md:justify-between"><div class="max-w-[36ch]"><p class="text-base font-semibold tracking-tight text-text-primary">Pavel Kroupa</p><p class="mt-2 text-sm leading-relaxed text-text-secondary">Design Leadership &amp; Innovation</p><a href="mailto:design@pavelkroupa.com" class="mt-5 inline-block rounded-sm text-base text-text-primary underline underline-offset-4 hover:no-underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus-ring">design@pavelkroupa.com</a></div><div class="flex gap-11"><nav aria-label="Site"><h2 class="mb-4 text-xs font-medium tracking-wider uppercase text-text-muted">Site</h2><ul class="flex flex-col gap-3"><li><a href="/portfolio" class="rounded-sm text-sm text-text-secondary transition-colors duration-fast ease-standard hover:text-text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus-ring">Work</a></li><li><a href="/about" class="rounded-sm text-sm text-text-secondary transition-colors duration-fast ease-standard hover:text-text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus-ring">About</a></li><li><a href="/contact" class="rounded-sm text-sm text-text-secondary transition-colors duration-fast ease-standard hover:text-text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus-ring">Contact</a></li></ul></nav><nav aria-label="Elsewhere"><h2 class="mb-4 text-xs font-medium tracking-wider uppercase text-text-muted">Elsewhere</h2><ul class="flex flex-col gap-3"><li><a href="https://www.linkedin.com/in/pavelkroupa/" target="_blank" rel="noopener noreferrer" class="rounded-sm text-sm text-text-secondary transition-colors duration-fast ease-standard hover:text-text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus-ring">LinkedIn</a></li></ul></nav></div></div><div class="border-t border-border-subtle py-6"><p class="text-xs text-text-muted">© <!-- -->2026<!-- --> <!-- -->Pavel Kroupa</p></div></div></footer>
+      </div>
+    </div>
+  </section>
+
+  <section class="pv-sec">
+    <h2>Component gallery</h2>
+    <p class="pv-note">Every component, rendered from the same source the site uses — there is no second copy to drift.</p>
+    <div class="pv-frame">
+      <div class="pv-frame-bar"><span class="pv-dot"></span><span class="pv-dot"></span><span class="pv-dot"></span>
+        <span class="pv-frame-label">/styleguide</span></div>
+      <div class="pv-scroll"><main><section class="bg-bg-canvas text-text-primary py-9 md:py-10"><div class="mx-auto w-full px-5 md:px-6 lg:px-8 max-w-wide"><h1 class="text-3xl font-semibold tracking-tighter md:text-4xl">Component gallery</h1><p class="mt-4 max-w-[60ch] text-lg text-text-secondary">Every component, rendered from the same source the site uses. For token values — colour, type, spacing, elevation — see<!-- --> <code class="rounded-sm bg-bg-muted px-1.5 py-0.5 text-sm">docs/dist/index.html</code>.</p><div class="mt-6 rounded-lg bg-accent-50 p-5 text-sm text-accent-900"><strong class="mb-1 block">Appearance is provisional.</strong>The live site was unreachable from the build environment, so proportions and colour are reasonable defaults rather than observed values. Structure and behaviour are real.</div></div></section><section class="border-t border-border-subtle py-9"><div class="mx-auto w-full px-5 md:px-6 lg:px-8 max-w-wide"><div class="mb-6"><h2 class="text-xl font-semibold tracking-tight">Button</h2><p class="mt-1 text-sm text-text-muted">4 variants × 3 sizes. Renders &lt;a&gt; when given href.</p></div><div class="flex flex-col gap-5"><div class="flex flex-wrap items-center gap-3"><button type="button" class="inline-flex items-center justify-center rounded-pill font-medium transition-colors duration-normal ease-standard focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring bg-action-primary text-action-on-primary hover:bg-action-primary-hover border border-transparent text-base px-5 py-3 gap-2">Primary</button><button type="button" class="inline-flex items-center justify-center rounded-pill font-medium transition-colors duration-normal ease-standard focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring bg-action-accent text-action-on-accent hover:bg-action-accent-hover border border-transparent text-base px-5 py-3 gap-2">Accent</button><button type="button" class="inline-flex items-center justify-center rounded-pill font-medium transition-colors duration-normal ease-standard focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring bg-bg-canvas text-text-primary border border-border-default hover:border-border-strong hover:bg-bg-subtle text-base px-5 py-3 gap-2">Secondary</button><button type="button" class="inline-flex items-center justify-center rounded-pill font-medium transition-colors duration-normal ease-standard focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring bg-transparent text-text-secondary border border-transparent hover:text-text-primary hover:bg-bg-subtle text-base px-5 py-3 gap-2">Ghost</button><button type="button" class="inline-flex items-center justify-center rounded-pill font-medium transition-colors duration-normal ease-standard focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring pointer-events-none opacity-50 bg-action-primary text-action-on-primary hover:bg-action-primary-hover border border-transparent text-base px-5 py-3 gap-2" disabled="">Disabled</button></div><div class="flex flex-wrap items-center gap-3"><button type="button" class="inline-flex items-center justify-center rounded-pill font-medium transition-colors duration-normal ease-standard focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring bg-action-primary text-action-on-primary hover:bg-action-primary-hover border border-transparent text-sm px-4 py-2 gap-2">Small</button><button type="button" class="inline-flex items-center justify-center rounded-pill font-medium transition-colors duration-normal ease-standard focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring bg-action-primary text-action-on-primary hover:bg-action-primary-hover border border-transparent text-base px-5 py-3 gap-2">Medium</button><button type="button" class="inline-flex items-center justify-center rounded-pill font-medium transition-colors duration-normal ease-standard focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring bg-action-primary text-action-on-primary hover:bg-action-primary-hover border border-transparent text-lg px-6 py-4 gap-3">Large</button></div></div></div></section><section class="border-t border-border-subtle py-9"><div class="mx-auto w-full px-5 md:px-6 lg:px-8 max-w-wide"><div class="mb-6"><h2 class="text-xl font-semibold tracking-tight">Tag</h2><p class="mt-1 text-sm text-text-muted">Non-interactive metadata chip.</p></div><div class="flex flex-wrap gap-2"><span class="inline-flex items-center rounded-pill px-3 py-1 text-xs font-medium tracking-wide bg-bg-muted text-text-secondary">Default</span><span class="inline-flex items-center rounded-pill px-3 py-1 text-xs font-medium tracking-wide bg-accent-50 text-text-accent">Accent</span><span class="inline-flex items-center rounded-pill px-3 py-1 text-xs font-medium tracking-wide bg-neutral-800 text-neutral-200">Inverse</span></div></div></section><section class="border-t border-border-subtle py-9"><div class="mx-auto w-full px-5 md:px-6 lg:px-8 max-w-wide"><div class="mb-6"><h2 class="text-xl font-semibold tracking-tight">Card</h2><p class="mt-1 text-sm text-text-muted">Optional stretched link; only the title takes focus.</p></div><div class="grid gap-5 md:grid-cols-2"><article class="group relative flex flex-col overflow-hidden rounded-xl border border-border-subtle bg-bg-canvas transition-shadow duration-normal ease-standard hover:shadow-lg"><div class="flex flex-1 flex-col p-5"><div class="mb-4 flex flex-wrap gap-2"><span class="inline-flex items-center rounded-pill px-3 py-1 text-xs font-medium tracking-wide bg-bg-muted text-text-secondary">Product design</span><span class="inline-flex items-center rounded-pill px-3 py-1 text-xs font-medium tracking-wide bg-bg-muted text-text-secondary">2024</span></div><h3 class="font-semibold tracking-tight text-text-primary text-xl"><a href="#" class="rounded-sm before:absolute before:inset-0 before:content-[''] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus-ring">Card with link and metadata</a></h3><p class="mt-3 text-base leading-relaxed text-pretty text-text-secondary">The whole card is clickable, but only the title is in the tab order — one keyboard stop carrying a meaningful name.</p></div></article><article class="group relative flex flex-col overflow-hidden rounded-xl border border-border-subtle bg-bg-canvas transition-shadow duration-normal ease-standard hover:shadow-lg"><div class="flex flex-1 flex-col p-5"><div class="mb-4 flex flex-wrap gap-2"><span class="inline-flex items-center rounded-pill px-3 py-1 text-xs font-medium tracking-wide bg-bg-muted text-text-secondary">Static</span></div><h3 class="font-semibold tracking-tight text-text-primary text-xl">Card without a link</h3><p class="mt-3 text-base leading-relaxed text-pretty text-text-secondary">Renders as a plain article when no href is supplied.</p></div></article></div></div></section><section class="border-t border-border-subtle py-9"><div class="mx-auto w-full px-5 md:px-6 lg:px-8 max-w-wide"><div class="mb-6"><h2 class="text-xl font-semibold tracking-tight">SectionHeader</h2><p class="mt-1 text-sm text-text-muted">Eyebrow, title, description, trailing action.</p></div><div class="mb-8 flex flex-col gap-5 md:mb-9 md:flex-row md:items-end md:justify-between"><div class=""><p class="mb-3 text-sm font-medium tracking-wider uppercase text-text-muted">Eyebrow</p><h2 class="max-w-[24ch] text-2xl leading-snug font-semibold tracking-tight text-balance text-text-primary md:text-3xl">A section header with an action</h2><p class="mt-4 max-w-[56ch] text-lg leading-relaxed text-pretty text-text-secondary">Used to title a band of content consistently across pages.</p></div><div class="shrink-0"><button type="button" class="inline-flex items-center justify-center rounded-pill font-medium transition-colors duration-normal ease-standard focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring bg-transparent text-text-secondary border border-transparent hover:text-text-primary hover:bg-bg-subtle text-sm px-4 py-2 gap-2">Action →</button></div></div></div></section><section class="border-t border-border-subtle py-9"><div class="mx-auto w-full px-5 md:px-6 lg:px-8 max-w-wide"><div class="mb-6"><h2 class="text-xl font-semibold tracking-tight">Prose</h2><p class="mt-1 text-sm text-text-muted">Styles raw HTML by element, for long-form copy.</p></div><div class="max-w-[68ch] text-base leading-relaxed text-text-secondary [&amp;_h2]:mt-10 [&amp;_h2]:mb-4 [&amp;_h2]:text-2xl [&amp;_h2]:font-semibold [&amp;_h2]:tracking-tight [&amp;_h2]:text-text-primary [&amp;_h3]:mt-8 [&amp;_h3]:mb-3 [&amp;_h3]:text-xl [&amp;_h3]:font-semibold [&amp;_h3]:tracking-tight [&amp;_h3]:text-text-primary [&amp;_p]:mb-5 [&amp;_ul]:mb-5 [&amp;_ul]:list-disc [&amp;_ul]:pl-5 [&amp;_ol]:mb-5 [&amp;_ol]:list-decimal [&amp;_ol]:pl-5 [&amp;_li]:mb-2 [&amp;_strong]:font-semibold [&amp;_strong]:text-text-primary [&amp;_a]:text-text-accent [&amp;_a]:underline [&amp;_a]:underline-offset-2 hover:[&amp;_a]:no-underline [&amp;_blockquote]:border-l-2 [&amp;_blockquote]:border-border-strong [&amp;_blockquote]:pl-5 [&amp;_blockquote]:text-text-primary [&amp;_blockquote]:italic [&amp;_img]:rounded-lg"><h2>A heading inside prose</h2><p>Body copy at the reading measure, capped at 68 characters. Inline<!-- --> <a href="#">links</a> and <strong>strong text</strong> pick up their colour from tokens.</p><ul><li>Unordered list item</li><li>Another item</li></ul><blockquote>A blockquote, marked with a left rule.</blockquote></div></div></section><section class="border-t border-border-subtle py-9"><div class="mx-auto w-full px-5 md:px-6 lg:px-8 max-w-wide"><div class="mb-6"><h2 class="text-xl font-semibold tracking-tight">Section tones</h2><p class="mt-1 text-sm text-text-muted">canvas · subtle · inverse</p></div><div class="grid gap-4 md:grid-cols-3"><div class="rounded-lg border border-border-subtle bg-bg-canvas p-5"><p class="text-sm font-medium">canvas</p></div><div class="rounded-lg border border-border-subtle bg-bg-subtle p-5"><p class="text-sm font-medium">subtle</p></div><div class="rounded-lg bg-bg-inverse p-5 text-text-inverse"><p class="text-sm font-medium">inverse</p></div></div></div></section><section class="bg-bg-subtle text-text-primary py-9 md:py-10"><div class="mx-auto w-full px-5 md:px-6 lg:px-8 max-w-wide"><h2 class="text-2xl font-semibold tracking-tight">Nav &amp; Footer</h2><p class="mt-3 max-w-[60ch] text-base text-text-secondary">Both are rendered live on this page — the sticky nav above and the footer below. Narrow the viewport past the <code>md</code> breakpoint (768px) to see the nav collapse to a disclosure menu.</p></div></section><!--$--><!--/$--></main></div>
+    </div>
+  </section>
+
+  <section class="pv-sec">
+    <h2>Tokens</h2>
+    <p class="pv-note">All 116 tokens, generated from the token sources. Ramps are raw material; semantic aliases are what components actually consume.</p>
+    <div class="pv-tokens">
+      
+  <h4 class="pv-sub">neutral<span class="pv-kind">ramp</span></h4>
+  <div class="pv-swatches">
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-neutral-0)"></div>
+      <code>neutral.0</code><span>#ffffff</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-neutral-50)"></div>
+      <code>neutral.50</code><span>#f7f7f8</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-neutral-100)"></div>
+      <code>neutral.100</code><span>#ededf0</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-neutral-200)"></div>
+      <code>neutral.200</code><span>#d8d8de</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-neutral-300)"></div>
+      <code>neutral.300</code><span>#b8b8c2</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-neutral-400)"></div>
+      <code>neutral.400</code><span>#8f8f9d</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-neutral-500)"></div>
+      <code>neutral.500</code><span>#6e6e7e</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-neutral-600)"></div>
+      <code>neutral.600</code><span>#565664</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-neutral-700)"></div>
+      <code>neutral.700</code><span>#42424e</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-neutral-800)"></div>
+      <code>neutral.800</code><span>#2b2b34</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-neutral-900)"></div>
+      <code>neutral.900</code><span>#1a1a20</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-neutral-1000)"></div>
+      <code>neutral.1000</code><span>#0d0d11</span>
+    </div></div>
+  <h4 class="pv-sub">accent<span class="pv-kind">ramp</span></h4>
+  <div class="pv-swatches">
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-accent-50)"></div>
+      <code>accent.50</code><span>#eef2ff</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-accent-100)"></div>
+      <code>accent.100</code><span>#e0e7ff</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-accent-200)"></div>
+      <code>accent.200</code><span>#c7d2fe</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-accent-300)"></div>
+      <code>accent.300</code><span>#a5b4fc</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-accent-400)"></div>
+      <code>accent.400</code><span>#818cf8</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-accent-500)"></div>
+      <code>accent.500</code><span>#6366f1</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-accent-600)"></div>
+      <code>accent.600</code><span>#4f46e5</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-accent-700)"></div>
+      <code>accent.700</code><span>#4338ca</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-accent-800)"></div>
+      <code>accent.800</code><span>#3730a3</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-accent-900)"></div>
+      <code>accent.900</code><span>#312e81</span>
+    </div></div>
+  <h4 class="pv-sub">bg<span class="pv-kind">semantic</span></h4>
+  <div class="pv-swatches">
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-bg-canvas)"></div>
+      <code>bg.canvas</code><span>#ffffff</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-bg-subtle)"></div>
+      <code>bg.subtle</code><span>#f7f7f8</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-bg-muted)"></div>
+      <code>bg.muted</code><span>#ededf0</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-bg-inverse)"></div>
+      <code>bg.inverse</code><span>#0d0d11</span>
+    </div></div>
+  <h4 class="pv-sub">text<span class="pv-kind">semantic</span></h4>
+  <div class="pv-swatches">
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-text-primary)"></div>
+      <code>text.primary</code><span>#0d0d11</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-text-secondary)"></div>
+      <code>text.secondary</code><span>#565664</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-text-muted)"></div>
+      <code>text.muted</code><span>#8f8f9d</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-text-inverse)"></div>
+      <code>text.inverse</code><span>#ffffff</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-text-accent)"></div>
+      <code>text.accent</code><span>#4f46e5</span>
+    </div></div>
+  <h4 class="pv-sub">border<span class="pv-kind">semantic</span></h4>
+  <div class="pv-swatches">
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-border-subtle)"></div>
+      <code>border.subtle</code><span>#ededf0</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-border-default)"></div>
+      <code>border.default</code><span>#d8d8de</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-border-strong)"></div>
+      <code>border.strong</code><span>#b8b8c2</span>
+    </div></div>
+  <h4 class="pv-sub">action<span class="pv-kind">semantic</span></h4>
+  <div class="pv-swatches">
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-action-primary)"></div>
+      <code>action.primary</code><span>#0d0d11</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-action-primary-hover)"></div>
+      <code>action.primary-hover</code><span>#2b2b34</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-action-on-primary)"></div>
+      <code>action.on-primary</code><span>#ffffff</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-action-accent)"></div>
+      <code>action.accent</code><span>#4f46e5</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-action-accent-hover)"></div>
+      <code>action.accent-hover</code><span>#4338ca</span>
+    </div>
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-action-on-accent)"></div>
+      <code>action.on-accent</code><span>#ffffff</span>
+    </div></div>
+  <h4 class="pv-sub">focus<span class="pv-kind">semantic</span></h4>
+  <div class="pv-swatches">
+    <div class="pv-sw">
+      <div class="pv-chip" style="background:var(--color-focus-ring)"></div>
+      <code>focus.ring</code><span>#6366f1</span>
+    </div></div>
+      <h4 class="pv-sub">type scale</h4>
+  <div class="pv-row">
+    <div class="pv-tsample" style="font-size:var(--font-size-xs)">Ag</div>
+    <code>--font-size-xs</code><span>0.75rem</span>
+    <em>--text-xs</em>
+  </div>
+  <div class="pv-row">
+    <div class="pv-tsample" style="font-size:var(--font-size-sm)">Ag</div>
+    <code>--font-size-sm</code><span>0.875rem</span>
+    <em>--text-sm</em>
+  </div>
+  <div class="pv-row">
+    <div class="pv-tsample" style="font-size:var(--font-size-base)">Ag</div>
+    <code>--font-size-base</code><span>1rem</span>
+    <em>--text-base</em>
+  </div>
+  <div class="pv-row">
+    <div class="pv-tsample" style="font-size:var(--font-size-lg)">Ag</div>
+    <code>--font-size-lg</code><span>1.125rem</span>
+    <em>--text-lg</em>
+  </div>
+  <div class="pv-row">
+    <div class="pv-tsample" style="font-size:var(--font-size-xl)">Ag</div>
+    <code>--font-size-xl</code><span>1.375rem</span>
+    <em>--text-xl</em>
+  </div>
+  <div class="pv-row">
+    <div class="pv-tsample" style="font-size:var(--font-size-2xl)">Ag</div>
+    <code>--font-size-2xl</code><span>1.75rem</span>
+    <em>--text-2xl</em>
+  </div>
+  <div class="pv-row">
+    <div class="pv-tsample" style="font-size:var(--font-size-3xl)">Ag</div>
+    <code>--font-size-3xl</code><span>2.25rem</span>
+    <em>--text-3xl</em>
+  </div>
+  <div class="pv-row">
+    <div class="pv-tsample" style="font-size:var(--font-size-4xl)">Ag</div>
+    <code>--font-size-4xl</code><span>3rem</span>
+    <em>--text-4xl</em>
+  </div>
+  <div class="pv-row">
+    <div class="pv-tsample" style="font-size:var(--font-size-5xl)">Ag</div>
+    <code>--font-size-5xl</code><span>3.75rem</span>
+    <em>--text-5xl</em>
+  </div>
+  <div class="pv-row">
+    <div class="pv-tsample" style="font-size:var(--font-size-6xl)">Ag</div>
+    <code>--font-size-6xl</code><span>4.5rem</span>
+    <em>--text-6xl</em>
+  </div>
+      <h4 class="pv-sub">spacing</h4>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-bar" style="width:var(--space-0)"></div></div>
+    <code>--space-0</code><span>0</span>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-bar" style="width:var(--space-1)"></div></div>
+    <code>--space-1</code><span>0.25rem</span>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-bar" style="width:var(--space-2)"></div></div>
+    <code>--space-2</code><span>0.5rem</span>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-bar" style="width:var(--space-3)"></div></div>
+    <code>--space-3</code><span>0.75rem</span>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-bar" style="width:var(--space-4)"></div></div>
+    <code>--space-4</code><span>1rem</span>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-bar" style="width:var(--space-5)"></div></div>
+    <code>--space-5</code><span>1.5rem</span>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-bar" style="width:var(--space-6)"></div></div>
+    <code>--space-6</code><span>2rem</span>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-bar" style="width:var(--space-7)"></div></div>
+    <code>--space-7</code><span>2.5rem</span>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-bar" style="width:var(--space-8)"></div></div>
+    <code>--space-8</code><span>3rem</span>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-bar" style="width:var(--space-9)"></div></div>
+    <code>--space-9</code><span>4rem</span>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-bar" style="width:var(--space-10)"></div></div>
+    <code>--space-10</code><span>5rem</span>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-bar" style="width:var(--space-11)"></div></div>
+    <code>--space-11</code><span>6rem</span>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-bar" style="width:var(--space-12)"></div></div>
+    <code>--space-12</code><span>8rem</span>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-bar" style="width:var(--space-13)"></div></div>
+    <code>--space-13</code><span>10rem</span>
+  </div>
+      <h4 class="pv-sub">radius</h4>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-radius" style="border-radius:var(--radius-none)"></div></div>
+    <code>--radius-none</code><span>0</span>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-radius" style="border-radius:var(--radius-sm)"></div></div>
+    <code>--radius-sm</code><span>0.25rem</span>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-radius" style="border-radius:var(--radius-md)"></div></div>
+    <code>--radius-md</code><span>0.5rem</span>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-radius" style="border-radius:var(--radius-lg)"></div></div>
+    <code>--radius-lg</code><span>0.75rem</span>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-radius" style="border-radius:var(--radius-xl)"></div></div>
+    <code>--radius-xl</code><span>1rem</span>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-radius" style="border-radius:var(--radius-2xl)"></div></div>
+    <code>--radius-2xl</code><span>1.5rem</span>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-radius" style="border-radius:var(--radius-pill)"></div></div>
+    <code>--radius-pill</code><span>999px</span>
+  </div>
+      <h4 class="pv-sub">elevation</h4>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-shadow" style="box-shadow:var(--shadow-none)"></div></div>
+    <code>--shadow-none</code>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-shadow" style="box-shadow:var(--shadow-xs)"></div></div>
+    <code>--shadow-xs</code>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-shadow" style="box-shadow:var(--shadow-sm)"></div></div>
+    <code>--shadow-sm</code>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-shadow" style="box-shadow:var(--shadow-md)"></div></div>
+    <code>--shadow-md</code>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-shadow" style="box-shadow:var(--shadow-lg)"></div></div>
+    <code>--shadow-lg</code>
+  </div>
+  <div class="pv-row">
+    <div class="pv-barwrap"><div class="pv-shadow" style="box-shadow:var(--shadow-xl)"></div></div>
+    <code>--shadow-xl</code>
+  </div>
+    </div>
+  </section>
+</div></div>

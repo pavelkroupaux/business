@@ -66,6 +66,21 @@ npm run build    # + production build
 `tokens/dist` and `docs/dist` are generated and not committed — run `npm run
 tokens` after cloning.
 
+## Preview
+
+`preview.html` is a self-contained snapshot — the home page, the component
+gallery and all 116 tokens in one file, with the CSS inlined. Open it directly
+in a browser; it needs no server and no network.
+
+It is generated output, captured from a production build of `site/`. Treat the
+running app as the source of truth and regenerate the snapshot after visual
+changes rather than editing it by hand.
+
+One thing worth knowing if you regenerate it: Tailwind v4 strips unused theme
+variables from its CSS bundle, so the bundle alone does not define every token.
+The snapshot therefore emits a complete `:root` block from `tokens.docs.json`
+first — without it, swatches for unused tokens silently render transparent.
+
 ## How the layers fit
 
 Tokens are the only source of visual values. Components consume the **semantic**
