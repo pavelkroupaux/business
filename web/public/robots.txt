@@ -1,8 +1,10 @@
 # pavelkroupa.com
-# Web je veřejný. Vyhledávače i AI asistenti ho můžou číst celý.
+# Web je veřejný. Vyhledávače i AI asistenti ho můžou číst celý,
+# kromě interní stránky /ds (design systém).
 
 User-agent: *
 Allow: /
+Disallow: /ds
 
 # AI asistenti a vyhledávání. Pravidlo výše je pouští taky,
 # tady jsou vypsaní jménem, aby bylo jasné, že je to záměr.
@@ -18,5 +20,6 @@ User-agent: Google-Extended
 User-agent: Applebot-Extended
 User-agent: CCBot
 Allow: /
+Disallow: /ds
 
 Sitemap: https://www.pavelkroupa.com/sitemap.xml

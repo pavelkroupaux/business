@@ -5,10 +5,12 @@ Zdroj:  web/src/index.html  (celý web v jednom souboru, sekce za #/, otevře se
         je to index.html z buildu ve vaultu, build_v5b.py s koly až po v5_round18.py)
 Výstup: web/public/…            české stránky (/, /portfolio, /services/audit …)
         web/public/en/…         anglické stránky (/en/, /en/portfolio …)
-        web/public/assets/      styl, skripty a obrázky vytažené ze souboru
+        web/public/404.html, web/public/en/404.html
+        web/public/ds.html      design systém na /ds, jen pro vnitřní potřebu (ds.py)
+        web/public/assets/      styl, skripty, písmo a obrázky vytažené ze souboru
         web/public/sitemap.xml
 
-Spuštění z kořene repozitáře:
+Spuštění z kořene repozitáře (knihovny: pip3 install -r web/build/requirements.txt):
     python3 web/build/pages.py
 
 Odkud se co bere:
@@ -19,12 +21,13 @@ Odkud se co bere:
 
 Skript skončí chybou, když něco nesedí: chybí anglický překlad, cena ve strukturovaných datech
 není vidět na stránce, stránka nemá právě jeden nadpis h1, zůstal odkaz #/ nebo zástupný text.
-Ruční soubory ve web/public (robots.txt, llms.txt, 404.html, ikony, og/, logo/, _headers) nemění.
+Ruční soubory ve web/public (robots.txt, llms.txt, ikony, og/, logo/, _headers, site.webmanifest) nemění.
 """
 import ast
 import base64
 import datetime
 import hashlib
+import io
 import json
 import re
 import shutil
@@ -36,6 +39,19 @@ BUILD = Path(__file__).resolve().parent
 sys.path.insert(0, str(BUILD))
 import i18n  # noqa: E402
 import en as EN  # noqa: E402
+import ds  # noqa: E402
+
+# Zrychlení: zmenšení stylu a skriptu, fotky do WebP. Když knihovny chybí (pip3 install -r
+# web/build/requirements.txt), stránky se vyrobí i tak, jen větší, a skript to vypíše.
+try:
+    import rcssmin
+    import rjsmin
+except ImportError:
+    rcssmin = rjsmin = None
+try:
+    from PIL import Image
+except ImportError:
+    Image = None
 
 WEB = BUILD.parent
 SRC = WEB / "src" / "index.html"
@@ -177,10 +193,74 @@ def fingerprint(data):
     return hashlib.sha1(data).hexdigest()[:8]
 
 
+# ---------------------------------------------------------------- písmo
+# Shantell Sans (ručně psané popisky) ze stejných souborů jako Google Fonts, jen z vlastního serveru:
+# odpadnou dva cizí servery a jeden styl, který blokoval vykreslení. Rozsahy znaků jsou Googlu,
+# prohlížeč si stáhne jen soubor, který stránka potřebuje.
+WEBFONTS = [
+    ("shantell-sans-latin-ext.woff2", "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, "
+                                      "U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, "
+                                      "U+2113, U+2C60-2C7F, U+A720-A7FF"),
+    ("shantell-sans-latin.woff2", "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, "
+                                  "U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD"),
+    # Jen česká a slovenská písmena z rozšířené latinky (8 kB místo 37 kB). Je poslední, takže má pro tyto
+    # znaky přednost; celá rozšířená latinka výše zůstává jako záloha a stáhne se jen pro jiné znaky.
+    # Vyrobeno: fontTools subset ze shantell-sans-latin-ext.woff2, znaky ČčĎďĚěŇňŘřŠšŤťŮůŽžĹĺĽľŔŕ, flavor woff2.
+    ("shantell-sans-cs.woff2", "U+010C-010F, U+011A-011B, U+0139-013A, U+013D-013E, U+0147-0148, U+0154-0155, "
+                               "U+0158-0159, U+0160-0161, U+0164-0165, U+016E-016F, U+017D-017E"),
+]
+
+
+def install_fonts():
+    """Zkopíruje písma do assets/fonts (s otiskem v názvu) a vrátí (@font-face, {soubor: url})."""
+    (ASSETS / "fonts").mkdir(parents=True, exist_ok=True)
+    rules, urls = [], {}
+    for name, urange in WEBFONTS:
+        data = (BUILD / "fonts" / "web" / name).read_bytes()
+        url = f"/assets/fonts/{name[:-6]}-{fingerprint(data)}.woff2"
+        (OUT / url.lstrip("/")).write_bytes(data)
+        urls[name] = url
+        rules.append(f"@font-face{{font-family:'Shantell Sans';font-style:normal;font-weight:400 800;font-display:swap;"
+                     f"src:url({url}) format('woff2');unicode-range:{urange}}}")
+    return "\n".join(rules) + "\n", urls
+
+
 # ---------------------------------------------------------------- obrázky
 EXT = {"image/svg+xml": "svg", "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp", "image/gif": "gif"}
 images = {}      # sha1 -> /assets/img/...
 by_alt = {}      # alt -> /assets/img/...
+image_bytes = [0, 0]   # původní a zapsaná velikost
+
+
+def clean_svg(data):
+    """Bezpečné zmenšení SVG: pryč komentáře, DOCTYPE, metadata a údaje z editoru (Inkscape)."""
+    s = data.decode("utf-8")
+    s = re.sub(r"<!--.*?-->", "", s, flags=re.S)
+    s = re.sub(r"<!DOCTYPE[^>]*>", "", s)
+    s = re.sub(r"<metadata\b.*?</metadata>", "", s, flags=re.S)
+    s = re.sub(r"<sodipodi:namedview\b[^>]*/>|<sodipodi:namedview\b.*?</sodipodi:namedview>", "", s, flags=re.S)
+    s = re.sub(r'\s(?:inkscape|sodipodi):[a-zA-Z-]+="[^"]*"', "", s)
+    s = re.sub(r">\s+<", "><", s)
+    s = re.sub(r"[ \t\r\n]+", " ", s).strip()
+    out = s.encode("utf-8")
+    return out if len(out) < len(data) else data
+
+
+def optimize_image(data, mime):
+    """Fotky do WebP (jen když vyjdou menší), SVG bez balastu. Rozměry se nemění."""
+    if mime == "image/svg+xml":
+        return clean_svg(data), mime
+    if Image is not None and mime in ("image/jpeg", "image/png"):
+        im = Image.open(io.BytesIO(data))
+        icc = im.info.get("icc_profile")
+        out = io.BytesIO()
+        kw = dict(quality=86, method=6)
+        if icc:
+            kw["icc_profile"] = icc
+        im.save(out, "WEBP", **kw)
+        if out.tell() < len(data) * 0.9:
+            return out.getvalue(), "image/webp"
+    return data, mime
 
 
 def extract_images(markup):
@@ -195,10 +275,14 @@ def extract_images(markup):
             if key not in images:
                 alt = re.search(r'\balt="([^"]*)"', tag)
                 name = slug(alt.group(1)) if alt and alt.group(1) else "img"
-                fname = f"{name}-{key[:8]}.{EXT[mime]}"
+                data2, mime2 = optimize_image(data, mime)
+                # otisk z toho, co se opravdu publikuje: soubory v assets/ se cachují napořád
+                fname = f"{name}-{fingerprint(data2)}.{EXT[mime2]}"
                 (ASSETS / "img").mkdir(parents=True, exist_ok=True)
-                (ASSETS / "img" / fname).write_bytes(data)
+                (ASSETS / "img" / fname).write_bytes(data2)
                 images[key] = "/assets/img/" + fname
+                image_bytes[0] += len(data)
+                image_bytes[1] += len(data2)
             alt = re.search(r'\balt="([^"]+)"', tag)
             if alt:
                 by_alt.setdefault(alt.group(1), images[key])
@@ -350,6 +434,11 @@ EXTRA_CSS = """
 .notfound .wrap{padding-block:120px 140px}
 """
 
+# Zvolený vzhled (☀/☾ v hlavičce) se nastaví hned na začátku stránky. Skript webu ho jinak nastaví až
+# na konci a stránka by při každém přechodu na další stránku na okamžik probliknula ve špatném režimu.
+EARLY_THEME = ('<script>try{var t=localStorage.getItem("pk-theme");if(t==="light"||t==="dark")'
+               'document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>')
+
 PLACEHOLDER = re.compile(r"\[(?:[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]{3,}[^\]]*)\]")
 
 
@@ -358,7 +447,8 @@ def main():
     src = SRC.read_text(encoding="utf-8")
 
     head_src = src[:src.index("<style>")]
-    fonts = [l for l in re.findall(r"<link\b[^>]*>", head_src) if "fonts.g" in l]
+    # zdroj v jednom souboru bere písmo z Google Fonts; samostatné stránky ho mají z vlastního serveru
+    assert "Shantell+Sans" in head_src, "zdroj už nenačítá Shantell Sans z Google Fonts, zkontrolujte WEBFONTS"
     css = re.search(r"<style>(.*?)</style>", src, re.S).group(1)
     header = re.search(r'<header class="top">.*?</header>', src, re.S).group(0)
     footer = re.search(r'<footer class="foot">.*?</footer>', src, re.S).group(0)
@@ -382,12 +472,24 @@ def main():
         shutil.rmtree(OUT / "en" / d, ignore_errors=True)
     ASSETS.mkdir(parents=True)
 
-    css_b = (css.strip() + "\n" + EXTRA_CSS).encode()
+    font_css, font_urls = install_fonts()
+    css_text = font_css + css.strip() + "\n" + EXTRA_CSS
+    if rcssmin:
+        css_text = rcssmin.cssmin(css_text)
+    css_b = css_text.encode()
     css_url = f"/assets/site-{fingerprint(css_b)}.css"
     (OUT / css_url.lstrip("/")).write_bytes(css_b)
+    # písmo pro ručně psané popisky hned na začátku stránky; čeština potřebuje i výřez s háčky a čárkami
+    preload = {l["lang"]: "\n".join(f'<link rel="preload" href="{font_urls[n]}" as="font" type="font/woff2" crossorigin>'
+                                    for n in (("shantell-sans-latin.woff2", "shantell-sans-cs.woff2")
+                                              if l is CS else ("shantell-sans-latin.woff2",)))
+               for l in LANGS}
     js_urls = {}
     for lang, swaps in ((CS, ()), (EN_, EN.JS)):
-        js_b = build_js(scripts, swaps).encode()
+        js_text = build_js(scripts, swaps)
+        if rjsmin:
+            js_text = rjsmin.jsmin(js_text)
+        js_b = js_text.encode()
         js_urls[lang["lang"]] = f"/assets/site-{lang['lang']}-{fingerprint(js_b)}.js"
         (OUT / js_urls[lang["lang"]].lstrip("/")).write_bytes(js_b)
 
@@ -453,6 +555,7 @@ def main():
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#FFCE1B">
+{EARLY_THEME}
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Pavel Kroupa">
 <meta property="og:locale" content="{lang["locale"]}">
@@ -469,7 +572,7 @@ def main():
 <meta name="twitter:title" content="{meta["title"]}">
 <meta name="twitter:description" content="{meta["desc"]}">
 <meta name="twitter:image" content="{og}">
-{chr(10).join(fonts)}
+{preload[lang["lang"]]}
 <link rel="stylesheet" href="{css_url}">
 <script type="application/ld+json">
 {ld}
@@ -517,7 +620,8 @@ def main():
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#FFCE1B">
-{chr(10).join(fonts)}
+{EARLY_THEME}
+{preload[lang["lang"]]}
 <link rel="stylesheet" href="{css_url}">
 
 {hdr}
@@ -547,6 +651,18 @@ def main():
         f.parent.mkdir(parents=True, exist_ok=True)
         f.write_text(page_html, encoding="utf-8")
 
+    # Design systém na /ds: jen pro vnitřní potřebu, bez odkazu odjinud a mimo sitemap.xml
+    ds_html, ds_warnings = ds.build(dict(
+        views=views, css=css, js="\n".join(scripts), cs=CS, en=EN_, out=OUT,
+        map_links=lambda m: map_links(m, CS),
+        header=map_links(header.replace(old_switch, ""), CS), footer=map_links(footer, CS),
+        meta_text=" ".join(m["title"] + " " + m["desc"] for m in CS["meta"].values()),
+        css_url=css_url, js_url=js_urls["cs"], preload=preload["cs"], font_urls=font_urls, early_theme=EARLY_THEME,
+        minify_css=rcssmin.cssmin if rcssmin else str.strip, minify_js=rjsmin.jsmin if rjsmin else str.strip))
+    (OUT / "ds.html").write_text(ds_html, encoding="utf-8")
+    for w in ds_warnings:
+        print(f"Pozor, design systém (web/build/ds.py): {w}", file=sys.stderr)
+
     if missing_all:
         seen = set()
         print("Chybí anglický překlad (doplňte do web/build/en.py):", file=sys.stderr)
@@ -565,7 +681,12 @@ def main():
     (OUT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n'
                                      f'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}\n</urlset>\n',
                                      encoding="utf-8")
-    print(f"{len(report)} stránek, {len(images)} obrázků, styl {css_url}, skripty {', '.join(js_urls.values())}")
+    if not (rcssmin and Image):
+        print("Pozor: chybí rcssmin/rjsmin nebo Pillow, styl a fotky nejsou zmenšené "
+              "(pip3 install -r web/build/requirements.txt).", file=sys.stderr)
+    print(f"{len(report)} stránek, {len(images)} obrázků ({image_bytes[0] // 1024} kB -> {image_bytes[1] // 1024} kB), "
+          f"styl {css_url} ({len(css_b) // 1024} kB), skripty {', '.join(js_urls.values())}, design systém /ds "
+          f"({len(ds_html.encode()) // 1024} kB)")
     for p, size in report:
         print(f"  {p:36s} {size / 1024:6.1f} kB")
 

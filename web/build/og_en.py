@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Obrázky pro sdílení (1200×630 a @2x) pro anglickou verzi, stejně jako og.py pro českou.
+"""Obrázky pro sdílení (1200 × 630) pro anglickou verzi, stejně jako og.py pro českou.
 
 Kresby (úvodní linka, ilustrace služeb, loga případů) bere z vyrobených stránek ve web/public,
 takže popisky v nich jsou už přeložené. Proto se spouští až po pages.py:
@@ -92,8 +92,14 @@ def inline_images(svg):
     """Obrázky ve vyrobených stránkách jsou soubory, cairosvg potřebuje data: URI."""
     def one(m):
         path = PUBLIC + m.group(2).lstrip("/")
-        mime = {"svg": "image/svg+xml", "jpg": "image/jpeg", "png": "image/png"}[path.rsplit(".", 1)[1]]
-        return f'{m.group(1)}="data:{mime};base64,{base64.b64encode(open(path, "rb").read()).decode()}"'
+        ext = path.rsplit(".", 1)[1]
+        data = open(path, "rb").read()
+        if ext == "webp":   # cairosvg WebP neumí, převést na PNG
+            b = io.BytesIO()
+            Image.open(io.BytesIO(data)).save(b, "PNG")
+            data, ext = b.getvalue(), "png"
+        mime = {"svg": "image/svg+xml", "jpg": "image/jpeg", "png": "image/png"}[ext]
+        return f'{m.group(1)}="data:{mime};base64,{base64.b64encode(data).decode()}"'
     return re.sub(r'\b(href|xlink:href|src)="(/assets/img/[^"]+)"', one, svg)
 
 
@@ -156,11 +162,11 @@ def frame(inner, extra_css=""):
 def render(name, svg, out_dir):
     os.makedirs(out_dir, exist_ok=True)
     png2 = cairosvg.svg2png(bytestring=svg.encode(), output_width=W * 2, output_height=H * 2)
-    big = Image.open(io.BytesIO(png2)).convert("RGB")
-    for im, suf in ((big, "@2x"), (big.resize((W, H), Image.LANCZOS), "")):  # 1× zmenšit z 2×, ať jsou hrany čisté
-        b = io.BytesIO()
-        im.save(b, "PNG", optimize=True)
-        open(f"{out_dir}{name}{suf}.png", "wb").write(b.getvalue())
+    # vykreslit ve 2× a zmenšit, ať jsou hrany čisté; web odkazuje jen na 1200 × 630
+    im = Image.open(io.BytesIO(png2)).convert("RGB").resize((W, H), Image.LANCZOS)
+    b = io.BytesIO()
+    im.save(b, "PNG", optimize=True)
+    open(f"{out_dir}{name}.png", "wb").write(b.getvalue())
 
 
 def main():

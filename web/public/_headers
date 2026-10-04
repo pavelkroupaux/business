@@ -13,3 +13,12 @@ https://:project.pages.dev/*
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+
+# Design systém (/ds) je jen pro vnitřní potřebu: neindexovat a adresu neposílat dál v odkazech.
+/ds
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Referrer-Policy: no-referrer
+
+/ds.html
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Referrer-Policy: no-referrer
