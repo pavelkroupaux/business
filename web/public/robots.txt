@@ -1,0 +1,22 @@
+# pavelkroupa.com
+# Web je veřejný. Vyhledávače i AI asistenti ho můžou číst celý.
+
+User-agent: *
+Allow: /
+
+# AI asistenti a vyhledávání. Pravidlo výše je pouští taky,
+# tady jsou vypsaní jménem, aby bylo jasné, že je to záměr.
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://www.pavelkroupa.com/sitemap.xml

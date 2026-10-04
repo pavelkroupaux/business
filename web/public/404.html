@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="cs">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stránka nenalezena · Pavel Kroupa</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+:root{
+  --ground:#FFFFFF; --ink:#1D1D1F; --muted:#6E6E73; --grid:#EAEAE4; --line:rgba(29,29,31,.08);
+  --fix:#FFCE1B;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{ --ground:#111111; --ink:#F2F2EC; --muted:#A3A39B; --grid:#2C2C24; --line:#28281F; }
+  .fix{background-image:none!important;color:inherit!important}
+}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;background-color:var(--ground);color:var(--ink);font-family:var(--font);-webkit-font-smoothing:antialiased}
+.top{border-bottom:1px solid var(--line)}
+.wrap{max-width:1068px;margin:0 auto;padding-inline:40px}
+.top .wrap{height:60px;display:flex;align-items:center}
+.mark{display:flex;align-items:center;gap:9px;font-size:15px;font-weight:600;letter-spacing:-.03em;color:var(--ink);text-decoration:none}
+.mark i{width:8px;height:8px;border-radius:2px;background:var(--ink);display:block}
+main{flex:1;display:flex;align-items:center;background-image:radial-gradient(var(--grid) 1.4px,transparent 1.4px);background-size:26px 26px}
+main .wrap{text-align:center;padding-block:96px}
+.eyebrow{font-size:17px;font-weight:600;color:var(--muted);margin:0 0 18px}
+h1{font-size:clamp(44px,6.4vw,80px);line-height:1.05;letter-spacing:-.045em;font-weight:600;margin:0 auto 22px;max-width:16ch}
+.fix{background-image:linear-gradient(to top,var(--fix) 58%,transparent 58%);padding:0 4px;-webkit-box-decoration-break:clone;box-decoration-break:clone;color:#1D1D1F}
+.lede{font-size:clamp(19px,2.2vw,26px);line-height:1.35;letter-spacing:-.025em;font-weight:500;color:var(--muted);max-width:30ch;margin:0 auto 34px}
+.row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-flex;border-radius:980px;padding:13px 24px;font-size:17px;letter-spacing:-.02em;text-decoration:none;border:1px solid transparent}
+.btn-fill{background:var(--ink);color:var(--ground)}
+.btn-line{border-color:var(--line);color:var(--ink);background:var(--ground)}
+@media (max-width:640px){ .wrap{padding-inline:16px} }
+</style>
+<header class="top"><div class="wrap"><a class="mark" href="/"><i></i>Pavel Kroupa</a></div></header>
+<main>
+  <div class="wrap">
+    <p class="eyebrow">Chyba 404</p>
+    <h1>Tahle stránka tu <span class="fix">není</span>.</h1>
+    <p class="lede">Web má novou podobu a některé staré adresy zmizely. Začněte na úvodu, nebo mi rovnou napište, kde jste se zasekli.</p>
+    <div class="row">
+      <a class="btn btn-fill" href="/">Na úvod</a>
+      <a class="btn btn-line" href="/#/contact">Napsat mi</a>
+    </div>
+  </div>
+</main>
+</html>
