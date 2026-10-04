@@ -1,0 +1,6 @@
+# Pro build, obrázky (logo, OG) a zmenšení stylu, skriptu a fotek v pages.py. Samotný web nic neinstaluje.
+cairosvg>=2.7
+Pillow>=10.0
+fonttools>=4.40
+rcssmin>=1.1
+rjsmin>=1.2
