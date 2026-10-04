@@ -1,11 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.pavelkroupa.com/</loc>
     <lastmod>2026-10-04</lastmod>
-    <image:image>
-      <image:loc>https://www.pavelkroupa.com/pavel-kroupa.jpg</image:loc>
-    </image:image>
+  </url>
+  <url>
+    <loc>https://www.pavelkroupa.com/portfolio</loc>
+    <lastmod>2026-10-04</lastmod>
+  </url>
+  <url>
+    <loc>https://www.pavelkroupa.com/portfolio/heirloom</loc>
+    <lastmod>2026-10-04</lastmod>
+  </url>
+  <url>
+    <loc>https://www.pavelkroupa.com/portfolio/coinmate</loc>
+    <lastmod>2026-10-04</lastmod>
+  </url>
+  <url>
+    <loc>https://www.pavelkroupa.com/portfolio/leeaf</loc>
+    <lastmod>2026-10-04</lastmod>
+  </url>
+  <url>
+    <loc>https://www.pavelkroupa.com/portfolio/breno</loc>
+    <lastmod>2026-10-04</lastmod>
+  </url>
+  <url>
+    <loc>https://www.pavelkroupa.com/services</loc>
+    <lastmod>2026-10-04</lastmod>
+  </url>
+  <url>
+    <loc>https://www.pavelkroupa.com/services/decision-prototype</loc>
+    <lastmod>2026-10-04</lastmod>
+  </url>
+  <url>
+    <loc>https://www.pavelkroupa.com/services/audit</loc>
+    <lastmod>2026-10-04</lastmod>
+  </url>
+  <url>
+    <loc>https://www.pavelkroupa.com/services/fractional</loc>
+    <lastmod>2026-10-04</lastmod>
+  </url>
+  <url>
+    <loc>https://www.pavelkroupa.com/about</loc>
+    <lastmod>2026-10-04</lastmod>
+  </url>
+  <url>
+    <loc>https://www.pavelkroupa.com/contact</loc>
+    <lastmod>2026-10-04</lastmod>
   </url>
 </urlset>

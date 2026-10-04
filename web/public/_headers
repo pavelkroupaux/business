@@ -10,3 +10,6 @@ https://:project.pages.dev/*
 
 /site.webmanifest
   Content-Type: application/manifest+json; charset=utf-8
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable

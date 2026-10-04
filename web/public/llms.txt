@@ -15,9 +15,9 @@ Web je v češtině. Všechny ceny jsou v Kč.
 
 ## Služby
 
-- [Decision Prototype](https://www.pavelkroupa.com/#/services/decision-prototype): Rozhodnutí, na které se dá kliknout. Přinesete nerozhodnutou věc, odnesete rozhodnutí a funkční prototyp na webu, podle kterého se dá stavět. Jeden den od 49 000 Kč, dva dny od 125 000 Kč, týden od 220 000 Kč. V každé délce: problém, lidé a cíl sepsané předem, workshop s lidmi, kteří rozhodují, funkční prototyp na webu s heslem a komentáři a zápis, co jsme rozhodli a proč.
-- [Audit rozhodnutí](https://www.pavelkroupa.com/#/services/audit): Projdu váš produkt a na nahrávce obrazovky ukážu, co nefunguje a v jakém pořadí bych to opravoval. Pět pracovních dní, bez schůzek. Od 29 000 Kč. Dostanete nahrávku s komentářem, seznam podle priority a doporučení: já, nový člověk, nebo nikdo.
-- [Vedení produktu a designu na část úvazku](https://www.pavelkroupa.com/#/services/fractional): Dva dny v týdnu sedím ve vašem týmu, nejméně tři měsíce. Rozhoduju s vámi u porad vedení i produktu a držím směr, aby se vývoj necyklil. Až přijmete někoho natrvalo, předám mu všechno písemně. Od 120 000 Kč měsíčně.
+- [Decision Prototype](https://www.pavelkroupa.com/services/decision-prototype): Rozhodnutí, na které se dá kliknout. Přinesete nerozhodnutou věc, odnesete rozhodnutí a funkční prototyp na webu, podle kterého se dá stavět. Jeden den od 49 000 Kč, dva dny od 125 000 Kč, týden od 220 000 Kč. V každé délce: problém, lidé a cíl sepsané předem, workshop s lidmi, kteří rozhodují, funkční prototyp na webu s heslem a komentáři a zápis, co jsme rozhodli a proč.
+- [Audit rozhodnutí](https://www.pavelkroupa.com/services/audit): Projdu váš produkt a na nahrávce obrazovky ukážu, co nefunguje a v jakém pořadí bych to opravoval. Pět pracovních dní, bez schůzek. Od 29 000 Kč. Dostanete nahrávku s komentářem, seznam podle priority a doporučení: já, nový člověk, nebo nikdo.
+- [Vedení produktu a designu na část úvazku](https://www.pavelkroupa.com/services/fractional): Dva dny v týdnu sedím ve vašem týmu, nejméně tři měsíce. Rozhoduju s vámi u porad vedení i produktu a držím směr, aby se vývoj necyklil. Až přijmete někoho natrvalo, předám mu všechno písemně. Od 120 000 Kč měsíčně.
 
 Platíte za projekt, ne za hodiny. Konečnou nabídku pošlu po první schůzce. Každá spolupráce začíná třicetiminutovým hovorem, bez prezentace.
 
@@ -32,10 +32,10 @@ Prototyp není produkční kód. Používá vaše komponenty a běží na GitHub
 
 ## Vybrané případy
 
-- [Heirloom, 2026](https://www.pavelkroupa.com/#/work/heirloom): Digitální dědictví, nový produkt od nuly. Nový business směr uzavřený za čtyři sezení, s funkčním prototypem v každé iteraci.
-- [Coinmate, 2023–2026](https://www.pavelkroupa.com/#/work/coinmate): Regulovaná kryptoburza. Externě, dva dny v týdnu. Nejdřív design systém, potom nová identita. Rebranding spuštěn 1. 10. 2026.
-- [Leeaf, 2021–2023](https://www.pavelkroupa.com/#/work/leeaf): Zdravotnictví, léčba neplodnosti. Jeden design systém pro web, portál pro lékaře a mobilní aplikaci. Na stejném systému pak běžely další kliniky IVF.
-- [BRENO, 2023](https://www.pavelkroupa.com/#/work/breno): Maloobchod a e-shopy. Dvoudenní prioritizace business backlogu přes WPP. Vedení, vývoj i marketing se shodli na pořadí priorit.
+- [Heirloom, 2026](https://www.pavelkroupa.com/portfolio/heirloom): Digitální dědictví, nový produkt od nuly. Nový business směr uzavřený za čtyři sezení, s funkčním prototypem v každé iteraci.
+- [Coinmate, 2023–2026](https://www.pavelkroupa.com/portfolio/coinmate): Regulovaná kryptoburza. Externě, dva dny v týdnu. Nejdřív design systém, potom nová identita. Rebranding spuštěn 1. 10. 2026.
+- [Leeaf, 2020–2023](https://www.pavelkroupa.com/portfolio/leeaf): Zdravotnictví, léčba neplodnosti. Jeden design systém pro web, portál pro lékaře a mobilní aplikaci. Na stejném systému pak běžely další kliniky IVF.
+- [BRENO, 2023](https://www.pavelkroupa.com/portfolio/breno): Maloobchod a e-shopy. Dvoudenní prioritizace business backlogu přes WPP. Vedení, vývoj i marketing se shodli na pořadí priorit.
 
 ## Kde jsem pracoval
 
@@ -49,14 +49,15 @@ Obory: regulované krypto, bankovnictví, zdravotnictví, e-shopy, energetika, b
 
 ## Reference
 
-Doporučení od lidí z Coinmate, ESET, Product Fruits, EuroHealth Global Projects, Jablotron Cloud Services, Motionshift, Novatop a dalších jsou na webu v sekci [Portfolio](https://www.pavelkroupa.com/#/portfolio). Všechna jsou veřejně na LinkedInu.
+Doporučení od lidí z Coinmate, ESET, Product Fruits, EuroHealth Global Projects, Jablotron Cloud Services, Motionshift, Novatop a dalších jsou na webu v sekci [Portfolio](https://www.pavelkroupa.com/portfolio). Všechna jsou veřejně na LinkedInu.
 
 ## Kontakt
 
 - E-mail: info@pavelkroupa.com
 - Termín hovoru: https://cal.com/pavelkroupa
 - LinkedIn: https://www.linkedin.com/in/pavelkroupa/
-- [Kontakt na webu](https://www.pavelkroupa.com/#/contact)
+- [Kontakt na webu](https://www.pavelkroupa.com/contact)
+- [O mně](https://www.pavelkroupa.com/about)
 
 ## Firemní údaje
 

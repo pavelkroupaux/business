@@ -2,12 +2,12 @@
 
 Design system and site rebuild for [pavelkroupa.com](https://www.pavelkroupa.com).
 
-**The live site is `web/`** (version 5, a single static `index.html`, deployed
-with Cloudflare Pages, see `web/README.md`). Everything else in this repo is the
+**The live site is `web/`** (version 5, static pages generated from one source
+file, deployed with Cloudflare Pages, see `web/README.md`). Everything else in this repo is the
 earlier Next.js rebuild and is not what the domain serves.
 
 ```
-web/          Live site v5 (static, Cloudflare Pages publishes web/public)
+web/          Live site v5 (source in web/src, pages in web/public)
 tokens/       JSON token sources + style-dictionary build
 components/   React components, built strictly on tokens
 docs/         Generated token reference
