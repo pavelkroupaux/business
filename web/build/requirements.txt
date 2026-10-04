@@ -1,0 +1,4 @@
+# Jen pro build a obrázky (logo, OG). Samotný web nic neinstaluje.
+cairosvg>=2.7
+Pillow>=10.0
+fonttools>=4.40

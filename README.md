@@ -2,8 +2,8 @@
 
 Design system and site rebuild for [pavelkroupa.com](https://www.pavelkroupa.com).
 
-**The live site is `web/`** (version 5, static pages generated from one source
-file, deployed with Cloudflare Pages, see `web/README.md`). Everything else in this repo is the
+**The live site is `web/`** (version 5, Czech and English static pages generated
+from one source file, deployed with Cloudflare Pages, see `web/README.md`). Everything else in this repo is the
 earlier Next.js rebuild and is not what the domain serves.
 
 ```

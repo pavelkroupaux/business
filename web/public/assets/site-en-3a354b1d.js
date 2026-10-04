@@ -5,8 +5,7 @@ try{
    CS není překlad. Psáno česky od nuly ze stejného faktu.
    Pravidla: Hlas — pravidla.md
    ------------------------------------------------------------------ */
-/* Slovník EN→CS z verze 4 je v historii gitu (commit 24d4e7c). Anglická verze zatím není. */
-var CS = {};
+var CS = {};  /* slovník EN→CS z verze 4 smazán v kole 18 */
 
 (function(){
   /* ---------- routing ---------- */
@@ -155,7 +154,7 @@ var CS = {};
   var SEL="p,h1,h2,h3,span,li,cite,a.lnk,a.btn,small,em,b,dd,dt,figcaption";
   var store=new WeakMap();
   function norm(x){return x.replace(/\s+/g," ").trim();}
-  var lang="cs"; document.documentElement.lang="cs";
+  var lang=document.documentElement.lang||"cs";
 
   function apply(l){
     var nodes=document.querySelectorAll(SEL);
@@ -178,15 +177,13 @@ var CS = {};
     try{localStorage.setItem("pk-lang",l);}catch(e){}
   }
 
-  document.getElementById("lang").addEventListener("click",function(){
-    setLang(lang==="cs"?"en":"cs");
-  });
+  
 
   /* ---------- kopírování e-mailu ---------- */
   var cb=document.getElementById("copy-mail");
   if(cb) cb.addEventListener("click",function(){
-    function sel(){ var r=document.createRange(); r.selectNodeContents(document.getElementById("mail")); var x=getSelection(); x.removeAllRanges(); x.addRange(r); cb.textContent="Označeno, zkopírujte"; }
-    try{ navigator.clipboard.writeText("info@pavelkroupa.com").then(function(){ cb.textContent="Zkopírováno"; }, sel); }catch(e){ sel(); }
+    function sel(){ var r=document.createRange(); r.selectNodeContents(document.getElementById("mail")); var x=getSelection(); x.removeAllRanges(); x.addRange(r); cb.textContent="Selected. Copy it now."; }
+    try{ navigator.clipboard.writeText("info@pavelkroupa.com").then(function(){ cb.textContent="Copied"; }, sel); }catch(e){ sel(); }
   });
   /* ---------- theme ---------- */
   var modes=["system","light","dark"];
@@ -275,7 +272,7 @@ try{
   /* měnící se nadpis nad notebookem */
   var w=document.querySelector(".tw-w");
   if(w){var words=w.getAttribute("data-words").split("|"),timer=null,gen=0;
-    if(reduce){w.textContent="funkční prototyp";return;}
+    if(reduce){w.textContent="a working prototype";return;}
     var starts=[0,2600,5200];
     function typeTo(word,g,done){var cur=w.textContent;
       (function del(){if(g!==gen)return;if(cur.length){cur=cur.slice(0,-1);w.textContent=cur;timer=setTimeout(del,26);}else(function typ(i){if(g!==gen)return;
@@ -291,7 +288,7 @@ try{
 try{
 (function(){var b=document.querySelector(".proc-toggle"),l=document.querySelector(".proc-steps");if(!b||!l)return;
   b.addEventListener("click",function(){var o=l.classList.toggle("open");b.setAttribute("aria-expanded",o?"true":"false");
-    b.textContent=o?"Skrýt podrobnosti":"Jak to probíhá podrobně";});})();
+    b.textContent=o?"Hide details":"See how it works in detail";});})();
 
 }catch(e){console.error(e);}
 try{
@@ -324,7 +321,7 @@ try{
     [].forEach.call(f.querySelectorAll("[required]"),function(el){var ok=el.value.trim()&&(el.type!=="email"||/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value.trim()));
       el.classList.toggle("bad",!ok);if(!ok)bad.push(el);});
     var err=f.querySelector(".ct-err");
-    if(bad.length){err.textContent="Vyplňte prosím jméno, e-mail a pár vět.";bad[0].focus();return;}
+    if(bad.length){err.textContent="Please enter your name, your email address, and a few sentences.";bad[0].focus();return;}
     err.textContent="";f.querySelector(".ct-done").hidden=false;f.querySelector(".ct-actions").hidden=true;});
 })();
 

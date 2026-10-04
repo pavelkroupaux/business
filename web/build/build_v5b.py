@@ -1,8 +1,8 @@
 import re
-R = '/sessions/sweet-modest-heisenberg/mnt/'
-V4 = R + 'Career/05 Web/verze/site-v4.html'
+from paths import B, R
+V4 = B + 'src/site-v4.html'
 OUT = R + 'Career/05 Web/verze/site-v5.html'
-PROD = R + 'outputs/v5src/project/Product-cs.dc.html'
+PROD = B + 'src/v5src/Product-cs.dc.html'
 s = open(V4).read()
 
 def rep(t, a, b, n=1):
@@ -592,19 +592,23 @@ CONTACT = '''<div id="v-contact" hidden>
   </section>
 </div>
 '''
-exec(open(R + 'outputs/v5_round2.py').read())
-exec(open(R + 'outputs/v5_round3.py').read())
-exec(open(R + 'outputs/v5_round4.py').read())
-exec(open(R + 'outputs/v5_round5.py').read())
-exec(open(R + 'outputs/v5_round6.py').read())
-exec(open(R + 'outputs/v5_round7.py').read())
-exec(open(R + 'outputs/v5_round8.py').read())
-exec(open(R + 'outputs/v5_round9.py').read())
-exec(open(R + 'outputs/v5_round10.py').read())
-exec(open(R + 'outputs/v5_round11.py').read())
-exec(open(R + 'outputs/v5_round12.py').read())
-exec(open(R + 'outputs/v5_round13.py').read())
-exec(open(R + 'outputs/v5_round14.py').read())
+exec(open(B + 'v5_round2.py').read())
+exec(open(B + 'v5_round3.py').read())
+exec(open(B + 'v5_round4.py').read())
+exec(open(B + 'v5_round5.py').read())
+exec(open(B + 'v5_round6.py').read())
+exec(open(B + 'v5_round7.py').read())
+exec(open(B + 'v5_round8.py').read())
+exec(open(B + 'v5_round9.py').read())
+exec(open(B + 'v5_round10.py').read())
+exec(open(B + 'v5_round11.py').read())
+exec(open(B + 'v5_round12.py').read())
+exec(open(B + 'v5_round13.py').read())
+exec(open(B + 'v5_round14.py').read())
+exec(open(B + 'v5_round15.py').read())
+exec(open(B + 'v5_round16.py').read())
+exec(open(B + 'v5_round17.py').read())
+exec(open(B + 'v5_round18.py').read())
 print('logos', LOGO_REPORT)
 MAIN = '\n' + home + WORK + CASEV + SERV + DP + FR + AU + ABOUT + CONTACT
 MAIN = MAIN.replace(home, h)
@@ -704,6 +708,10 @@ out = post_patch11(out)
 out = post_patch12(out)
 out = post_patch13(out)
 out = post_patch14(out)
+out = post_patch15(out)
+out = post_patch16(out)
+out = post_patch17(out)
+out = post_patch18(out)
 assert 'mailto:' not in out.split('<script>')[0] or True
 open(OUT, 'w').write(out)
 open(R + 'Career/05 Web/repo/index.html', 'w').write('<!doctype html>\n<html lang="cs">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n' + out)

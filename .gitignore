@@ -8,3 +8,10 @@ site/out/
 .env
 .env.local
 .vercel
+
+# Python (build skripty ve web/build)
+__pycache__/
+*.pyc
+# pracovní náhledy z buildu (paths.py je zakládá)
+web/build/_draft/
+build.zip

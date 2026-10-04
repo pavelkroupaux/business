@@ -1,12 +1,12 @@
 {
   "name": "Pavel Kroupa",
   "short_name": "Pavel Kroupa",
-  "description": "Definice produktu a vedení designu.",
+  "description": "Definice produktu a funkční prototypy.",
   "lang": "cs",
   "start_url": "/",
   "display": "browser",
   "background_color": "#FFFFFF",
-  "theme_color": "#111111",
+  "theme_color": "#FFCE1B",
   "icons": [
     { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }

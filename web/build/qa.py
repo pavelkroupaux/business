@@ -1,9 +1,10 @@
 """QA harness: python3 qa.py out.html route:width:scroll[:scale] ...
 Renders the site in srcdoc iframes (own viewport, so media queries apply)."""
 import json, sys
-R = '/sessions/sweet-modest-heisenberg/mnt/'
+import os; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from paths import R, DRAFT
 site = open(R + 'Career/05 Web/verze/site-v5.html').read()
-out = R + 'outputs/' + sys.argv[1]
+out = sys.argv[1] if '/' in sys.argv[1] else DRAFT + sys.argv[1]
 frames = []
 for spec in sys.argv[2:]:
     p = spec.split(':')

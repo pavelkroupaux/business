@@ -1438,3 +1438,29 @@ a.pick .svc-thumb{margin:0 0 10px}
 /* hlavička: Kontakt i na mobilu */
 @media(max-width:480px){.top-in{gap:10px}.top a.lnk{font-size:12.5px}.top .mark{font-size:14px}.top .ctl{margin-left:0}}
 @media(max-width:380px){.top-in{gap:8px}.top a.lnk{font-size:12px}.top .mark{font-size:13px}.top .mark i{display:none}}
+
+/* ---------- v5 kolo 17: logo pk v hlavičce ---------- */
+.mark .pk{height:30px;width:auto;display:block;flex:none;margin:-6px 0 -4px}
+.pk-t,.pk-l{fill:var(--ink)}
+:root[data-theme="dark"] .pk-l{fill:#5C5C60}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pk-l{fill:#5C5C60}}
+@media(max-width:480px){.mark .pk{height:26px}}
+@media(max-width:380px){.top .mark .pk{display:none}}
+
+/* ---------- v5 kolo 18: na mobilu jen logo pk, jméno zůstává pro čtečky obrazovky ---------- */
+@media(max-width:480px){
+  .top .mark .mark-t{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+  .top .mark .pk{display:block}
+}
+/* kontakt: na 320 px se formulář nevešel, pole se teď smí zúžit */
+.ct-form,.ct-card,.ct-f{min-width:0}
+.ct-f input,.ct-f textarea,.ct-f select{min-width:0;width:100%;box-sizing:border-box}
+
+/* ---------- samostatné stránky: přepínač jazyka je odkaz ---------- */
+.ctl a.lang{font-family:var(--display);font-size:11.5px;font-weight:550;letter-spacing:.05em;
+  background:transparent;color:var(--faint);border-radius:999px;text-decoration:none;
+  padding:6px 11px;line-height:1.3;min-width:34px;text-align:center;box-sizing:border-box;
+  transition:background .25s ease,color .25s ease}
+.ctl a.lang:hover{background:var(--surface);color:var(--ink)}
+@media(max-width:340px){.top #theme{display:none}}
+.notfound .wrap{padding-block:120px 140px}
