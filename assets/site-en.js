@@ -227,7 +227,21 @@ try{
     var k=Array.prototype.slice.call(t.children);
     k.forEach(function(c){var n=c.cloneNode(true);n.setAttribute("aria-hidden","true");n.setAttribute("tabindex","-1");t.appendChild(n);});
   });
-  function toRefs(){ if(location.hash==="#/reference"){ setTimeout(function(){var r=document.getElementById("refs");if(r)r.scrollIntoView({behavior:"smooth",block:"start"});},80);} }
+  /* tlačítko Reference na úvodu vede na /portfolio/#reference: stránka se ukáže a pak plynule (ease-in-out) sjede na reference */
+  function toRefs(){
+    if(location.hash!=="#reference"&&location.hash!=="#/reference") return;
+    var r=document.getElementById("refs"); if(!r) return;
+    var top=document.querySelector(".top"), off=(top?top.offsetHeight:0)+8;
+    function goal(){return Math.max(0,r.getBoundingClientRect().top+window.pageYOffset-off);}
+    function mark(){if(window.history&&history.replaceState) history.replaceState(null,"",location.pathname+location.search+"#refs");}
+    if(matchMedia("(prefers-reduced-motion: reduce)").matches){window.scrollTo(0,goal());mark();return;}
+    setTimeout(function(){
+      var y0=window.pageYOffset, dy=goal()-y0, T=Math.min(1600,Math.max(800,Math.abs(dy)*.9)), t0=0;
+      function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}
+      function step(now){if(!t0)t0=now;var k=Math.min(1,(now-t0)/T);window.scrollTo(0,y0+dy*ease(k));if(k<1)requestAnimationFrame(step);else mark();}
+      requestAnimationFrame(step);
+    },450);
+  }
   window.addEventListener("hashchange",toRefs); toRefs();
 })();
 
@@ -353,7 +367,7 @@ try{
       FADE=matchMedia("(prefers-reduced-motion: reduce)").matches?1:1200;
   function size(){var r=sec.getBoundingClientRect();cv.width=Math.round(r.width*dpr);cv.height=Math.round(r.height*dpr);cv.style.width=r.width+"px";cv.style.height=r.height+"px";kick();}
   function pos(ev){var r=sec.getBoundingClientRect();return [ev.clientX-r.left,ev.clientY-r.top];}
-  function inkColor(){return (getComputedStyle(document.documentElement).getPropertyValue("--ink")||"#111").trim();}
+  function inkColor(){return (getComputedStyle(document.documentElement).getPropertyValue("--marker")||"#E0241B").trim();}
   function paint(){
     raf=0; var now=performance.now(), col=inkColor();
     ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,cv.width,cv.height); ctx.setTransform(dpr,0,0,dpr,0,0);
@@ -377,5 +391,24 @@ try{
   window.addEventListener("pointerup",function(){if(!cur) return; cur.end=performance.now(); cur=null; sec.classList.remove("drawing"); kick();});
   if(window.ResizeObserver) new ResizeObserver(size).observe(sec); size();
 })();
+
+/* Lepítka s otázkami v sekci „Kdy týmy potřebují moji pomoc“. Kurzor je malé lepítko, klik kamkoli nalepí větší s další otázkou. Jen myš na počítači. */
+(function(){
+  if(!window.matchMedia||!matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  var sec=document.querySelector(".pdots"); if(!sec||!sec.querySelector("[data-notes]")) return;
+  var Q=["Where are you stuck?","Who will be in the meeting?","Who is the decision maker?"], n=0, MAX=6;
+  sec.classList.add("pq-on");
+  sec.addEventListener("pointerdown",function(ev){
+    if(ev.button!==0||ev.pointerType!=="mouse"||ev.target.closest("a,button,input,label,summary,details")) return;
+    ev.preventDefault();
+    var r=sec.getBoundingClientRect(), x=Math.min(Math.max(ev.clientX-r.left,96),r.width-96), y=Math.max(ev.clientY-r.top,70);
+    var p=document.createElement("div"); p.className="pq"; p.setAttribute("aria-hidden","true");
+    p.style.left=x+"px"; p.style.top=y+"px"; p.style.setProperty("--rot",(Math.random()*8-4).toFixed(1)+"deg");
+    p.textContent=Q[n%Q.length]; n++; sec.appendChild(p);
+    var all=sec.querySelectorAll(".pq:not(.gone)");
+    if(all.length>MAX){var o=all[0];o.classList.add("gone");setTimeout(function(){o.remove();},450);}
+  });
+})();
+
 
 }catch(e){console.error(e);}

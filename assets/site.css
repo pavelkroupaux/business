@@ -7,6 +7,7 @@
   --ink:#111111; --muted:#5B5B55; --faint:#77776F; --line:#E6E6E0;
   --grid:#EAEAE4;
   --fix:#FFCE1B; --fix-deep:#F0B800; --on-fix:#111111;
+  --marker:#E0241B;
   --paper:#F4F1EA; --paper-ink:#17140F; --paper-soft:#5A5449; --paper-hatch:#E4E0D6;
   --accent:#111111; --on-accent:#FFFFFF;
   --panel:#111111; --panel-deep:#0A0A08;
@@ -1488,7 +1489,7 @@ a.pick .svc-thumb{margin:0 0 10px}
 .hx-pen{position:absolute;left:0;top:0;pointer-events:none;z-index:3}
 .hx-pen-hint{display:none}
 @media (hover:hover) and (pointer:fine){
-  .hero2{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg transform='rotate(45 16 16)'%3E%3Crect x='12.5' y='2' width='7' height='19' rx='2' fill='%23111' stroke='%23fff' stroke-width='1.2'/%3E%3Crect x='12.5' y='4' width='7' height='4' fill='%23FFCE1B'/%3E%3Cpath d='M12.5 21 L19.5 21 L17.6 26.5 L14.4 26.5 Z' fill='%23111' stroke='%23fff' stroke-width='1.2'/%3E%3C/g%3E%3C/svg%3E") 8 24,crosshair}
+  .hero2{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cg transform='rotate(45 16 16)'%3E%3Crect x='12.5' y='2' width='7' height='19' rx='2' fill='%23111' stroke='%23fff' stroke-width='1.2'/%3E%3Crect x='12.5' y='4' width='7' height='4' fill='%23E0241B'/%3E%3Cpath d='M12.5 21 L19.5 21 L17.6 26.5 L14.4 26.5 Z' fill='%23E0241B' stroke='%23fff' stroke-width='1.2'/%3E%3C/g%3E%3C/svg%3E") 8 24,crosshair}
   .hero2 a,.hero2 button{cursor:pointer}
   .hx-pen-hint{display:block;margin:6px 0 0;max-width:none;text-align:right;font-family:var(--hand);font-size:15px;
     color:var(--faint);transition:opacity .4s}
@@ -1575,3 +1576,18 @@ a.pick .svc-thumb{margin:0 0 10px}
 .cx.still .m-fly,.cx.still .c-fly{opacity:0}
 .cx.still *{animation:none!important}
 @media(max-width:860px){.cx svg{max-width:300px}}
+/* lepítka v sekci „Kdy týmy potřebují moji pomoc“: kurzor je malé lepítko, klik nalepí větší s otázkou. Jen myš na počítači. */
+.pdots.pq-on{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3E%3Cg transform='rotate(-6 15 15)'%3E%3Cpath d='M5 5 H25 V20 L20 25 H5 Z' fill='%23FFCE1B' stroke='%23111' stroke-width='1.3' stroke-linejoin='round'/%3E%3Cpath d='M25 20 H20 V25' fill='%23F0B800' stroke='%23111' stroke-width='1.3' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E") 15 15,copy}
+.pdots.pq-on a,.pdots.pq-on button{cursor:pointer}
+.pq{position:absolute;z-index:4;width:172px;min-height:120px;box-sizing:border-box;margin:-60px 0 0 -86px;padding:16px 16px 18px;
+  background:linear-gradient(176deg,var(--fix) 0%,var(--fix-deep) 100%);color:var(--on-fix);border-radius:2px;
+  box-shadow:0 1px 1px rgba(0,0,0,.20),0 16px 20px -12px rgba(0,0,0,.55);
+  font-family:var(--hand);font-size:19px;font-weight:500;line-height:1.3;pointer-events:none;
+  transform:rotate(var(--rot,0deg));animation:stick .46s cubic-bezier(.2,.8,.3,1.05) both;transition:opacity .4s}
+.pq.gone{opacity:0}
+.pdots.pq-on,.pdots.pq-on *{-webkit-user-select:none;user-select:none}
+@media(prefers-reduced-motion:reduce){.pq{animation:none}}
+/* portfolio: nenápadný odkaz na laboratoř pod referencemi */
+.lab-note{margin:22px 0 0;max-width:640px;font-size:15px;line-height:1.5;color:var(--faint)}
+.lab-note a{color:var(--muted);text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px;text-decoration-thickness:1.5px}
+.lab-note a:hover{color:var(--ink);text-decoration-color:var(--marker)}

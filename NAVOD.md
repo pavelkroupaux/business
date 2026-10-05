@@ -49,7 +49,15 @@ Telefon na webu není. Kdyby se přidával, nevypisuj ho do HTML, ať ho nenajdo
 
 ## Kreslení v úvodu
 
-Na počítači s myší jde po úvodní sekci kreslit. Kód je na konci `assets/site-cs.js` / `site-en.js` (blok „Kreslení fixou…“), vzhled v `assets/site.css` (`.hx-pen`).
+Na počítači s myší jde po úvodní sekci kreslit. Kód je na konci `assets/site-cs.js` / `site-en.js` (blok „Kreslení fixou…“), vzhled v `assets/site.css` (`.hx-pen`). Fix kreslí červeně, barva je proměnná `--marker` v `assets/site.css`.
+
+## Lepítka s otázkami
+
+V sekci „Kdy týmy potřebují moji pomoc“ je na počítači s myší kurzor malé lepítko a klik kamkoli nalepí větší lepítko s další otázkou (najednou jich je nejvýš šest). Otázky jsou ve skriptu (`site-cs.js` / `site-en.js`, blok „Lepítka s otázkami…“), vzhled v `assets/site.css` (`.pq`).
+
+## Tlačítko Reference
+
+Tlačítko Reference na úvodu vede na `/portfolio/#reference`. Skript (hledej `toRefs`) ukáže portfolio a pak plynule sjede na reference. Pod referencemi je odkaz na lab.pavelkroupa.com (`.lab-note`).
 
 ## Náhled před uložením
 
