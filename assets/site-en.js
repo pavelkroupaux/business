@@ -316,29 +316,8 @@ try{
 
 }catch(e){console.error(e);}
 try{
-(function(){var f=document.getElementById("ct-form");if(!f)return;
-  /* Odeslání e-mailem přes FormSubmit, viz kolo 19. */
-  var TO="https://formsubmit.co/ajax/design@pavelkroupa.com",busy=false;
-  f.addEventListener("submit",function(e){e.preventDefault();if(busy)return;var bad=[];
-    [].forEach.call(f.querySelectorAll("[required]"),function(el){var ok=el.value.trim()&&(el.type!=="email"||/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value.trim()));
-      el.classList.toggle("bad",!ok);if(!ok)bad.push(el);});
-    var err=f.querySelector(".ct-err");
-    if(bad.length){err.textContent="Please enter your name, your email address, and a few sentences.";bad[0].focus();return;}
-    err.textContent="";
-    function v(n){var el=f.elements[n];return el?el.value.trim():"";}
-    function done(){f.querySelector(".ct-done").hidden=false;f.querySelector(".ct-actions").hidden=true;}
-    if(v("_honey")){done();return;}
-    var sel=f.elements.service,btn=f.querySelector("button[type=submit]"),label=btn.textContent;
-    var data={name:v("name"),email:v("email"),service:sel&&sel.value?sel.options[sel.selectedIndex].text:"",
-      company:v("company"),message:v("msg"),page:location.href,_template:"basic",_captcha:"false",
-      _subject:"Zpráva z webu pavelkroupa.com"+(document.documentElement.lang==="en"?" (EN)":"")+": "+v("name")};
-    busy=true;btn.disabled=true;btn.textContent="Sending…";
-    fetch(TO,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(data)})
-      .then(function(r){return r.json().catch(function(){return {};}).then(function(j){if(!r.ok||String(j.success)!=="true")throw new Error(j.message||r.status);});})
-      .then(done,function(){err.textContent="Your message didn't go through. Please try again, or email me at info@pavelkroupa.com.";})
-      .then(function(){busy=false;btn.disabled=false;btn.textContent=label;});
-  });
-})();
+/* Kontakt: e-mail s předvyplněným předmětem a začátkem zprávy (bez skriptu zůstává prostý odkaz). */
+(function(){var a=document.getElementById("mail-go");if(a)a.href="mailto:info@pavelkroupa.com?subject="+encodeURIComponent("Inquiry from the website")+"&body="+encodeURIComponent("We are stuck on: ");})();
 
 }catch(e){console.error(e);}
 try{

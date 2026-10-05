@@ -39,9 +39,11 @@ Každá stránka je samostatný soubor, takže co je na víc místech, je potře
 - **Vzhled**: barvy jen z proměnných v `assets/site.css` (`--ink`, `--fix` a další, přehled je na `/ds/`). Vyzkoušet ve světlém i tmavém režimu a na mobilu (320 px).
 - Prohlížeč si styl a skripty pamatuje asi 10 minut. Když změna není hned vidět, obnov stránku s Shift.
 
-## Kontaktní formulář
+## Kontakt
 
-Zprávy chodí e-mailem na `design@pavelkroupa.com` přes službu FormSubmit (formsubmit.co). Adresa je v `assets/site-cs.js` a `assets/site-en.js` (hledej `formsubmit`). Poprvé je potřeba formulář aktivovat odkazem „Activate Form“ z e-mailu, který FormSubmit pošle. FormSubmit nemá smlouvu o zpracování podle GDPR, při přechodu na jinou službu se mění jen ten řádek s adresou a tvar odesílaných dat.
+Web nemá formulář. Stránka Kontakt (`contact/index.html`, `en/contact/index.html`) nabízí dvě cesty: napsat e-mail a vybrat termín hovoru na `cal.com/pavelkroupa`. Tlačítko „Napsat e-mail“ (`#mail-go`) dostane ve skriptu (`site-cs.js` / `site-en.js`, hledej `mail-go`) předmět a začátek zprávy, bez skriptu je to prostý odkaz.
+
+Telefon na webu není. Kdyby se přidával, nevypisuj ho do HTML, ať ho nenajdou sběrače: skriptem ho slož až po kliknutí na tlačítko „Zobrazit telefon“. To chrání před běžnými roboty, ne před robotem, který umí kliknout.
 
 ## Kreslení v úvodu
 

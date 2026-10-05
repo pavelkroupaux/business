@@ -1507,3 +1507,16 @@ a.pick .svc-thumb{margin:0 0 10px}
 .ctl a.lang:hover{background:var(--surface);color:var(--ink)}
 @media(max-width:340px){.top #theme{display:none}}
 .notfound .wrap{padding-block:120px 140px}
+
+
+/* ---------- v5 kolo 20: kontakt bez formuláře ---------- */
+.ct-ways{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:44px;text-align:left}
+.ct-way{display:flex;flex-direction:column;gap:14px;background:var(--raise);border-radius:24px;box-shadow:var(--glass-shadow);padding:32px;min-width:0}
+.ct-way .op-h{margin:0}
+.ct-way .mail{font-family:var(--display);font-size:clamp(20px,2.6vw,28px);font-weight:600;color:var(--ink);user-select:all;overflow-wrap:anywhere}
+.ct-way-t{margin:0;color:var(--muted);font-size:16px}
+.ct-way-b{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto;padding-top:6px}
+.ct-more{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:22px;text-align:left;align-items:start}
+.ct-ph{margin:14px 0 0}
+.ct-ph a{font-family:var(--display);font-size:19px;font-weight:600;color:var(--ink)}
+@media(max-width:860px){.ct-ways,.ct-more{grid-template-columns:1fr}.ct-way{padding:26px}}
