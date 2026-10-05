@@ -9,7 +9,7 @@ var CS = {};  /* slovník EN→CS z verze 4 smazán v kole 18 */
 
 (function(){
   /* ---------- routing ---------- */
-  var map={"/":"v-home","/portfolio":"v-portfolio","/reference":"v-portfolio","/work/heirloom":"v-case-heirloom","/work/coinmate":"v-case-coinmate","/work/leeaf":"v-case-leeaf","/work/breno":"v-case-breno","/services":"v-services","/services/decision-prototype":"v-svc-dp","/services/fractional":"v-svc-fractional","/services/audit":"v-svc-audit","/about":"v-about","/contact":"v-contact","/contact/decision-prototype":"v-contact","/contact/audit":"v-contact","/contact/fractional":"v-contact"};
+  var map={"/":"v-home","/portfolio":"v-portfolio","/reference":"v-portfolio","/work/heirloom":"v-case-heirloom","/work/coinmate":"v-case-coinmate","/work/leeaf":"v-case-leeaf","/work/breno":"v-case-breno","/work/wpp":"v-case-wpp","/services":"v-services","/services/decision-prototype":"v-svc-dp","/services/fractional":"v-svc-fractional","/services/audit":"v-svc-audit","/about":"v-about","/contact":"v-contact","/contact/decision-prototype":"v-contact","/contact/audit":"v-contact","/contact/fractional":"v-contact"};
   function route(){
     var h=document.documentElement.getAttribute("data-route")||"/";
     if(h.charAt(0)!=="/")h="/";
