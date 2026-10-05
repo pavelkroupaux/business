@@ -319,12 +319,16 @@ try{
 /* Kontakt: notebooky nad kartami se přehrají, když jsou vidět, a znovu po najetí myší nebo klepnutí. */
 (function(){var fs=document.querySelectorAll(".cx");if(!fs.length)return;
   if(window.matchMedia("(prefers-reduced-motion: reduce)").matches||!("IntersectionObserver" in window)){fs.forEach(function(f){f.classList.add("still");});return;}
-  fs.forEach(function(f,i){var busy=false,card=f.closest(".ct-way")||f;
+  /* Kalendář se poprvé přehraje až po dokončení e-mailu (asi 4,8 s), pak už každý zvlášť. */
+  var plays=[].map.call(fs,function(f){var busy=false,card=f.closest(".ct-way")||f;
     function play(){if(busy)return;busy=true;f.classList.remove("play");void f.getBoundingClientRect();f.classList.add("play");setTimeout(function(){busy=false;},5000);}
     card.addEventListener("mouseenter",function(){if(f.classList.contains("play"))play();});
     f.addEventListener("click",play);
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){setTimeout(play,i*450);io.disconnect();}});},{threshold:.5});
-    io.observe(f);});
+    return play;});
+  /* Každý se pustí, až je vidět a předchozí dohrál (na mobilu jsou karty pod sebou). */
+  var seen=[],ready=[true];
+  function go(i){if(seen[i]&&ready[i]&&plays[i]){plays[i]=(plays[i](),null);if(i+1<fs.length)setTimeout(function(){ready[i+1]=true;go(i+1);},4800);}}
+  [].forEach.call(fs,function(f,i){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){io.disconnect();seen[i]=true;go(i);}});},{threshold:.5});io.observe(f);});
 })();
 
 }catch(e){console.error(e);}
