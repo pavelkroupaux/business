@@ -2,7 +2,7 @@
 """Rozdělí web z jednoho souboru na samostatné stránky, česky i anglicky.
 
 Zdroj:  web/src/index.html  (celý web v jednom souboru, sekce za #/, otevře se i jako náhled;
-        je to index.html z buildu ve vaultu, build_v5b.py s koly až po v5_round18.py)
+        je to index.html z buildu ve vaultu, build_v5b.py s koly až po v5_round19.py)
 Výstup: kořen repozitáře, ten publikuje GitHub Pages (větev main, složka / (root)):
         index.html, about/, contact/, portfolio/…, services/…   české stránky
         en/…                    anglické stránky (/en/, /en/portfolio/ …)

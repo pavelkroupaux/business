@@ -71,6 +71,7 @@ QUOTES = {
     "ruka2": "ruka zůstává bez skla: lepítka, linka, polaroid",
     "hero": "linka vteče do tváře a vyjde rovná",
     "nalepeni": "nalepení: přiletí shora, přitiskne se, dosedne",
+    "pero": "Kreslení fixou na tečkovaném papíře v úvodu. Jen myš na počítači, tahy po chvíli zmizí.",
     "tmavy": "Tmavý režim: z tabule se stane černá tabule. Fix zůstává žlutý.",
     "tokeny": "doplňky pro nový obsah, jen z tokenů",
     "stred": "section heads centre, reading stays left (Apple)",
@@ -80,7 +81,7 @@ QUOTES = {
 MOTION_CHECK = ["translateY(16px)", "opacity .7s cubic-bezier(.2,.7,.3,1)", "*55+\"ms\"", "stick .46s",
                 "translateY(-30px) rotate(calc(var(--rot) - 7deg)) scale(1.07)", "idx*260", "scale(1.015)",
                 ".btn:hover{transform:translateY(-1px)}", "translateX(4px)", "animation-play-state:paused",
-                "prefers-reduced-motion:reduce"]
+                "prefers-reduced-motion:reduce", "HOLD=2600", "?1:1200", "lineWidth=5"]
 
 TOKENS = [
     ("Plochy", [("--ground", "Podklad stránky"),
@@ -719,6 +720,7 @@ def build(ctx):
         <div class="ds-card"><h3>Najetí myší</h3><p>Karta se zvětší o 1,5 % (0,5 s), tlačítko povyskočí o 1 px, šipka odkazu popojede o 4 px. Pás log a fotek jede dokola a pod myší se zastaví.</p>
           <div class="ds-stage"><div class="row"><a class="btn btn-fill" href="#pohyb">Tlačítko</a><a class="lnk" href="#pohyb">Odkaz se šipkou</a></div></div></div>
         <div class="ds-card"><h3>Lepítka</h3>{q("nalepeni")}<p>Přiletí o 30 px shora, natočená o 7° víc, a dosednou za 0,46 s. Každé další o 260 ms později. Ukázka je u komponenty Lepítka.</p></div>
+        <div class="ds-card"><h3>Kreslení v úvodu</h3>{q("pero")}<p>Kurzor je tužka. Tah má barvu písma (<code>--ink</code>) a tloušťku 5 px, drží 2,6 s a pak za 1,2 s zmizí. Na telefonu a tabletu se nekreslí a pod kresbou v úvodu se ukáže nápověda „tady můžete kreslit“. Při omezeném pohybu tah zmizí bez stmívání.</p></div>
       </div>
       <div class="ds-card" style="margin-top:16px"><h3>Kresba notebooku</h3><p>Notebook se otevře, nakreslí se problém, řešení a tok obrazovek, kurzor klikne. Spustí se, když je kresba z poloviny vidět.</p>
         {lap}</div>
@@ -747,7 +749,8 @@ def build(ctx):
         demo("Obory", "Kde mám zkušenost. Malé šedé ikony, nekřičí. Na mobilu se z nich stanou štítky.", sectors),
         demo("Citát na černé", "Doporučení jako papír položený na tabuli. Původní znění z LinkedInu.", f'<div class="panel">{quote}</div>', src=quote),
         demo("Polaroid", "Portrét jako předmět: papír, natočení, podpis ručním písmem.", f'<div style="padding:10px 0 4px">{polaroid}</div>', src=polaroid),
-        demo("Formulář", "Pole s popiskem nad sebou. Při psaní žlutý rámeček, chyba červeně #D93025.", fields),
+        demo("Formulář", "Pole s popiskem nad sebou. Při psaní žlutý rámeček, chyba červeně #D93025. "
+             "Zpráva odchází e-mailem na design@pavelkroupa.com přes FormSubmit.", fields),
         demo("Výzva na konci stránky", "Černý panel s jedním žlutým tlačítkem. Na konci každé stránky.", cta, cls="ds-wide"),
     ])
     komponenty = f'''

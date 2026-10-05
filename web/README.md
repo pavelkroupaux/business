@@ -5,7 +5,7 @@ Statický web, česky a anglicky. Zdroj je jeden soubor, ze kterého se vyrobí 
 | Cesta | Co to je |
 |---|---|
 | `src/index.html` | celý web v jednom souboru (sekce za `#/`). Je to `index.html` z buildu ve vaultu. Otevřený v prohlížeči slouží jako náhled. |
-| `build/` | build ve vaultu (`build_v5b.py`, kola `v5_round2.py` až `v5_round18.py`, loga, `og.py`, písma) a skripty pro samostatné stránky (`pages.py`, `i18n.py`, `en.py`, `ds.py`, `og_en.py`) |
+| `build/` | build ve vaultu (`build_v5b.py`, kola `v5_round2.py` až `v5_round19.py`, loga, `og.py`, písma) a skripty pro samostatné stránky (`pages.py`, `i18n.py`, `en.py`, `ds.py`, `og_en.py`) |
 | `build/fonts/web/` | písmo Shantell Sans pro web (woff2, stejné soubory jako na Google Fonts a malý český výřez) |
 | `public/` | stará kopie webu pro Cloudflare Pages. Nepoužívá se, dá se smazat. |
 
@@ -30,7 +30,7 @@ V kořeni repozitáře:
 
 Knihovny pro krok 3 a 4 jsou v `build/requirements.txt` (`pip3 install -r web/build/requirements.txt`). Bez nich se stránky vyrobí taky, jen bez zmenšeného stylu a skriptu a bez fotek ve WebP. `pages.py` to na konci vypíše.
 
-Kolo 18 obsahuje opravy, které vznikly v repozitáři (roky Leeaf, galerie v O mně, hlavička na mobilu, nadpisy na nejmenších telefonech, notebook a infografiky při omezeném pohybu a další, popis je v souboru). Musí být i ve vaultu, jinak je další build vrátí zpátky. Ve vaultu stačí zkopírovat `v5_round18.py`, `build_v5b.py` a `src/img/mapa-prototypu.jpg`.
+Kolo 18 obsahuje opravy, které vznikly v repozitáři (roky Leeaf, galerie v O mně, hlavička na mobilu, nadpisy na nejmenších telefonech, notebook a infografiky při omezeném pohybu a další, popis je v souboru). Kolo 19 přidává kreslení v úvodu a odesílání kontaktního formuláře. Obě kola musí být i ve vaultu, jinak je další build vrátí zpátky. Ve vaultu stačí zkopírovat `v5_round18.py`, `v5_round19.py`, `build_v5b.py` a `src/img/mapa-prototypu.jpg`.
 
 `pages.py` hlídá, aby se nic nerozjelo, a když něco nesedí, skončí chybou:
 - každá stránka má právě jeden nadpis `h1` a žádný zástupný text v hranatých závorkách,
@@ -65,6 +65,20 @@ Přepínač CS/EN v hlavičce vede na stejnou stránku v druhém jazyce.
 - Styl a skripty jsou zmenšené, fotky ve WebP (jen když vyjdou aspoň o 10 % menší, jinak zůstává JPEG). SVG bez balastu z editoru.
 - Soubory v `assets/` mají v názvu otisk obsahu. Po změně dostanou nový název, takže prohlížeč nikdy nepoužije starou verzi.
 - Zvolený světlý nebo tmavý režim se nastaví hned na začátku stránky, takže při přechodu mezi stránkami nic neproblikne.
+
+## Kontaktní formulář
+
+Zpráva z formuláře přijde e-mailem na `design@pavelkroupa.com`. Posílá ji služba FormSubmit (formsubmit.co), zdarma, bez účtu a bez klíče. Odpověď z pošty jde rovnou na e-mail, který člověk vyplnil.
+
+- Poprvé přijde na `design@pavelkroupa.com` e-mail od FormSubmit s odkazem Activate Form. Po kliknutí chodí zprávy rovnou. Zpráva, která aktivaci spustila, nedorazí a formulář u ní ukáže chybu.
+- V e-mailu je jméno, e-mail, služba, firma, zpráva a stránka, ze které přišla. Předmět je „Zpráva z webu pavelkroupa.com: jméno“, u anglické verze s „(EN)“.
+- Když se odeslání nepovede, formulář to napíše a nabídne `info@pavelkroupa.com`.
+- Proti robotům je ve formuláři skryté pole. Když ho někdo vyplní, zpráva se neodešle.
+- Adresa je v `build/v5_round19.py` (`FORM_TO_19`). Po změně se musí znovu vyrobit zdroj a stránky. FormSubmit po aktivaci nabízí náhradní řetězec, který adresu ve zdroji stránky schová. Stačí ho dát místo adresy.
+
+## Kreslení v úvodu
+
+Na počítači s myší jde po úvodní sekci kreslit, kurzor je tužka. Tah má barvu písma, chvíli zůstane a pak zmizí. Na telefonu a tabletu se nekreslí, stránka se posouvá jako dřív. Pod kresbou je nápověda „tady můžete kreslit“, po prvním tahu zmizí. Kód je v kole 19.
 
 ## Design systém
 
@@ -111,12 +125,11 @@ python3 export_pk.py      # logo pk
 python3 export_logo.py    # lepítko a favikona
 ```
 
-- `build_v5b.py` vezme `src/site-v4.html` a texty z `src/v5src/` a postupně spustí `v5_round2.py` až `v5_round18.py`. Každé kolo je jedna sada úprav.
+- `build_v5b.py` vezme `src/site-v4.html` a texty z `src/v5src/` a postupně spustí `v5_round2.py` až `v5_round19.py`. Každé kolo je jedna sada úprav.
 - Loga klientů čte z `Career/07 Assets/loga klientů/`. Ta složka v repu není, build proto funguje jen uvnitř vaultu.
 - Písma jsou v `build/fonts/` (Inter a Shantell Sans, licence SIL OFL 1.1, texty licencí jsou vedle).
 - `qa.py` vyrobí náhledovou stránku s webem v několika šířkách. Ukládá do `build/_draft/`, a ta složka se do gitu nenahrává.
 
 ## Co zatím nefunguje
 
-- Kontaktní formulář nic neodesílá, jen ukáže potvrzení. Je potřeba napojit službu pro formuláře.
 - Případ Heirloom zatím nemá citaci. Doplní se do zdroje za odstavec „Jak to dopadlo“, ve stejném tvaru jako `case-ref` u ostatních případů.
