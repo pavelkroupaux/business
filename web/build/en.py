@@ -71,6 +71,9 @@ en: decided, agreed, written down
 cs: <span>tým se cyklí<br>ve schůzkách</span><span>rozhodnuto,<br>dohodnuto,<br>zapsáno</span>
 en: <span>a team going<br>in circles</span><span>decided,<br>agreed,<br>written down</span>
 
+cs: tady můžete kreslit
+en: you can draw here
+
 cs: Kde jsem pracoval
 en: Where I've worked
 
@@ -1295,8 +1298,8 @@ en: Company <i>optional</i>
 cs: Odeslat
 en: Send
 
-cs: <b>Díky, mám to.</b> Ozvu se na e-mail, který jste vyplnili.<small>Prototyp: formulář zatím nikam neodesílá.</small>
-en: <b>Thanks, got it.</b> I'll reply to the email address you entered.<small>Prototype: this form doesn't send messages yet.</small>
+cs: <b>Díky, mám to.</b> Ozvu se na e-mail, který jste vyplnili.
+en: <b>Thanks, got it.</b> I'll reply to the email address you entered.
 
 cs: Raději napřímo?
 en: Prefer to reach me directly?
@@ -1463,6 +1466,9 @@ JS = [
     ('"Skrýt podrobnosti"', '"Hide details"'),
     ('"Jak to probíhá podrobně"', '"See how it works in detail"'),
     ('"Vyplňte prosím jméno, e-mail a pár vět."', '"Please enter your name, your email address, and a few sentences."'),
+    ('"Odesílám…"', '"Sending…"'),
+    ('"Zprávu se nepodařilo odeslat. Zkuste to prosím znovu, nebo mi napište na info@pavelkroupa.com."',
+     "\"Your message didn't go through. Please try again, or email me at info@pavelkroupa.com.\""),
 ]
 
 # ---------------------------------------------------------------- metadata
