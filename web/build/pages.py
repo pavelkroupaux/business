@@ -3,12 +3,15 @@
 
 Zdroj:  web/src/index.html  (celý web v jednom souboru, sekce za #/, otevře se i jako náhled;
         je to index.html z buildu ve vaultu, build_v5b.py s koly až po v5_round18.py)
-Výstup: web/public/…            české stránky (/, /portfolio, /services/audit …)
-        web/public/en/…         anglické stránky (/en/, /en/portfolio …)
-        web/public/404.html, web/public/en/404.html
-        web/public/ds.html      design systém na /ds, jen pro vnitřní potřebu (ds.py)
-        web/public/assets/      styl, skripty, písmo a obrázky vytažené ze souboru
-        web/public/sitemap.xml
+Výstup: kořen repozitáře, ten publikuje GitHub Pages (větev main, složka / (root)):
+        index.html, about/, contact/, portfolio/…, services/…   české stránky
+        en/…                    anglické stránky (/en/, /en/portfolio/ …)
+        404.html, en/404.html
+        ds/                     design systém na /ds/, jen pro vnitřní potřebu (ds.py)
+        assets/                 styl, skripty, písmo a obrázky vytažené ze souboru
+        sitemap.xml
+        Každá stránka je složka s index.html, adresy končí lomítkem (/about/). Starou adresu bez
+        lomítka (/about) GitHub Pages přesměruje.
 
 Spuštění z kořene repozitáře (knihovny: pip3 install -r web/build/requirements.txt):
     python3 web/build/pages.py
@@ -21,7 +24,8 @@ Odkud se co bere:
 
 Skript skončí chybou, když něco nesedí: chybí anglický překlad, cena ve strukturovaných datech
 není vidět na stránce, stránka nemá právě jeden nadpis h1, zůstal odkaz #/ nebo zástupný text.
-Ruční soubory ve web/public (robots.txt, llms.txt, ikony, og/, logo/, _headers, site.webmanifest) nemění.
+Ruční soubory v kořeni (robots.txt, llms.txt, ikony, og/, logo/, site.webmanifest, CNAME, _config.yml)
+ani složku web/ nemění.
 """
 import ast
 import base64
@@ -55,9 +59,10 @@ except ImportError:
 
 WEB = BUILD.parent
 SRC = WEB / "src" / "index.html"
-OUT = WEB / "public"
+OUT = WEB.parent          # kořen repozitáře = to, co publikuje GitHub Pages
 ASSETS = OUT / "assets"
-SITE = "https://www.pavelkroupa.com"
+# Hlavní adresa. GitHub Pages má vlastní doménu pavelkroupa.com (soubor CNAME), www přesměruje sem.
+SITE = "https://pavelkroupa.com"
 TODAY = datetime.date.today().isoformat()
 
 # Struktura webu. route = klíč ze zdrojového #/ routeru, path = adresa české stránky
@@ -160,18 +165,20 @@ SERVICE_PATHS = {"dp": "/services/decision-prototype", "audit": "/services/audit
 
 
 def path_for(route, lang):
-    """#/ route ze zdroje -> skutečná adresa v daném jazyce."""
+    """#/ route ze zdroje -> skutečná adresa v daném jazyce. Stránky jsou složky s index.html,
+    adresy proto končí lomítkem (/portfolio/, /services/audit/). Tak je GitHub Pages obslouží vždy:
+    /portfolio/ je stránka, /portfolio přesměruje na /portfolio/."""
     if route == "/reference":
-        p = "/portfolio#refs"
+        p = "/portfolio/#refs"
     elif route.startswith("/work/"):
-        p = "/portfolio/" + route[len("/work/"):]
+        p = "/portfolio/" + route[len("/work/"):] + "/"
     elif route.startswith("/contact/"):
-        p = "/contact?service=" + route[len("/contact/"):]
+        p = "/contact/?service=" + route[len("/contact/"):]
+    elif route == "/":
+        p = "/"
     else:
-        p = route
-    if lang["prefix"]:
-        p = lang["prefix"] + ("/" if p == "/" else p)
-    return p
+        p = route.rstrip("/") + "/"
+    return lang["prefix"] + p
 
 
 def url_for(path):
@@ -393,8 +400,8 @@ def jsonld(r, lang, body, portrait):
 # ---------------------------------------------------------------- skript
 BLOCK = "\n/*<<block>>*/\n"
 SHIM = ("/* staré odkazy s #/ vedou na samostatné stránky */\n(function(){var h=location.hash;if(h.indexOf(\"#/\")!==0)return;"
-        "var r=h.slice(1),p=r===\"/reference\"?\"/portfolio#refs\":r.indexOf(\"/work/\")===0?\"/portfolio/\"+r.slice(6):"
-        "r.indexOf(\"/contact/\")===0?\"/contact?service=\"+r.slice(9):r;location.replace(p);})();\n")
+        "var r=h.slice(1),p=r===\"/reference\"?\"/portfolio/#refs\":r.indexOf(\"/work/\")===0?\"/portfolio/\"+r.slice(6)+\"/\":"
+        "r.indexOf(\"/contact/\")===0?\"/contact/?service=\"+r.slice(9):r.slice(-1)===\"/\"?r:r+\"/\";location.replace(p);})();\n")
 
 
 def build_js(scripts, swaps=()):
@@ -439,6 +446,9 @@ EXTRA_CSS = """
 EARLY_THEME = ('<script>try{var t=localStorage.getItem("pk-theme");if(t==="light"||t==="dark")'
                'document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>')
 
+# GitHub Pages má jen jednu stránku 404 (v kořeni, česky). Na adresách /en/… přesměruje na anglickou.
+EN_404 = r'<script>if(/^\/en(\/|$)/.test(location.pathname))location.replace("/en/404.html")</script>'
+
 PLACEHOLDER = re.compile(r"\[(?:[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ]{3,}[^\]]*)\]")
 
 
@@ -460,16 +470,13 @@ def main():
     old_switch = '<button type="button" id="lang" aria-label="Jazyk" hidden>EN</button>'
     assert header.count(old_switch) == 1
 
-    # úklid starého výstupu (jen to, co vyrábí tenhle skript)
-    shutil.rmtree(ASSETS, ignore_errors=True)
-    for d in ("portfolio", "services"):
+    # úklid starého výstupu: jen to, co vyrábí tenhle skript (výstup je v kořeni repozitáře)
+    generated = {r["path"].strip("/").split("/")[0] for r in ROUTES if r["path"] != "/"} | {"en", "ds", "assets"}
+    assert not generated & {"web", "logo", "og", ".git", ".github"}, generated
+    for d in sorted(generated):
         shutil.rmtree(OUT / d, ignore_errors=True)
-    for f in OUT.glob("*.html"):
-        f.unlink()
-    for f in (OUT / "en").glob("**/*.html") if (OUT / "en").exists() else []:
-        f.unlink()
-    for d in ("portfolio", "services"):
-        shutil.rmtree(OUT / "en" / d, ignore_errors=True)
+    for f in ("index.html", "404.html"):
+        (OUT / f).unlink(missing_ok=True)
     ASSETS.mkdir(parents=True)
 
     font_css, font_urls = install_fonts()
@@ -597,8 +604,8 @@ def main():
             assert "data:image" not in page_html and 'href="#/' not in page_html
             report.append((path, f.stat().st_size))
 
-    # Stránka 404 pro každou verzi: hlavička, krátký text a patička webu. Cloudflare Pages
-    # pro neexistující adresu vrátí nejbližší 404.html (pro /en/… tu anglickou).
+    # Stránka 404 pro každou verzi: hlavička, krátký text a patička webu. GitHub Pages vrátí pro
+    # neexistující adresu vždy 404.html z kořene; ta na adresách /en/… přejde na en/404.html (EN_404).
     for lang in LANGS:
         nf = lang["notfound"]
         other = EN_ if lang is CS else CS
@@ -620,7 +627,7 @@ def main():
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#FFCE1B">
-{EARLY_THEME}
+{EARLY_THEME if lang is EN_ else EN_404 + chr(10) + EARLY_THEME}
 {preload[lang["lang"]]}
 <link rel="stylesheet" href="{css_url}">
 
@@ -654,12 +661,13 @@ def main():
     # Design systém na /ds: jen pro vnitřní potřebu, bez odkazu odjinud a mimo sitemap.xml
     ds_html, ds_warnings = ds.build(dict(
         views=views, css=css, js="\n".join(scripts), cs=CS, en=EN_, out=OUT,
-        map_links=lambda m: map_links(m, CS),
+        map_links=lambda m: map_links(m, CS), path=lambda r: path_for(r, CS),
         header=map_links(header.replace(old_switch, ""), CS), footer=map_links(footer, CS),
         meta_text=" ".join(m["title"] + " " + m["desc"] for m in CS["meta"].values()),
         css_url=css_url, js_url=js_urls["cs"], preload=preload["cs"], font_urls=font_urls, early_theme=EARLY_THEME,
         minify_css=rcssmin.cssmin if rcssmin else str.strip, minify_js=rjsmin.jsmin if rjsmin else str.strip))
-    (OUT / "ds.html").write_text(ds_html, encoding="utf-8")
+    (OUT / "ds").mkdir(exist_ok=True)
+    (OUT / "ds" / "index.html").write_text(ds_html, encoding="utf-8")
     for w in ds_warnings:
         print(f"Pozor, design systém (web/build/ds.py): {w}", file=sys.stderr)
 

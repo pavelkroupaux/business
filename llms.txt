@@ -1,0 +1,84 @@
+# Pavel Kroupa
+
+> Pomáhám týmům rozhodnout, co postavit. Sednu si s těmi, kdo rozhodují, udělám funkční prototyp a s AI máme hotové zadání za dny, ne týdny. Praha, Amsterdam a online.
+
+English: Pavel Kroupa is a product definition and design lead based in Prague and Amsterdam. He runs decision workshops, builds functional prototypes with AI in days and turns them into specs engineering can build from. Clients include regulated crypto, banking and healthcare. English version of the site: https://pavelkroupa.com/en/ (see the English section at the end of this file).
+
+Třináct let dovádím týmy k rozhodnutí. Přicházím tam, kde se o produktu ještě nerozhodlo, nebo kde se tým cyklí a potřebuje se pohnout dál. Nejlíp mi to jde s týmy, kde chyba něco stojí. Regulátor, licence, zdraví, něčí úspory.
+
+Web je česky na https://pavelkroupa.com/ a anglicky na https://pavelkroupa.com/en/. Všechny ceny jsou v Kč.
+
+## Kdy mě týmy volají
+
+- Mluví se a mluví. Co dělat, všichni tuší. Nikdo to nechce vzít na sebe.
+- Zadání se každý týden upravuje. Vývoj staví jen to jisté, nebo čeká.
+- Každé oddělení má veto. Nikdo nemá celý seznam omezení.
+- Rozhodovat je potřeba hned. Nový člověk nastoupí za půl roku.
+
+## Služby
+
+- [Decision Prototype](https://pavelkroupa.com/services/decision-prototype/): Rozhodnutí, na které se dá kliknout. Přinesete nerozhodnutou věc, odnesete rozhodnutí a funkční prototyp na webu, podle kterého se dá stavět. Jeden den od 49 000 Kč, dva dny od 125 000 Kč, týden od 220 000 Kč. V každé délce: problém, lidé a cíl sepsané předem, workshop s lidmi, kteří rozhodují, funkční prototyp na webu s heslem a komentáři a zápis, co jsme rozhodli a proč.
+- [Audit rozhodnutí](https://pavelkroupa.com/services/audit/): Projdu váš produkt a na nahrávce obrazovky ukážu, co nefunguje a v jakém pořadí bych to opravoval. Pět pracovních dní, bez schůzek. Od 29 000 Kč. Dostanete nahrávku s komentářem, seznam podle priority a doporučení: já, nový člověk, nebo nikdo.
+- [Vedení produktu a designu na část úvazku](https://pavelkroupa.com/services/fractional/): Dva dny v týdnu sedím ve vašem týmu, nejméně tři měsíce. Rozhoduju s vámi u porad vedení i produktu a držím směr, aby se vývoj necyklil. Až přijmete někoho natrvalo, předám mu všechno písemně. Od 120 000 Kč měsíčně.
+
+Platíte za projekt, ne za hodiny. Konečnou nabídku pošlu po první schůzce. Každá spolupráce začíná třicetiminutovým hovorem, bez prezentace. Nejsem plátce DPH.
+
+## Jak to probíhá
+
+- Předem: definice problému, týmu a cíle.
+- Na první schůzce: varianty kreslené během schůzky. Místo názorů pak vybíráte ze dvou nakreslených možností.
+- Druhý den: jeden směr jako prototyp. Funkční ukázka se skutečnými texty, i pro chvíle, kdy se něco pokazí.
+- Potom: funkční zadání, podle kterého staví vývoj. Každé rozhodnutí a jeho důvod.
+
+Prototyp není produkční kód. Používá vaše komponenty a běží na GitHubu za odkazem s heslem. Patří vám.
+
+## Vybrané případy
+
+- [Heirloom, 2026](https://pavelkroupa.com/portfolio/heirloom/): Digitální dědictví, nový produkt od nuly. Nový business směr uzavřený za čtyři sezení, s funkčním prototypem v každé iteraci.
+- [Coinmate, 2023–2026](https://pavelkroupa.com/portfolio/coinmate/): Regulovaná kryptoburza. Externě, dva dny v týdnu. Nejdřív design systém, potom nová identita. Rebranding spuštěn 1. 10. 2026.
+- [Leeaf, 2020–2023](https://pavelkroupa.com/portfolio/leeaf/): Zdravotnictví, léčba neplodnosti. Jeden design systém pro web, portál pro lékaře a mobilní aplikaci. Na stejném systému pak běžely další kliniky IVF.
+- [BRENO, 2023](https://pavelkroupa.com/portfolio/breno/): Maloobchod a e-shopy. Dvoudenní prioritizace business backlogu přes WPP. Vedení, vývoj i marketing se shodli na pořadí priorit.
+
+## Kde jsem pracoval
+
+- 2023–2026: Vedoucí produktového designu, Coinmate. Design systém od nuly, specifikace frontendu, podklady pro licenci MiCA a nová značka.
+- 2023–dosud: Zakládající designér a spoluzakladatel, Heirloom.
+- 2020–2023: Zakládající designér a vedoucí designu, Leeaf.
+- 2018–dosud: Na volné noze. Sprinty a výzkum pro Komerční banku, Českou spořitelnu, CEMEX a ESET. Workshop pro BRENO. Audity pro ESET, Jablotron a Centropol.
+- 2014–2018: UX designér v Monsteru a Usertechu.
+
+Obory: regulované krypto, bankovnictví, zdravotnictví, e-shopy, energetika, bezpečnostní software.
+
+## Klienti
+
+Komerční banka, Česká spořitelna, Modrá pyramida, Centropol, WPP, ESET, SatoshiLabs, Jablotron, Coinmate, Leeaf, BRENO.
+
+## Reference
+
+Doporučení od lidí z Coinmate, ESET, Product Fruits, EuroHealth Global Projects, Jablotron Cloud Services, Motionshift, Novatop a dalších jsou na webu v sekci [Portfolio](https://pavelkroupa.com/portfolio/). Všechna jsou veřejně na LinkedInu.
+
+## Kontakt
+
+- E-mail: info@pavelkroupa.com
+- Termín hovoru: https://cal.com/pavelkroupa
+- LinkedIn: https://www.linkedin.com/in/pavelkroupa/
+- [Kontakt na webu](https://pavelkroupa.com/contact/)
+- [O mně](https://pavelkroupa.com/about/)
+
+## Firemní údaje
+
+Pavel Kroupa, Mezno 88, 257 86 Mezno, Česká republika. IČO 87977753. Neplátce DPH.
+
+## English
+
+The same site in English. Prices are in Czech crowns (CZK).
+
+- [Home](https://pavelkroupa.com/en/): I help teams decide what to build. A workshop with your decision-makers, a working prototype, and a finished spec. With AI, in days, not weeks.
+- [Decision Prototype](https://pavelkroupa.com/en/services/decision-prototype/): A decision you can click through. You bring an open question. You leave with a decision and a working prototype on the web that engineering can build from. 1 day from CZK 49,000, 2 days from CZK 125,000, 1 week from CZK 220,000.
+- [Decision Audit](https://pavelkroupa.com/en/services/audit/): I review your product and show you, in a screen recording, what isn't working and the order I'd fix it in. 5 business days, no meetings. From CZK 29,000.
+- [Fractional product and design leadership](https://pavelkroupa.com/en/services/fractional/): 2 days a week on your team, for at least 3 months, until you hire someone permanent. From CZK 120,000 per month.
+- [Portfolio](https://pavelkroupa.com/en/portfolio/): Case studies from Heirloom (digital legacy, 2026), Coinmate (regulated crypto exchange, 2023–2026), Leeaf (fertility treatment, 2020–2023), and BRENO (retail and e-commerce, 2023), with recommendations from LinkedIn.
+- [About](https://pavelkroupa.com/en/about/): 13 years of guiding teams to decisions. Banking, healthcare, crypto. Prague and Amsterdam.
+- [Contact](https://pavelkroupa.com/en/contact/): Email info@pavelkroupa.com, book a call at https://cal.com/pavelkroupa.
+
+Company: Pavel Kroupa, Mezno 88, 257 86 Mezno, Czech Republic. Company ID (IČO) 87977753. Not registered for VAT.

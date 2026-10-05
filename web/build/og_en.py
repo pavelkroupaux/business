@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Obrázky pro sdílení (1200 × 630) pro anglickou verzi, stejně jako og.py pro českou.
 
-Kresby (úvodní linka, ilustrace služeb, loga případů) bere z vyrobených stránek ve web/public,
+Kresby (úvodní linka, ilustrace služeb, loga případů) bere z vyrobených stránek v kořeni repozitáře,
 takže popisky v nich jsou už přeložené. Proto se spouští až po pages.py:
 
     python3 web/build/pages.py
-    python3 web/build/og_en.py              # -> web/public/og/en/
+    python3 web/build/og_en.py              # -> og/en/
     python3 web/build/og_en.py --lang cs --out /tmp/og-kontrola   # česká kontrola proti og.py
 
 Potřebuje cairosvg, Pillow a fontTools (requirements.txt) a písma z build/fonts nainstalovaná
@@ -26,7 +26,7 @@ BUILD = os.path.dirname(os.path.abspath(__file__)) + "/"
 sys.path.insert(0, BUILD)
 from lockup import mark as _pk_mark  # noqa: E402
 
-PUBLIC = os.path.abspath(BUILD + "../public") + "/"
+PUBLIC = os.path.abspath(BUILD + "../..") + "/"   # kořen repozitáře, ten publikuje GitHub Pages
 FONTDIR = BUILD + "fonts/"
 F700 = FONTDIR + "Inter-700-full.ttf"
 F500 = FONTDIR + "Inter-500-full.ttf"
@@ -38,12 +38,12 @@ TEXTS = {
         pages="en/",
         home=("I help teams decide\nwhat to build.", "decide",
               "A working prototype and a finished spec. With AI, in days, not weeks."),
-        services=[("og-decision-prototype", "dp", "services/decision-prototype.html", "Decision Prototype",
+        services=[("og-decision-prototype", "dp", "services/decision-prototype/index.html", "Decision Prototype",
                    "A working prototype\nin a few days.", "working prototype", "1 day, 2 days, or a week.\nFrom CZK 49,000."),
-                  ("og-audit", "au", "services/audit.html", "Decision Audit",
+                  ("og-audit", "au", "services/audit/index.html", "Decision Audit",
                    "Find out what's\nholding back your\nproduct. In 5 days.", "holding back",
                    "A narrated screen recording and a\nprioritized list. From CZK 29,000."),
-                  ("og-fractional", "fr", "services/fractional.html", "Fractional product and design leadership",
+                  ("og-fractional", "fr", "services/fractional/index.html", "Fractional product and design leadership",
                    "A product lead\nuntil you hire one.", "product lead",
                    "2 days a week on your team.\nFrom CZK 120,000 per month.")],
         portfolio=("Portfolio", "4 companies.\n4 stuck products.", "stuck",
@@ -55,12 +55,12 @@ TEXTS = {
         pages="",
         home=("Pomáhám týmům rozhodnout, co postavit.", "rozhodnout",
               "Funkční prototyp a hotové zadání. S AI za dny, ne týdny."),
-        services=[("og-decision-prototype", "dp", "services/decision-prototype.html", "Decision Prototype",
+        services=[("og-decision-prototype", "dp", "services/decision-prototype/index.html", "Decision Prototype",
                    "Funkční prototyp\nza pár dní.", "Funkční prototyp", "Jeden den, dva, nebo týden.\nOd 49 000 Kč."),
-                  ("og-audit", "au", "services/audit.html", "Audit rozhodnutí",
+                  ("og-audit", "au", "services/audit/index.html", "Audit rozhodnutí",
                    "Zjistěte, co váš produkt brzdí.\nZa pět dní.", "brzdí",
                    "Nahrávka obrazovky a seznam podle priority.\nOd 29 000 Kč."),
-                  ("og-vedeni-produktu", "fr", "services/fractional.html", "Vedení produktu a designu na část úvazku",
+                  ("og-vedeni-produktu", "fr", "services/fractional/index.html", "Vedení produktu a designu na část úvazku",
                    "Vedení produktu, dokud nenajdete stálého člověka.", "Vedení produktu",
                    "Dva dny v týdnu ve vašem týmu.\nOd 120 000 Kč měsíčně.")],
         portfolio=("Portfolio", "Čtyři firmy. Čtyři zaseknuté produkty.", "zaseknuté",
