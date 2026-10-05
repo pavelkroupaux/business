@@ -10,4 +10,6 @@ build.zip
 *.log
 .env
 .env.local
-.wrangler/
+# místní náhled přes Jekyll (GitHub Pages)
+_site/
+.jekyll-cache/

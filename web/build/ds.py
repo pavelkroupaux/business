@@ -4,9 +4,8 @@ Vyrábí ji pages.py spolu s ostatními stránkami. Bere skutečný styl, skript
 webu a skutečné kusy stránek (karty, lepítka, otázky …), takže se změny na webu propíšou i sem.
 Barvy tokenů a rozměry písma čte až prohlížeč přímo ze stylu, ve světlém i tmavém režimu.
 
-Stránka není veřejná: nikde na ni nevede odkaz, není v sitemap.xml ani v llms.txt a má noindex
-(v hlavičce stránky, v _headers i v robots.txt). Kdo zná adresu, otevře ji. Skutečný zámek
-je Cloudflare Access (viz web/README.md).
+Stránka není veřejná: nikde na ni nevede odkaz, není v sitemap.xml ani v llms.txt, má noindex
+a robots.txt ji zakazuje. Kdo zná adresu, otevře ji: GitHub Pages neumí stránku zamknout heslem.
 
 Texty, které stránka cituje z webu (claim, ukázky hlasu, zásady z komentářů ve stylu), se při
 stavbě kontrolují. Když už na webu nejsou, pages.py vypíše upozornění a stránku je potřeba
@@ -433,6 +432,7 @@ JS = r"""
 def build(ctx):
     """Vrátí (HTML stránky, seznam upozornění). ctx připraví pages.py."""
     views, css_src, js_src = ctx["views"], ctx["css"], ctx["js"]
+    P = ctx["path"]   # adresa české stránky podle trasy webu, např. P("/contact") -> /contact/
     cs, en, out = ctx["cs"], ctx["en"], ctx["out"]
     fix_links = ctx["map_links"]
     warnings = []
@@ -511,7 +511,7 @@ def build(ctx):
           <span class="ds-k">Kontakt</span>
           <dl class="ds-dl"><dt>E-mail</dt><dd>info@pavelkroupa.com</dd><dt>Hovor</dt><dd><a href="https://cal.com/pavelkroupa" rel="noopener">cal.com/pavelkroupa</a></dd>
           <dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/pavelkroupa/" rel="noopener">linkedin.com/in/pavelkroupa</a></dd>
-          <dt>Působí</dt><dd>Praha a Amsterdam, online</dd><dt>Web</dt><dd>www.pavelkroupa.com, anglicky /en/</dd></dl>
+          <dt>Působí</dt><dd>Praha a Amsterdam, online</dd><dt>Web</dt><dd>pavelkroupa.com (www přesměruje sem), anglicky /en/</dd></dl>
         </div>
       </div>
     </div>
@@ -728,12 +728,12 @@ def build(ctx):
     # ------------------------------------------------ komponenty
     comps = "".join([
         demo("Tlačítka", "Plné pro hlavní akci, nejvýš jedno v sekci. Obrysové ze skla pro vedlejší. Na černém panelu je plné tlačítko žluté.",
-             '<div class="row"><a class="btn btn-fill" href="/contact">Domluvit 30minutový hovor</a>'
-             '<a class="btn btn-line" href="/portfolio">Ukázky práce</a></div>'
+             f'<div class="row"><a class="btn btn-fill" href="{P("/contact")}">Domluvit 30minutový hovor</a>'
+             f'<a class="btn btn-line" href="{P("/portfolio")}">Ukázky práce</a></div>'
              '<div class="panel ds-foot"><div class="row">'
-             '<a class="btn btn-fill" href="/contact">Domluvit 30minutový hovor</a></div></div>'),
+             f'<a class="btn btn-fill" href="{P("/contact")}">Domluvit 30minutový hovor</a></div></div>'),
         demo("Odkazy", "Odkaz v textu a pod kartou: žluté podtržení a šipka. Drobečková navigace nad nadpisem detailu.",
-             '<p style="margin:0 0 16px"><a class="lnk" href="/portfolio">Všechny případy</a></p>' + crumb),
+             f'<p style="margin:0 0 16px"><a class="lnk" href="{P("/portfolio")}">Všechny případy</a></p>' + crumb),
         demo("Nadpis sekce", "Štítek, nadpis a úvodní odstavec. Fix nejvýš dvakrát na stránku.",
              '<p class="eyebrow sig">Vybrané případy</p><h2>Rozhodnutí a jejich <span class="fix">důvody</span>.</h2>'
              '<p class="lede">Vyberte ten, který se podobá vašemu problému.</p>'),
@@ -826,11 +826,12 @@ def build(ctx):
       <div class="ds-grid two">
         <div class="ds-card"><span class="ds-k">Soubory</span>
           <dl class="ds-dl"><dt>Styl a tokeny</dt><dd><code>web/src/index.html</code>, proměnné na <code>:root</code>. Vzniká ve vaultu (<code>build_v5b.py</code> a kola).</dd>
-          <dt>Stránky</dt><dd><code>web/build/pages.py</code></dd>
+          <dt>Stránky</dt><dd><code>web/build/pages.py</code>, výstup v kořeni repozitáře</dd>
           <dt>Tato stránka</dt><dd><code>web/build/ds.py</code></dd>
           <dt>Písmo</dt><dd><code>web/build/fonts/web/</code></dd>
-          <dt>Loga</dt><dd><code>web/public/logo/</code>, ve vaultu <code>export_pk.py</code> a <code>export_logo.py</code></dd>
-          <dt>Sdílení</dt><dd><code>og.py</code> ve vaultu, anglicky <code>web/build/og_en.py</code></dd></dl></div>
+          <dt>Loga</dt><dd><code>logo/</code>, ve vaultu <code>export_pk.py</code> a <code>export_logo.py</code></dd>
+          <dt>Sdílení</dt><dd><code>og/</code>, česky z <code>og.py</code> ve vaultu, anglicky z <code>web/build/og_en.py</code></dd>
+          <dt>Hosting</dt><dd>GitHub Pages z větve <code>main</code>, doména v souboru <code>CNAME</code>. Cloudflare jen DNS.</dd></dl></div>
         <div class="ds-card"><span class="ds-k">Nová komponenta</span>''' + q("tokeny") + '''
           <ul class="ds-list"><li>Barvy jen z tokenů, žádné nové hodnoty.</li><li>Vyzkoušet ve světlém i tmavém režimu.</li>
           <li>Na tečkách jen neprůhledné věci.</li><li>Pohyb vypnout při omezeném pohybu (prefers-reduced-motion).</li>

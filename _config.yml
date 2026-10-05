@@ -1,0 +1,5 @@
+# GitHub Pages publikuje kořen repozitáře (větev main, složka / (root)).
+# Zdroj a build webu ve složce web/ a README se nepublikují.
+exclude:
+  - web
+  - README.md
