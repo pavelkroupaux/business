@@ -37,6 +37,7 @@ Prototyp není produkční kód. Používá vaše komponenty a běží na GitHub
 - [Heirloom, 2026](https://pavelkroupa.com/portfolio/heirloom/): Digitální dědictví, nový produkt od nuly. Nový business směr uzavřený za čtyři sezení, s funkčním prototypem v každé iteraci.
 - [Coinmate, 2023–2026](https://pavelkroupa.com/portfolio/coinmate/): Regulovaná kryptoburza. Externě, dva dny v týdnu. Nejdřív design systém, potom nová identita. Rebranding spuštěn 1. 10. 2026.
 - [Leeaf, 2020–2023](https://pavelkroupa.com/portfolio/leeaf/): Zdravotnictví, léčba neplodnosti. Jeden design systém pro web, portál pro lékaře a mobilní aplikaci. Na stejném systému pak běžely další kliniky IVF.
+- [Leeaf, audit](https://pavelkroupa.com/portfolio/leeaf-audit/): Příklad služby Audit rozhodnutí. Tři obrazovky aplikace na cestě k předplatnému, 17 změn a plán měření, předané v původním wireframu.
 - [BRENO, 2023](https://pavelkroupa.com/portfolio/breno/): Maloobchod a e-shopy. Dvoudenní prioritizace business backlogu přes WPP. Vedení, vývoj i marketing se shodli na pořadí priorit.
 
 ## Kde jsem pracoval
