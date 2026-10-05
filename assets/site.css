@@ -1520,3 +1520,55 @@ a.pick .svc-thumb{margin:0 0 10px}
 .ct-ph{margin:14px 0 0}
 .ct-ph a{font-family:var(--display);font-size:19px;font-weight:600;color:var(--ink)}
 @media(max-width:860px){.ct-ways,.ct-more{grid-template-columns:1fr}.ct-way{padding:26px}}
+
+/* ---------- kontakt: notebooky nad kartami (e-mail se odešle, v kalendáři se vybere termín) ---------- */
+.cx{margin:-8px 0 2px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.cx svg{display:block;width:100%;max-width:330px;height:auto;margin:0 auto;overflow:visible}
+.cx .lt{font-family:var(--hand);font-weight:500;fill:#6e6e73}
+.cx .lb{font-family:var(--display);font-weight:600}
+.cx .lid{transform-box:view-box;transform-origin:200px 200px;transform:scaleY(.035)}
+.cx .d{stroke-dasharray:1;stroke-dashoffset:1}
+.cx .f,.cx .m-env,.cx .m-win,.cx .m-done,.cx .m-rip,.cx .c-win,.cx .c-day,.cx .c-slot,.cx .c-ok,.cx .c-rip1,.cx .c-rip2,.cx .m-cur,.cx .c-cur{opacity:0}
+.cx .m-env,.cx .m-done,.cx .c-ok{transform-box:fill-box;transform-origin:center}
+.cx .m-rip,.cx .c-rip1,.cx .c-rip2{transform-box:fill-box;transform-origin:center}
+.cx .m-win,.cx .m-fly{transform-box:view-box;transform-origin:200px 111px}
+.cx .c-win{transform-box:view-box;transform-origin:200px 111px}
+.cx .m-cur,.cx .c-cur{transform-box:view-box;transform-origin:0 0;transform:translate(330px,205px)}
+.cx .cx-cli{transform-box:view-box;transform-origin:0 0}
+.cx.play .lid{animation:lapopen .7s cubic-bezier(.2,.8,.2,1) forwards}
+.cx.play .d{animation:lapdraw .35s ease var(--d) forwards}
+.cx.play .f{animation:lapfade .3s ease var(--d) forwards}
+/* e-mail: obálka se rozbalí do okna, řádky se napíšou, kurzor klikne na Odeslat, zpráva odletí */
+.cx-mail.play .m-env{animation:cxpop .35s cubic-bezier(.3,1.4,.5,1) .75s forwards,cxout .2s ease 1.25s forwards}
+.cx-mail.play .m-win{animation:cxopen .5s cubic-bezier(.2,.8,.2,1) 1.25s forwards}
+.cx-mail.play .m-cur{animation:cxcurm .8s cubic-bezier(.4,0,.2,1) 2.5s forwards,cxhide .2s ease 3.85s forwards}
+.cx-mail.play .cx-cli{animation:cxclick .22s ease 3.3s}
+.cx-mail.play .m-rip{animation:laprip .55s ease-out 3.35s}
+.cx-mail.play .m-btn{animation:lapbtn .2s ease 3.4s forwards}
+.cx-mail.play .m-btnt{animation:cxink .2s ease 3.4s forwards}
+.cx-mail.play .m-fly{animation:cxfly .6s cubic-bezier(.5,0,.75,0) 3.8s forwards}
+.cx-mail.play .m-done{animation:cxpop .4s cubic-bezier(.3,1.4,.5,1) 4.35s forwards}
+/* kalendář: kurzor vybere den, pak čas, termín se potvrdí */
+.cx-cal.play .c-win{animation:cxopen .45s cubic-bezier(.2,.8,.2,1) .8s forwards}
+.cx-cal.play .c-cur{animation:cxcurc 2.4s cubic-bezier(.4,0,.2,1) 1.6s forwards,cxhide .2s ease 4.25s forwards}
+.cx-cal.play .cx-cli{animation:cxclick .22s ease 2.55s,cxclick .22s ease 3.72s}
+.cx-cal.play .c-rip1{animation:laprip .55s ease-out 2.6s}
+.cx-cal.play .c-day{animation:lapfade .15s ease 2.65s forwards}
+.cx-cal.play .c-rip2{animation:laprip .55s ease-out 3.77s}
+.cx-cal.play .c-slot{animation:lapfade .15s ease 3.82s forwards}
+.cx-cal.play .c-ok{animation:cxpop .4s cubic-bezier(.3,1.4,.5,1) 4.25s forwards}
+@keyframes cxpop{0%{opacity:0;transform:scale(.3)}70%{opacity:1;transform:scale(1.08)}100%{opacity:1;transform:scale(1)}}
+@keyframes cxout{to{opacity:0;transform:scale(.6)}}
+@keyframes cxopen{0%{opacity:0;transform:scale(.15)}100%{opacity:1;transform:scale(1)}}
+@keyframes cxfly{0%{opacity:1;transform:none}100%{opacity:0;transform:translate(130px,-100px) scale(.12) rotate(-14deg)}}
+@keyframes cxhide{to{opacity:0}}
+@keyframes cxclick{0%,100%{transform:scale(1)}50%{transform:scale(.78)}}
+@keyframes cxink{to{fill:#111}}
+@keyframes cxcurm{0%{opacity:0;transform:translate(330px,205px)}25%{opacity:1}100%{opacity:1;transform:translate(279px,165px)}}
+@keyframes cxcurc{0%{opacity:0;transform:translate(330px,205px)}12%{opacity:1}40%,58%{opacity:1;transform:translate(167px,109px)}88%,100%{opacity:1;transform:translate(280px,109px)}}
+/* omezený pohyb: rovnou konečný stav */
+.cx.still .lid{transform:none}
+.cx.still .d{stroke-dashoffset:0}
+.cx.still .f,.cx.still .m-done,.cx.still .c-win,.cx.still .c-day,.cx.still .c-slot,.cx.still .c-ok{opacity:1}
+.cx.still *{animation:none!important}
+@media(max-width:860px){.cx svg{max-width:300px}}

@@ -43,6 +43,8 @@ Každá stránka je samostatný soubor, takže co je na víc místech, je potře
 
 Web nemá formulář. Stránka Kontakt (`contact/index.html`, `en/contact/index.html`) nabízí dvě cesty: napsat e-mail a vybrat termín hovoru na `cal.com/pavelkroupa`. Tlačítko „Napsat e-mail“ (`#mail-go`) dostane ve skriptu (`site-cs.js` / `site-en.js`, hledej `mail-go`) předmět a začátek zprávy, bez skriptu je to prostý odkaz.
 
+Nad oběma kartami je malý notebook (`figure.cx` v HTML stránky, styl v `assets/site.css` pod „kontakt: notebooky“, skript hledej `.cx`): u e-mailu se rozbalí zpráva a kurzor klikne na Odeslat, u hovoru se vybere den a čas. Přehraje se, když je vidět, a znovu po najetí myší na kartu nebo klepnutí. Při omezeném pohybu se ukáže rovnou konečný stav. Texty v obrázku jsou přímo v HTML, anglické v `en/contact/index.html`.
+
 Telefon na webu není. Kdyby se přidával, nevypisuj ho do HTML, ať ho nenajdou sběrače: skriptem ho slož až po kliknutí na tlačítko „Zobrazit telefon“. To chrání před běžnými roboty, ne před robotem, který umí kliknout.
 
 ## Kreslení v úvodu

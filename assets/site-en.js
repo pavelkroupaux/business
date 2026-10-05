@@ -316,6 +316,19 @@ try{
 
 }catch(e){console.error(e);}
 try{
+/* Kontakt: notebooky nad kartami se přehrají, když jsou vidět, a znovu po najetí myší nebo klepnutí. */
+(function(){var fs=document.querySelectorAll(".cx");if(!fs.length)return;
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches||!("IntersectionObserver" in window)){fs.forEach(function(f){f.classList.add("still");});return;}
+  fs.forEach(function(f,i){var busy=false,card=f.closest(".ct-way")||f;
+    function play(){if(busy)return;busy=true;f.classList.remove("play");void f.getBoundingClientRect();f.classList.add("play");setTimeout(function(){busy=false;},5000);}
+    card.addEventListener("mouseenter",function(){if(f.classList.contains("play"))play();});
+    f.addEventListener("click",play);
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){setTimeout(play,i*450);io.disconnect();}});},{threshold:.5});
+    io.observe(f);});
+})();
+
+}catch(e){console.error(e);}
+try{
 /* Kontakt: e-mail s předvyplněným předmětem a začátkem zprávy (bez skriptu zůstává prostý odkaz). */
 (function(){var a=document.getElementById("mail-go");if(a)a.href="mailto:info@pavelkroupa.com?subject="+encodeURIComponent("Inquiry from the website")+"&body="+encodeURIComponent("We are stuck on: ");})();
 
