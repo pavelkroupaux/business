@@ -55,6 +55,10 @@ Na počítači s myší jde po úvodní sekci kreslit. Kód je na konci `assets/
 
 V sekci „Kdy týmy potřebují moji pomoc“ je na počítači s myší kurzor malé lepítko a klik kamkoli nalepí větší lepítko s další otázkou (najednou jich je nejvýš šest). Otázky jsou ve skriptu (`site-cs.js` / `site-en.js`, blok „Lepítka s otázkami…“), vzhled v `assets/site.css` (`.pq`).
 
+## Časová osa v případech
+
+Každý případ (`portfolio/…/index.html`, `en/portfolio/…/index.html`) má pod nadpisem svislou časovou osu (`ol.tl`): červený bod je místo, kde se to zaseklo, prázdné body jsou kroky a žlutý bod je výsledek. Pod ní je tabulka „Ve zkratce“ (`dl.tl-facts`) s klientem, obdobím, oborem a rolí. Vzhled je v `assets/site.css` pod „případy: časová osa“.
+
 ## Tlačítko Reference
 
 Tlačítko Reference na úvodu vede na `/portfolio/#reference`. Skript (hledej `toRefs`) ukáže portfolio a pak plynule sjede na reference. Pod referencemi je odkaz na lab.pavelkroupa.com (`.lab-note`).
