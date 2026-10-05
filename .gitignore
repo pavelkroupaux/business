@@ -1,15 +1,4 @@
-# macOS
 .DS_Store
-# Python (build skripty ve web/build)
-__pycache__/
-*.pyc
-# pracovní náhledy z buildu (paths.py je zakládá)
-web/build/_draft/
-build.zip
-# místní soubory
 *.log
-.env
-.env.local
-# místní náhled přes Jekyll (GitHub Pages)
 _site/
 .jekyll-cache/
