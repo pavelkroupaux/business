@@ -185,21 +185,20 @@ var CS = {};  /* slovník EN→CS z verze 4 smazán v kole 18 */
     function sel(){ var r=document.createRange(); r.selectNodeContents(document.getElementById("mail")); var x=getSelection(); x.removeAllRanges(); x.addRange(r); cb.textContent="Selected. Copy it now."; }
     try{ navigator.clipboard.writeText("info@pavelkroupa.com").then(function(){ cb.textContent="Copied"; }, sel); }catch(e){ sel(); }
   });
-  /* ---------- theme ---------- */
-  var modes=["system","light","dark"];
-  var glyphs={system:"◑",light:"☀",dark:"☾"};
-  var mode="system";
-  function setTheme(m){
-    mode=m;
-    if(m==="system") document.documentElement.removeAttribute("data-theme");
-    else document.documentElement.setAttribute("data-theme",m);
-    document.getElementById("themeGlyph").textContent=glyphs[m];
-    try{localStorage.setItem("pk-theme",m);}catch(e){}
-  }
-  try{ var st=localStorage.getItem("pk-theme"); if(modes.indexOf(st)>-1) setTheme(st); }catch(e){}
-  document.getElementById("theme").addEventListener("click",function(){
-    setTheme(modes[(modes.indexOf(mode)+1)%modes.length]);
-  });
+  /* ---------- theme: dokud se neklikne, řídí se systémem; tlačítko přepíná světlý a tmavý ---------- */
+  var root=document.documentElement, tb=document.getElementById("theme"), tg=tb&&tb.querySelector(".tg");
+  var dq=window.matchMedia?window.matchMedia("(prefers-color-scheme: dark)"):null;
+  function applied(){var a=root.getAttribute("data-theme");return a==="light"||a==="dark"?a:(dq&&dq.matches?"dark":"light");}
+  function themeLabel(){if(tb)tb.setAttribute("aria-label",applied()==="dark"?"Switch to light mode":"Switch to dark mode");}
+  if(tb){themeLabel();
+    if(dq&&dq.addEventListener)dq.addEventListener("change",themeLabel);
+    tb.addEventListener("click",function(){
+      var m=applied()==="dark"?"light":"dark";
+      root.setAttribute("data-theme",m);
+      try{localStorage.setItem("pk-theme",m);}catch(e){}
+      themeLabel();
+      if(tg){tg.classList.remove("tg-go");void tg.getBoundingClientRect();tg.classList.add("tg-go");}
+    });}
 })();
 
 }catch(e){console.error(e);}
@@ -311,7 +310,7 @@ try{
   if(!("IntersectionObserver" in window)||window.matchMedia("(prefers-reduced-motion: reduce)").matches){ills.forEach(function(s){s.classList.add("on");});return;}
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!e.target.classList.contains("on"))on(e.target);});},{threshold:.5});
   ills.forEach(function(s){io.observe(s);var p=s.parentNode;if(p&&window.matchMedia("(hover: hover)").matches){
-    var box=p.closest(".svc,.svc-row,.svc-hero-ill")||p;box.addEventListener("mouseenter",function(){on(s);});}});
+    var box=p.closest(".svc,.svc-row,.svc-hero-ill");if(box)box.addEventListener("mouseenter",function(){on(s);});}});
 })();
 
 }catch(e){console.error(e);}

@@ -30,7 +30,7 @@ Adresy odpovídají složkám: `services/audit/index.html` je `pavelkroupa.com/s
 Každá stránka je samostatný soubor, takže co je na víc místech, je potřeba změnit na všech.
 
 - **Text na stránce** změň v české i anglické verzi (`…/index.html` a `en/…/index.html`).
-- **Hlavička a patička** jsou v každé stránce zvlášť (27 souborů). Změna menu nebo patičky = najít a nahradit ve všech.
+- **Hlavička a patička** jsou v každé stránce zvlášť (31 souborů). Změna menu nebo patičky = najít a nahradit ve všech.
 - **Titulek a popis pro Google** jsou v hlavě stránky: `<title>`, `<meta name="description">` a stejný text v `og:title`, `og:description`, `twitter:…`. Popis do 160 znaků.
 - **Ceny** jsou i ve strukturovaných datech pro Google (`<script type="application/ld+json">` v hlavě stránky) a v `llms.txt`. Když se mění cena, změň ji i tam.
 - **Nová stránka**: zkopíruj podobnou složku, uprav obsah, `<title>`, popis, `<link rel="canonical">` a odkazy na jazykové verze (`hreflang`), a přidej adresu do `sitemap.xml`. V menu ji přidej do všech stránek.
@@ -58,6 +58,26 @@ V sekci „Kdy týmy potřebují moji pomoc“ je na počítači s myší kurzor
 ## Časová osa v případech
 
 Každý případ (`portfolio/…/index.html`, `en/portfolio/…/index.html`) má pod nadpisem svislou časovou osu (`ol.tl`): červený bod je místo, kde se to zaseklo, prázdné body jsou kroky a žlutý bod je výsledek. Pod ní je tabulka „Ve zkratce“ (`dl.tl-facts`) s klientem, obdobím, oborem a rolí. Vzhled je v `assets/site.css` pod „případy: časová osa“. Pod tabulkou je výzva k hovoru (`.case-cta`). Dole jsou vždy dva další případy v pořadí Heirloom, Coinmate, WPP, Leeaf, BRENO.
+
+## Diagram „Jak to proběhlo“ v případech
+
+Heirloom, Coinmate, Leeaf a BRENO mají nad časovou osou diagram (`section.case-dg`), který se po zobrazení postupně nakreslí. Je dvakrát: široký pro počítač (`svg.dg-d`) a svislý pro mobil (`svg.dg-m`). Barvy jsou jen z proměnných webu, takže funguje ve světlém i tmavém režimu. Vzhled je v `assets/site.css` pod „případy: diagram“.
+
+Diagramy se nepíšou ručně. Texty (česky i anglicky) a rozložení jsou v `_tools/case-diagrams.py`. Po změně spusť v kořeni `python3 _tools/case-diagrams.py`, skript diagramy ve všech osmi stránkách nahradí. Složky s podtržítkem GitHub Pages nepublikuje.
+
+V tabulce „Ve zkratce“ je u každého případu poslední řádek „Služba“ nebo „Služby“ s odkazy na služby, které případu odpovídají.
+
+## Infografika Vedení produktu na část úvazku
+
+Dny v týdnu, rozsvítí se úterý a čtvrtek, pak čára od otazníku (vedení) ke kompasu, střelka se roztočí, kompas se rozsvítí žlutě, čára do vývoje a zaškrtnutí. Je na úvodu, na Službách a na stránce služby, česky i anglicky. Generuje ji `_tools/fractional-diagram.py`.
+
+## Přepínač vzhledu
+
+Jen světlý a tmavý. Dokud návštěvník neklikne, web se řídí nastavením systému. Po kliknutí se volba uloží (`pk-theme` v prohlížeči). Ikona je slunce nebo měsíc (`svg.tg` v tlačítku `#theme` ve všech stránkách): slunce vyjde zespodu a rozzáří paprsky, měsíc připluje zleva zdola, rozsvítí se a zablikají hvězdy. Styl v `assets/site.css` pod „přepínač vzhledu“, skript v `site-cs.js` / `site-en.js` (hledej `theme:`). Stejný přepínač je v portfoliu a v labu.
+
+## Patička
+
+Uprostřed patičky je odkaz na lab.pavelkroupa.com s baňkou (`a.foot-lab`). Při najetí myší zčervená a baňka bublá, stejně jako odkaz Lab v hlavičce portfolia.
 
 ## Tlačítko Reference
 
