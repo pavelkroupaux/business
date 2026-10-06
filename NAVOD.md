@@ -9,7 +9,7 @@ Nejjednodušší je dát úpravu Claudovi: „V repozitáři pavelkroupaux/busin
 | Cesta | Co to je |
 |---|---|
 | `index.html` | úvod |
-| `portfolio/index.html`, `portfolio/coinmate/index.html` … | portfolio a případy (heirloom, coinmate, leeaf, breno) |
+| `portfolio/index.html`, `portfolio/coinmate/index.html` … | portfolio a případy (heirloom, coinmate, wpp, leeaf, breno) |
 | `services/index.html`, `services/audit/index.html` … | služby (decision-prototype, audit, fractional) |
 | `about/index.html`, `contact/index.html` | O mně, Kontakt |
 | `en/…` | anglická verze, stejné složky |
@@ -57,7 +57,7 @@ V sekci „Kdy týmy potřebují moji pomoc“ je na počítači s myší kurzor
 
 ## Časová osa v případech
 
-Každý případ (`portfolio/…/index.html`, `en/portfolio/…/index.html`) má pod nadpisem svislou časovou osu (`ol.tl`): červený bod je místo, kde se to zaseklo, prázdné body jsou kroky a žlutý bod je výsledek. Pod ní je tabulka „Ve zkratce“ (`dl.tl-facts`) s klientem, obdobím, oborem a rolí. Vzhled je v `assets/site.css` pod „případy: časová osa“.
+Každý případ (`portfolio/…/index.html`, `en/portfolio/…/index.html`) má pod nadpisem svislou časovou osu (`ol.tl`): červený bod je místo, kde se to zaseklo, prázdné body jsou kroky a žlutý bod je výsledek. Pod ní je tabulka „Ve zkratce“ (`dl.tl-facts`) s klientem, obdobím, oborem a rolí. Vzhled je v `assets/site.css` pod „případy: časová osa“. Pod tabulkou je výzva k hovoru (`.case-cta`). Dole jsou vždy dva další případy v pořadí Heirloom, Coinmate, WPP, Leeaf, BRENO.
 
 ## Tlačítko Reference
 
