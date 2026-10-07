@@ -101,6 +101,10 @@ Tlačítko Reference na úvodu vede na `/portfolio/#reference`. Skript (hledej `
 
 V kořeni repozitáře `python3 -m http.server` a otevřít `http://localhost:8000`. Nebo soubor rovnou uložit do `main` a za minutu se podívat na web.
 
+## Měření návštěvnosti
+
+Web měří Cloudflare Web Analytics, bez cookies, takže nepotřebuje cookie lištu. Skript je na konci každé stránky před `</html>` (hledej `cloudflareinsights`). Nová stránka ho potřebuje taky. Čísla jsou v Cloudflare → Web Analytics → pavelkroupa.com. Google Analytics byl odstraněn. Portfolio a lab mají vlastní tokeny ve svých repozitářích.
+
 ## Hosting
 
 - GitHub Pages: Settings → Pages → Deploy from a branch, `main`, `/ (root)`, vlastní doména `pavelkroupa.com`, Enforce HTTPS.
