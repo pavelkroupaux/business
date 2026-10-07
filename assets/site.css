@@ -1854,3 +1854,38 @@ section.case-dg{padding-top:clamp(36px,5vw,64px)}
 .cdg .cdg-it{stroke:var(--surface);stroke-width:2.5}
 .cdg .cdg-chip{fill:var(--ground);stroke:var(--line);stroke-width:1.4}
 .case-dg .case-dg-h2{margin-top:clamp(32px,5vw,56px)}
+/* úvod: kouzlo před nadpisem „Pak z toho vznikne funkční prototyp“. Hořčicové hvězdičky vyskočí od středu nadpisu,
+   zatřpytí se a zmizí, nadpis se mezitím vynoří. Bez skriptu nebo s omezeným pohybem je nadpis vidět rovnou. */
+.mg{position:relative}
+.mg-burst{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none;z-index:1}
+.mg-s{position:absolute;left:0;top:0;width:var(--z);height:var(--z);color:var(--fix);opacity:0;transform:translate(-50%,-50%) scale(0)}
+.mg-s.mg-d{color:var(--fix-deep)}
+.mg-s svg{display:block;width:100%;height:100%;fill:currentColor;filter:drop-shadow(0 0 6px rgba(255,206,27,.55))}
+.mg-go .mg-s{animation:mg-pop 1.25s cubic-bezier(.2,.8,.3,1) var(--t) both}
+@keyframes mg-pop{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(0) rotate(0)}
+  18%{opacity:1}
+  45%{opacity:1;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(1.15) rotate(var(--r))}
+  60%{opacity:.35}
+  72%{opacity:1;transform:translate(calc(-50% + var(--x) * 1.08),calc(-50% + var(--y) * 1.08)) scale(.9) rotate(var(--r))}
+  100%{opacity:0;transform:translate(calc(-50% + var(--x) * 1.2),calc(-50% + var(--y) * 1.2)) scale(0) rotate(calc(var(--r) * 2))}}
+.mg-h{opacity:0;transform:scale(.94);filter:blur(6px)}
+.mg-h.mg-in{opacity:1;transform:none;filter:none;transition:opacity .55s ease,transform .7s cubic-bezier(.2,.9,.3,1.25),filter .55s ease}
+@media(max-width:560px){.mg-burst{transform:scale(.6)}}
+/* spinner: zjednodušená úvodní kresba. Zamotaná linka se rozplete do rovné čáry a na konci vyskočí lepík
+   s fajfkou jako v logu. Výška jako běžný spinner (24 px), šířka dvojnásobná. Použití:
+   <span class="pk-spin" role="status" aria-label="Načítám"><svg …></svg></span>, vzor je na /ds/ */
+.pk-spin{display:inline-block;height:24px;aspect-ratio:2/1;color:var(--ink);vertical-align:middle;line-height:0}
+.pk-spin svg{display:block;width:100%;height:100%;overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pk-spin-l{stroke:currentColor;stroke-width:2.6;stroke-dasharray:1;stroke-dashoffset:1;animation:pk-spin-l 1.9s cubic-bezier(.45,.05,.35,1) infinite}
+.pk-spin-n{transform-box:fill-box;transform-origin:50% 50%;transform:rotate(-6deg) scale(0);animation:pk-spin-n 1.9s ease infinite}
+.pk-spin-n rect{fill:var(--fix)}
+.pk-spin-c{stroke:#111;stroke-width:2.6;stroke-dasharray:1;stroke-dashoffset:1;animation:pk-spin-c 1.9s ease infinite}
+@keyframes pk-spin-l{0%{stroke-dashoffset:1;opacity:1}45%,80%{stroke-dashoffset:0;opacity:1}94%,100%{stroke-dashoffset:0;opacity:0}}
+@keyframes pk-spin-n{0%,40%{transform:rotate(-40deg) scale(0);opacity:1}54%{transform:rotate(-2deg) scale(1.18)}62%,80%{transform:rotate(-6deg) scale(1);opacity:1}94%,100%{transform:rotate(-6deg) scale(.7);opacity:0}}
+@keyframes pk-spin-c{0%,56%{stroke-dashoffset:1;opacity:1}70%,80%{stroke-dashoffset:0;opacity:1}94%,100%{stroke-dashoffset:0;opacity:0}}
+@media (prefers-reduced-motion:reduce){
+  .pk-spin-l,.pk-spin-c{animation:none;stroke-dashoffset:0}
+  .pk-spin-n{animation:none;transform:rotate(-6deg)}
+  .pk-spin svg{animation:pk-spin-fade 1.6s ease-in-out infinite alternate}
+  @keyframes pk-spin-fade{from{opacity:1}to{opacity:.35}}}

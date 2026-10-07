@@ -77,6 +77,14 @@ Dny v týdnu, rozsvítí se úterý a čtvrtek, pak čára od otazníku (vedení
 
 Jen světlý a tmavý. Dokud návštěvník neklikne, web se řídí nastavením systému. Po kliknutí se volba uloží (`pk-theme` v prohlížeči). Ikona je slunce nebo měsíc (`svg.tg` v tlačítku `#theme` ve všech stránkách): slunce vyjde zespodu a rozzáří paprsky, měsíc připluje zleva zdola, rozsvítí se a zablikají hvězdy. Styl v `assets/site.css` pod „přepínač vzhledu“, skript v `site-cs.js` / `site-en.js` (hledej `theme:`). Stejný přepínač je v portfoliu a v labu.
 
+## Kouzlo před nadpisem a spinner
+
+V úvodu u nadpisu „Pak z toho vznikne funkční prototyp“ nejdřív vyskočí hořčicové hvězdičky a nadpis se pak vynoří. Přehraje se jednou, když je nadpis vidět. Skript je na konci `site-cs.js` / `site-en.js` (hledej `mg-burst`), vzhled v `assets/site.css` pod „kouzlo před nadpisem“. S omezeným pohybem je nadpis vidět rovnou.
+
+Spinner `.pk-spin` je zjednodušená úvodní kresba: zamotaná linka, rovná čára a lepík s fajfkou jako v logu. Vzor HTML je na `/ds/` v části Pohyb. Na webu zatím nic nenačítá, v portfoliu se ukáže při odemykání.
+
+Tlačítko „Jak to probíhá podrobně“ po rozbalení i sbalení plynule sjede k prvnímu kroku (hledej `proc-toggle`).
+
 ## Patička
 
 Uprostřed patičky je odkaz na lab.pavelkroupa.com s baňkou (`a.foot-lab`). Při najetí myší zčervená a baňka bublá, stejně jako odkaz Lab v hlavičce portfolia.

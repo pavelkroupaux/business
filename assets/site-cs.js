@@ -300,8 +300,18 @@ try{
 }catch(e){console.error(e);}
 try{
 (function(){var b=document.querySelector(".proc-toggle"),l=document.querySelector(".proc-steps");if(!b||!l)return;
+  /* po rozbalení i sbalení plynule sjede (ease-in-out) k prvnímu kroku, aby čtenář nezůstal uprostřed */
+  var raf=0;function stop(){cancelAnimationFrame(raf);raf=0;["wheel","touchstart","keydown"].forEach(function(e){removeEventListener(e,stop);});}
+  function toFirst(){var first=l.querySelector(".pstep");if(!first)return;var top=document.querySelector(".top"),
+    y0=scrollY,y1=Math.max(0,first.getBoundingClientRect().top+scrollY-(top?top.offsetHeight:0)-24),d=y1-y0;
+    if(Math.abs(d)<8)return;
+    if(matchMedia("(prefers-reduced-motion: reduce)").matches){scrollTo(0,y1);return;}
+    var ms=Math.min(1100,Math.max(500,Math.abs(d)*.6)),t0=performance.now();stop();
+    ["wheel","touchstart","keydown"].forEach(function(e){addEventListener(e,stop,{passive:true});});
+    (function step(now){var t=Math.min(1,(now-t0)/ms),e=t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+      scrollTo(0,y0+d*e);if(t<1)raf=requestAnimationFrame(step);else stop();})(t0);}
   b.addEventListener("click",function(){var o=l.classList.toggle("open");b.setAttribute("aria-expanded",o?"true":"false");
-    b.textContent=o?"Skrýt podrobnosti":"Jak to probíhá podrobně";});})();
+    b.textContent=o?"Skrýt podrobnosti":"Jak to probíhá podrobně";toFirst();});})();
 
 }catch(e){console.error(e);}
 try{
@@ -409,5 +419,23 @@ try{
   });
 })();
 
+
+}catch(e){console.error(e);}
+try{
+/* Kouzlo před nadpisem „Pak z toho vznikne funkční prototyp“: vyskočí hořčicové hvězdičky, pak se nadpis objeví */
+(function(){var h=document.querySelector("h2.lap-h");if(!h||!("IntersectionObserver" in window)||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  h.removeAttribute("data-rv");h.classList.remove("in");h.classList.add("mg-h");
+  var w=document.createElement("div");w.className="mg";h.parentNode.insertBefore(w,h);w.appendChild(h);
+  var b=document.createElement("span");b.className="mg-burst";b.setAttribute("aria-hidden","true");
+  var S='<svg viewBox="0 0 24 24"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z"/></svg>';
+  [[-220,-52,34,0,-40],[-126,-80,20,.06,30],[-30,-92,30,.02,-20],[74,-74,18,.1,45],[178,-56,36,.04,20],[248,6,20,.12,-35],
+   [156,66,26,.08,25],[30,80,18,.14,-15],[-94,72,28,.1,35],[-210,34,18,.16,-25],[-276,-4,14,.2,0],[276,-38,14,.18,0]]
+  .forEach(function(p,i){var s=document.createElement("i");s.className="mg-s"+(i%3===1?" mg-d":"");
+    s.style.cssText="--x:"+p[0]+"px;--y:"+p[1]+"px;--z:"+p[2]+"px;--t:"+p[3]+"s;--r:"+p[4]+"deg";s.innerHTML=S;b.appendChild(s);});
+  w.insertBefore(b,h);
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;io.disconnect();
+    w.classList.add("mg-go");setTimeout(function(){h.classList.add("mg-in");},420);});},{threshold:.9,rootMargin:"0px 0px -10% 0px"});
+  io.observe(w);
+})();
 
 }catch(e){console.error(e);}
