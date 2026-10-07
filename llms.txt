@@ -34,7 +34,7 @@ Prototyp není produkční kód. Používá vaše komponenty a běží na GitHub
 
 ## Vybrané případy
 
-- [Heirloom, 2026](https://pavelkroupa.com/portfolio/heirloom/): Digitální dědictví, nový produkt od nuly. Nový business směr uzavřený za čtyři sezení, s funkčním prototypem v každé iteraci.
+- [Heirloom, 2026](https://pavelkroupa.com/portfolio/heirloom/): Digitální dědictví, pivot z B2C na B2B. Nový business směr uzavřený za čtyři sezení, s funkčním prototypem v každé iteraci.
 - [Coinmate, 2023–2026](https://pavelkroupa.com/portfolio/coinmate/): Regulovaná kryptoburza. Externě, dva dny v týdnu. Nejdřív design systém, potom nová identita. Rebranding spuštěn 1. 10. 2026.
 - [WPP, 2025](https://pavelkroupa.com/portfolio/wpp/): Reklamní agentura, kampaň pro velkého klienta. Expresní audit kampaně na desktopu i mobilu, nahrávka obrazovky s komentářem k rychlému připomínkování. WPP kampaň před spuštěním pozastavilo a opravilo.
 - [Leeaf, 2020–2023](https://pavelkroupa.com/portfolio/leeaf/): Zdravotnictví, léčba neplodnosti. Jeden design systém pro web, portál pro lékaře a mobilní aplikaci. Na stejném systému pak běžely další kliniky IVF.

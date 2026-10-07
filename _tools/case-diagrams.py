@@ -79,13 +79,13 @@ R, L, U, Dn = 0, math.pi, -math.pi / 2, math.pi / 2
 def heirloom(T, mobile):
     if not mobile:
         d = D(960, 370, "dg-d", T["aria"])
-        box(d, 20, 216, 160, 84, T["start"], T["start_s"], "knot")
+        box(d, 12, 216, 176, 84, T["start"], T["start_s"], "knot")
         # cesta, kterou se nešlo
         band(d, 250, 34, T["alt_band"])
         box(d, 250, 50, 210, 72, T["alt"], T["alt_s"], "alt")
         arrow(d, "M100 216 C100 120 150 86 244 86", None, 0, "bad")
         xmark(d, 138, 128)
-        arrow(d, "M180 258 H208", (210, 258), R)
+        arrow(d, "M188 258 H208", (210, 258), R)
         box(d, 214, 216, 170, 84, T["s1"], T["s1_s"], "n", 1)
         arrow(d, "M384 258 H412", (414, 258), R)
         box(d, 418, 216, 170, 84, T["s2"], T["s2_s"], "n", 2)
@@ -356,20 +356,20 @@ def breno(T, mobile):
 
 CASES = {
  "heirloom": (heirloom, {
-  "cs": dict(aria="Diagram: firma mění směr. Místo čekání na obrazovky ve Figmě rozsah s vedením, AI prototyp z existujícího kódu a čtyři iterace s komentáři v prototypu. Výsledek: nový směr, rozsah a zadání.",
-     start="Firma mění směr", start_s="rozsah a zadání?", alt_band="Co se čekalo", alt="Obrazovky ve Figmě", alt_s=["čekání, spory až ve vývoji"],
+  "cs": dict(aria="Diagram: pivot z B2C na B2B. Místo čekání na obrazovky ve Figmě rozsah s vedením, AI prototyp z existujícího kódu a čtyři iterace s komentáři v prototypu. Výsledek: nový směr, rozsah a zadání.",
+     start="Pivot z B2C na B2B", start_s="rozsah a zadání?", alt_band="Co se čekalo", alt="Obrazovky ve Figmě", alt_s=["čekání, spory až ve vývoji"],
      alt_m="Figma", alt_m_s="čekání", s1="Rozsah s vedením", s1_m="Rozsah s vedením", s1_s="facilitované otázky", s2="AI prototyp z kódu", s2_s="repozitář a design systém",
      ring=["4 iterace", "s komentáři"], end="Nový směr", end_s=["rozsah a zadání", "bez sporů ve vývoji"],
-     p_title="AI pipeline pro prototyp",
+     p_title="Jak vznikal prototyp",
      p_aria="Diagram AI pipeline: facilitace rozsahu s vedením, pipeline, která z repozitáře a design systému s pomocí AI staví prototyp, hosting na Vercelu napojený na repozitář a komentáře přímo v prototypu. Zpětná vazba se vrací do další verze. Výsledek: rychlejší iterace a spolupráce bez schůzek.",
      p1="Facilitace", p1_s="rozsah s vedením", p_in=["repozitář", "design systém"], p2="AI pipeline", p2_s="prototyp z kódu",
      p3="Hosting na Vercelu", p3_s="napojený repozitář", p4="Komentáře", p4_s="přímo v prototypu",
      p_loop=["zpětná vazba → další iterace"], p_end=["Rychlejší", "iterace"], p_end_s=["asynchronní", "spolupráce"]),
-  "en": dict(aria="Diagram: the company changes direction. Instead of waiting for Figma screens: scope with leadership, an AI prototype from the existing code, and 4 iterations with comments in the prototype. Result: a new direction, scope and spec.",
-     start="Direction changes", start_s="scope and spec?", alt_band="What was expected", alt="Screens in Figma", alt_s=["waiting, conflicts in dev"],
+  "en": dict(aria="Diagram: a pivot from B2C to B2B. Instead of waiting for Figma screens: scope with leadership, an AI prototype from the existing code, and 4 iterations with comments in the prototype. Result: a new direction, scope and spec.",
+     start="B2C to B2B pivot", start_s="scope and spec?", alt_band="What was expected", alt="Screens in Figma", alt_s=["waiting, conflicts in dev"],
      alt_m="Figma", alt_m_s="waiting", s1="Scope with leaders", s1_m="Scope with leaders", s1_s="facilitated questions", s2="AI prototype", s2_s="from the codebase",
      ring=["4 iterations", "with comments"], end="New direction", end_s=["scope and spec", "no conflicts in dev"],
-     p_title="AI prototype pipeline",
+     p_title="How the prototype was built",
      p_aria="Diagram of the AI pipeline: facilitating the scope with leadership, a pipeline that uses AI to build the prototype from the repository and design system, hosting on Vercel connected to the repository, and comments right in the prototype. Feedback goes into the next version. Result: faster iterations and async collaboration.",
      p1="Facilitation", p1_s="scope with leaders", p_in=["repository", "design system"], p2="AI pipeline", p2_s="prototype from code",
      p3="Hosted on Vercel", p3_s="connected repository", p4="Comments", p4_s="right in the prototype",
