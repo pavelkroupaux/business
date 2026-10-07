@@ -79,7 +79,7 @@ Jen světlý a tmavý. Dokud návštěvník neklikne, web se řídí nastavením
 
 ## Kouzlo před nadpisem a spinner
 
-V úvodu u nadpisu „Pak z toho vznikne funkční prototyp“ nejdřív vyskočí hořčicové hvězdičky a nadpis se pak vynoří. Přehraje se jednou, když je nadpis vidět. Skript je na konci `site-cs.js` / `site-en.js` (hledej `mg-burst`), vzhled v `assets/site.css` pod „kouzlo před nadpisem“. S omezeným pohybem je nadpis vidět rovnou.
+V úvodu u nadpisu „Pak z toho vznikne funkční prototyp“ nejdřív vyskočí hořčicové hvězdičky a mezi nimi na chvilku slovo „magic“, nadpis se pak vynoří. Přehraje se jednou, když je nadpis vidět. Skript je na konci `site-cs.js` / `site-en.js` (hledej `mg-burst`), vzhled v `assets/site.css` pod „kouzlo před nadpisem“. S omezeným pohybem je nadpis vidět rovnou.
 
 Spinner `.pk-spin` je zjednodušená úvodní kresba: zamotaná linka, rovná čára a lepík s fajfkou jako v logu. Vzor HTML je na `/ds/` v části Pohyb. Na webu zatím nic nenačítá, v portfoliu se ukáže při odemykání.
 

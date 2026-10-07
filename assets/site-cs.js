@@ -422,7 +422,7 @@ try{
 
 }catch(e){console.error(e);}
 try{
-/* Kouzlo před nadpisem „Pak z toho vznikne funkční prototyp“: vyskočí hořčicové hvězdičky, pak se nadpis objeví */
+/* Kouzlo před nadpisem „Pak z toho vznikne funkční prototyp“: vyskočí hořčicové hvězdičky a slovo „magic“, pak se nadpis objeví */
 (function(){var h=document.querySelector("h2.lap-h");if(!h||!("IntersectionObserver" in window)||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
   h.removeAttribute("data-rv");h.classList.remove("in");h.classList.add("mg-h");
   var w=document.createElement("div");w.className="mg";h.parentNode.insertBefore(w,h);w.appendChild(h);
@@ -432,9 +432,10 @@ try{
    [156,66,26,.08,25],[30,80,18,.14,-15],[-94,72,28,.1,35],[-210,34,18,.16,-25],[-276,-4,14,.2,0],[276,-38,14,.18,0]]
   .forEach(function(p,i){var s=document.createElement("i");s.className="mg-s"+(i%3===1?" mg-d":"");
     s.style.cssText="--x:"+p[0]+"px;--y:"+p[1]+"px;--z:"+p[2]+"px;--t:"+p[3]+"s;--r:"+p[4]+"deg";s.innerHTML=S;b.appendChild(s);});
+  var m=document.createElement("span");m.className="mg-word";m.textContent="magic";b.appendChild(m);
   w.insertBefore(b,h);
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;io.disconnect();
-    w.classList.add("mg-go");setTimeout(function(){h.classList.add("mg-in");},420);});},{threshold:.9,rootMargin:"0px 0px -10% 0px"});
+    w.classList.add("mg-go");setTimeout(function(){h.classList.add("mg-in");},640);});},{threshold:.9,rootMargin:"0px 0px -10% 0px"});
   io.observe(w);
 })();
 
