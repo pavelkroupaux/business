@@ -65,6 +65,8 @@ Heirloom, Coinmate, Leeaf a BRENO mají nad časovou osou diagram (`section.case
 
 Diagramy se nepíšou ručně. Texty (česky i anglicky) a rozložení jsou v `_tools/case-diagrams.py`. Po změně spusť v kořeni `python3 _tools/case-diagrams.py`, skript diagramy ve všech osmi stránkách nahradí. Složky s podtržítkem GitHub Pages nepublikuje.
 
+Heirloom má pod prvním diagramem ještě druhý, „AI pipeline pro prototyp“: facilitace, pipeline z repozitáře a design systému, hosting na Vercelu, komentáře v prototypu a zpětná vazba zpátky do další iterace. Texty jsou ve stejném skriptu (klíče `p_…`). Čtyři iterace v prvním diagramu se rozsvítí jedna po druhé v řadě nad kruhem, na mobilu vedle něj.
+
 V tabulce „Ve zkratce“ je u každého případu poslední řádek „Služba“ nebo „Služby“ s odkazy na služby, které případu odpovídají.
 
 ## Infografika Vedení produktu na část úvazku

@@ -92,6 +92,7 @@ def heirloom(T, mobile):
         arrow(d, "M588 258 H622", (624, 258), R)
         cx, cy, r = 690, 258, 62
         ring(d, cx, cy, r, T)
+        iters(d, cx - 33, cy - r - 30)
         arrow(d, f"M{cx+r} {cy} H786", (788, cy), R)
         box(d, 792, 208, 150, 100, T["end"], T["end_s"], "end")
         return d.svg()
@@ -106,6 +107,7 @@ def heirloom(T, mobile):
     box(d, 20, 232, 300, 66, T["s2"], T["s2_s"], "n", 2)
     arrow(d, "M170 298 V320", (170, 322), Dn)
     ring(d, 170, 384, 58, T)
+    iters(d, 252, 384)
     arrow(d, "M170 442 V476", (170, 478), Dn)
     box(d, 20, 482, 300, 84, T["end"], T["end_s"], "end")
     return d.svg()
@@ -118,13 +120,60 @@ def ring(d, cx, cy, r, T):
         ang = math.radians(a - 90 + 8)
         x, y = cx + r * math.cos(ang), cy + r * math.sin(ang)
         d.add(f'<path class="ia dg-ln" style="--i:{float(i[:-1])+.5:.2f}s" d="{head(x, y, ang + math.pi/2, 6)}"/>')
-    for k, a in enumerate((-135, -45, 45, 135)):
-        x, y = cx + r * math.cos(math.radians(a)), cy + r * math.sin(math.radians(a))
-        j = d.tick(.9)
-        d.add(f'<g class="ia" style="--i:{j}"><circle cx="{x:.1f}" cy="{y:.1f}" r="12" class="dg-n"/></g>'
-              f'<circle class="pop dg-end" style="--i:{j}" cx="{x:.1f}" cy="{y:.1f}" r="12"/>'
-              f'<text class="ia cdg-numt2" style="--i:{j}" x="{x:.1f}" y="{y+4:.1f}" text-anchor="middle">{k+1}</text>')
     d.add(f'<g class="ia" style="--i:{d.tick(.5)}">' + texts(cx, cy - 3, T["ring"], "dg-sub") + "</g>")
+
+def iters(d, x0, y, n=4, gap=22):
+    """Iterace jedna po druhé: žlutá kolečka s čísly v řadě, každé se objeví po předchozím."""
+    for k in range(n):
+        x = x0 + k * gap
+        j = d.tick(1.1)
+        d.add(f'<circle class="pop dg-end cdg-it" style="--i:{j}" cx="{x}" cy="{y}" r="12"/>'
+              f'<text class="ia cdg-numt2" style="--i:{j}" x="{x}" y="{y+4}" text-anchor="middle">{k+1}</text>')
+
+def heirloom_pipe(T, mobile):
+    """Jak fungovala AI pipeline pro prototyp: facilitace, pipeline z repozitáře a design systému,
+    hosting na Vercelu, komentáře v prototypu a zpětná vazba zpátky do další verze."""
+    if not mobile:
+        d = D(960, 316, "dg-d", T["p_aria"])
+        box(d, 20, 120, 176, 84, T["p1"], T["p1_s"], "n", 1)
+        arrow(d, "M196 162 H212", (214, 162), R)
+        i = d.tick()
+        for k, (x, w, t) in enumerate(((190, 104, T["p_in"][0]), (306, 124, T["p_in"][1]))):
+            d.add(f'<g class="ia" style="--i:{float(i[:-1])+k*.15:.2f}s"><path d="{rr(x, 28, w, 34, 17)}" class="cdg-chip"/>'
+                  f'<text x="{x+w/2}" y="50" text-anchor="middle" class="dg-s cdg-ink">{esc(t)}</text></g>')
+        d.t = float(i[:-1]) + .3
+        arrow(d, "M242 62 C242 92 290 90 296 114", (297, 116), math.radians(70))
+        arrow(d, "M368 62 C368 92 322 90 316 114", (315, 116), math.radians(110))
+        box(d, 218, 120, 176, 84, T["p2"], T["p2_s"], "n", 2)
+        arrow(d, "M394 162 H410", (412, 162), R)
+        box(d, 416, 120, 176, 84, T["p3"], T["p3_s"], "n", 3)
+        arrow(d, "M592 162 H608", (610, 162), R)
+        box(d, 614, 120, 176, 84, T["p4"], T["p4_s"], "n", 4)
+        arrow(d, "M702 204 C702 266 504 266 504 210", (504, 208), U)
+        note(d, 603, 288, T["p_loop"])
+        arrow(d, "M790 162 H808", (810, 162), R)
+        box(d, 814, 108, 126, 108, T["p_end"], T["p_end_s"], "end")
+        return d.svg()
+    d = D(340, 580, "dg-m", T["p_aria"])
+    box(d, 20, 16, 276, 64, T["p1"], T["p1_s"], "n", 1)
+    arrow(d, "M158 80 V140", (158, 142), Dn)
+    i = d.tick()
+    for k, (x, t) in enumerate(((20, T["p_in"][0]), (196, T["p_in"][1]))):
+        d.add(f'<g class="ia" style="--i:{float(i[:-1])+k*.15:.2f}s"><path d="{rr(x, 94, 124 if k else 110, 32, 16)}" class="cdg-chip"/>'
+              f'<text x="{x+(62 if k else 55)}" y="115" text-anchor="middle" class="dg-s cdg-ink">{esc(t)}</text></g>')
+    d.t = float(i[:-1]) + .3
+    arrow(d, "M75 126 C75 138 110 136 122 142", None, 0, "soft", k=.3)
+    arrow(d, "M258 126 C258 138 206 136 194 142", None, 0, "soft", k=.3)
+    box(d, 20, 148, 276, 64, T["p2"], T["p2_s"], "n", 2)
+    arrow(d, "M158 212 V240", (158, 242), Dn)
+    box(d, 20, 248, 276, 64, T["p3"], T["p3_s"], "n", 3)
+    arrow(d, "M158 312 V340", (158, 342), Dn)
+    box(d, 20, 348, 276, 64, T["p4"], T["p4_s"], "n", 4)
+    arrow(d, "M296 380 C334 380 334 280 300 280", (298, 280), L)
+    note(d, 158, 436, T["p_loop"])
+    arrow(d, "M158 446 V466", (158, 468), Dn)
+    box(d, 20, 472, 276, 96, T["p_end"], T["p_end_s"], "end")
+    return d.svg()
 
 # ------------------------------------------------------------------ Coinmate
 def coinmate(T, mobile):
@@ -307,14 +356,24 @@ def breno(T, mobile):
 
 CASES = {
  "heirloom": (heirloom, {
-  "cs": dict(aria="Diagram: firma mění směr. Místo čekání na obrazovky ve Figmě rozsah s vedením, prototyp z existujícího kódu a čtyři sezení s komentáři v prototypu. Výsledek: nový směr, rozsah a zadání.",
+  "cs": dict(aria="Diagram: firma mění směr. Místo čekání na obrazovky ve Figmě rozsah s vedením, AI prototyp z existujícího kódu a čtyři iterace s komentáři v prototypu. Výsledek: nový směr, rozsah a zadání.",
      start="Firma mění směr", start_s="rozsah a zadání?", alt_band="Co se čekalo", alt="Obrazovky ve Figmě", alt_s=["čekání, spory až ve vývoji"],
-     alt_m="Figma", alt_m_s="čekání", s1="Rozsah s vedením", s1_m="Rozsah s vedením", s1_s="facilitované otázky", s2="Prototyp z kódu", s2_s="repozitář a design systém",
-     ring=["4 sezení", "s komentáři"], end="Nový směr", end_s=["rozsah a zadání", "bez sporů ve vývoji"]),
-  "en": dict(aria="Diagram: the company changes direction. Instead of waiting for Figma screens: scope with leadership, a prototype from the existing code, and 4 sessions with comments in the prototype. Result: a new direction, scope and spec.",
+     alt_m="Figma", alt_m_s="čekání", s1="Rozsah s vedením", s1_m="Rozsah s vedením", s1_s="facilitované otázky", s2="AI prototyp z kódu", s2_s="repozitář a design systém",
+     ring=["4 iterace", "s komentáři"], end="Nový směr", end_s=["rozsah a zadání", "bez sporů ve vývoji"],
+     p_title="AI pipeline pro prototyp",
+     p_aria="Diagram AI pipeline: facilitace rozsahu s vedením, pipeline, která z repozitáře a design systému s pomocí AI staví prototyp, hosting na Vercelu napojený na repozitář a komentáře přímo v prototypu. Zpětná vazba se vrací do další verze. Výsledek: rychlejší iterace a spolupráce bez schůzek.",
+     p1="Facilitace", p1_s="rozsah s vedením", p_in=["repozitář", "design systém"], p2="AI pipeline", p2_s="prototyp z kódu",
+     p3="Hosting na Vercelu", p3_s="napojený repozitář", p4="Komentáře", p4_s="přímo v prototypu",
+     p_loop=["zpětná vazba → další iterace"], p_end=["Rychlejší", "iterace"], p_end_s=["asynchronní", "spolupráce"]),
+  "en": dict(aria="Diagram: the company changes direction. Instead of waiting for Figma screens: scope with leadership, an AI prototype from the existing code, and 4 iterations with comments in the prototype. Result: a new direction, scope and spec.",
      start="Direction changes", start_s="scope and spec?", alt_band="What was expected", alt="Screens in Figma", alt_s=["waiting, conflicts in dev"],
-     alt_m="Figma", alt_m_s="waiting", s1="Scope with leaders", s1_m="Scope with leaders", s1_s="facilitated questions", s2="Prototype from code", s2_s="repo and design system",
-     ring=["4 sessions", "with comments"], end="New direction", end_s=["scope and spec", "no conflicts in dev"]),
+     alt_m="Figma", alt_m_s="waiting", s1="Scope with leaders", s1_m="Scope with leaders", s1_s="facilitated questions", s2="AI prototype", s2_s="from the codebase",
+     ring=["4 iterations", "with comments"], end="New direction", end_s=["scope and spec", "no conflicts in dev"],
+     p_title="AI prototype pipeline",
+     p_aria="Diagram of the AI pipeline: facilitating the scope with leadership, a pipeline that uses AI to build the prototype from the repository and design system, hosting on Vercel connected to the repository, and comments right in the prototype. Feedback goes into the next version. Result: faster iterations and async collaboration.",
+     p1="Facilitation", p1_s="scope with leaders", p_in=["repository", "design system"], p2="AI pipeline", p2_s="prototype from code",
+     p3="Hosted on Vercel", p3_s="connected repository", p4="Comments", p4_s="right in the prototype",
+     p_loop=["feedback → next iteration"], p_end=["Faster", "iterations"], p_end_s=["async", "collaboration"]),
  }),
  "coinmate": (coinmate, {
   "cs": dict(aria="Diagram: bez design systému. Nejdřív design systém ze stávajícího stylu, na něm iOS a Android, analýza burz a bank a nejsložitější obrazovky. Rebrand: víc konceptů za dny místo týdnů. Výsledek: nová identita na stejném systému.",
@@ -362,7 +421,9 @@ def figure(case, lang):
     fn, T = CASES[case]
     t = T[lang]
     return (f'  <section class="case-dg">\n    <div class="wrap">\n      <p class="eyebrow tl-h">{SEC[lang]}</p>\n'
-            f'      <figure class="lf-fig case-fig">\n        {fn(t, False)}\n        {fn(t, True)}\n      </figure>\n    </div>\n  </section>\n')
+            f'      <figure class="lf-fig case-fig">\n        {fn(t, False)}\n        {fn(t, True)}\n      </figure>\n'
+            + (f'      <p class="eyebrow tl-h case-dg-h2">{t["p_title"]}</p>\n      <figure class="lf-fig case-fig">\n        {heirloom_pipe(t, False)}\n        {heirloom_pipe(t, True)}\n      </figure>\n' if "p_title" in t else "")
+            + '    </div>\n  </section>\n')
 
 if __name__ == "__main__":
     root = sys.argv[1] if len(sys.argv) > 1 else "."
