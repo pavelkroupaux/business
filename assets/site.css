@@ -1075,7 +1075,7 @@ html.js [data-rv].in{opacity:1;transform:none;
 .lap-frame{fill:var(--lap-frame)}.lap-base{fill:var(--lap-base)}.lap-notch{fill:var(--lap-notch)}.lap-scr{fill:var(--lap-scr)}.lap-shadow{fill:var(--lap-shadow)}
 .lap .lt{font-family:var(--hand);font-weight:500;fill:#6e6e73}
 .lap .lid{transform-box:view-box;transform-origin:500px 520px;transform:scaleY(.035)}
-.lap .d{stroke-dasharray:1;stroke-dashoffset:1}
+.lap .d{stroke-dasharray:1;stroke-dashoffset:1;opacity:0}
 .lap .f{opacity:0}
 .lap .cur{transform-box:view-box;transform:translate(780px,470px);opacity:0}
 .lap .rip{transform-box:fill-box;transform-origin:center;opacity:0}
@@ -1090,7 +1090,7 @@ html.js [data-rv].in{opacity:1;transform:none;
 .lap.play .s1{animation:lapout .7s cubic-bezier(.6,0,.3,1) 4.9s forwards}
 .lap.play .s2{animation:lapin .7s cubic-bezier(.6,0,.3,1) 4.9s forwards,lapshrink .9s cubic-bezier(.6,0,.3,1) 6.4s forwards}
 @keyframes lapopen{to{transform:scaleY(1)}}
-@keyframes lapdraw{to{stroke-dashoffset:0}}
+@keyframes lapdraw{from{opacity:1}to{stroke-dashoffset:0;opacity:1}}
 @keyframes lapfade{to{opacity:1}}
 @keyframes lapcur{0%{opacity:0;transform:translate(780px,470px)}15%{opacity:1}55%{transform:translate(330px,422px)}62%{transform:translate(330px,422px) scale(.85)}70%{transform:translate(330px,422px) scale(1)}90%{opacity:1;transform:translate(330px,422px)}100%{opacity:0;transform:translate(338px,430px)}}
 @keyframes laprip{0%{opacity:1;transform:scale(.4)}100%{opacity:0;transform:scale(2.6)}}
@@ -1274,7 +1274,7 @@ a.card:hover .card-go::after,a.svc:hover .svc-go::after,a.svc-more:hover::after,
 @keyframes numon{to{fill:#FFCE1B;stroke:#FFCE1B}}
 .ill .numt{fill:var(--muted)}
 .ill.on .numt{animation:don .3s ease var(--i) forwards}
-.ill .ln{stroke-dasharray:1;stroke-dashoffset:1}
+.ill .ln{stroke-dasharray:1;stroke-dashoffset:1;opacity:0}
 .ill.on .ln{animation:lapdraw .5s ease var(--i) forwards}
 @media (prefers-reduced-motion:reduce){.ill *{animation-duration:1ms!important;animation-delay:0s!important}}
 /* miniatury */
@@ -1312,7 +1312,7 @@ a.card:hover .card-go::after,a.svc:hover .svc-go::after,a.svc-more:hover::after,
 .svc-thumb .ia{opacity:1;transform:none}
 .svc-thumb .dfill{transform:none}
 .svc-thumb .wk{display:none}
-.svc-thumb .prog,.svc-thumb .ln{stroke-dashoffset:0}
+.svc-thumb .prog,.svc-thumb .ln{stroke-dashoffset:0;opacity:1}
 .svc-thumb .num{fill:#FFCE1B;stroke:#FFCE1B}
 .svc-thumb .numt,.svc-thumb .don{fill:#1d1d1f}
 a.svc{position:relative}
@@ -1528,7 +1528,7 @@ a.pick .svc-thumb{margin:0 0 10px}
 .cx .lt{font-family:var(--hand);font-weight:500;fill:#6e6e73}
 .cx .lb{font-family:var(--display);font-weight:600}
 .cx .lid{transform-box:view-box;transform-origin:200px 200px;transform:scaleY(.035)}
-.cx .d{stroke-dasharray:1;stroke-dashoffset:1}
+.cx .d{stroke-dasharray:1;stroke-dashoffset:1;opacity:0}
 .cx .f,.cx .m-env,.cx .m-win,.cx .m-done,.cx .m-rip,.cx .c-win,.cx .c-day,.cx .c-done,.cx .c-rip1,.cx .c-rip2,.cx .m-cur,.cx .c-cur{opacity:0}
 .cx .m-env,.cx .m-done,.cx .c-done{transform-box:fill-box;transform-origin:center}
 .cx .m-rip,.cx .c-rip1,.cx .c-rip2{transform-box:fill-box;transform-origin:center}
@@ -1882,3 +1882,13 @@ section.case-dg{padding-top:clamp(36px,5vw,64px)}
 .mg-h{opacity:0;transform:translateY(6px);filter:blur(4px)}
 .mg-h.mg-in{opacity:1;transform:none;filter:none;transition:opacity .6s ease,transform .7s cubic-bezier(.2,.7,.3,1),filter .6s ease}
 @media(max-width:560px){.mg-burst{transform:scale(.7)}}
+/* nenakreslené čáry (.lap .d, .cx .d, .ill .ln) jsou do začátku kreslení skryté: kulatý konec čáry
+   s nulovou délkou by jinak ukázal tečku tam, kde čára začíná. Animace lapdraw je zviditelní. */
+/* štítek u kurzoru jako u spolupracovníka ve Figmě (Nakresli / Nalep). Červený jako fix a lepík. */
+.mp-tag{position:absolute;left:0;top:0;z-index:6;pointer-events:none;padding:4px 9px 5px;border-radius:3px 9px 9px 9px;
+  background:var(--marker);color:var(--on-marker);font-family:var(--display);font-size:12.5px;font-weight:600;line-height:1.2;
+  white-space:nowrap;box-shadow:0 2px 8px rgba(17,17,17,.18);opacity:0;scale:.85;transform-origin:0 0;transition:opacity .18s ease,scale .18s ease}
+.mp-tag.on{opacity:1;scale:1}
+.mp-tag.bye{transition-duration:.3s}
+.hero2.drawing .mp-tag{opacity:0}
+@media(prefers-reduced-motion:reduce){.mp-tag{transition:none}}

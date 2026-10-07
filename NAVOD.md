@@ -51,6 +51,10 @@ Telefon na webu není. Kdyby se přidával, nevypisuj ho do HTML, ať ho nenajdo
 
 Na počítači s myší jde po úvodní sekci kreslit. Kód je na konci `assets/site-cs.js` / `site-en.js` (blok „Kreslení fixou…“), vzhled v `assets/site.css` (`.hx-pen`). Fix kreslí červeně, barva je proměnná `--marker` v `assets/site.css`.
 
+## Štítek u kurzoru
+
+U tužky v úvodu a u lepíku v sekci s otázkami jde za myší malý červený štítek jako u spolupracovníka ve Figmě: „Nakresli“ a „Nalep“ (anglicky „Draw“ a „Stick it“). Nad odkazy se schová a po prvním tahu nebo nalepení zmizí. Jen myš na počítači. Skript na konci `site-cs.js` / `site-en.js` (hledej `mp-tag`), vzhled v `assets/site.css`.
+
 ## Lepítka s otázkami
 
 V sekci „Kdy týmy potřebují moji pomoc“ je na počítači s myší kurzor malé lepítko a klik kamkoli nalepí větší lepítko s další otázkou (najednou jich je nejvýš šest). Otázky jsou ve skriptu (`site-cs.js` / `site-en.js`, blok „Lepítka s otázkami…“), vzhled v `assets/site.css` (`.pq`).

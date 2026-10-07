@@ -440,3 +440,32 @@ try{
 })();
 
 }catch(e){console.error(e);}
+try{
+/* Štítek u kurzoru jako u spolupracovníka ve Figmě: „Nakresli“ u tužky v úvodu, „Nalep“ u lepíku v sekci s otázkami.
+   Jde za myší s lehkým zpožděním, schová se nad odkazem a po prvním tahu nebo nalepení zmizí nadobro. Jen myš na počítači. */
+(function(){
+  if(!window.matchMedia||!matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  var still=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function tag(sec,text){
+    if(!sec) return;
+    var t=document.createElement("span"); t.className="mp-tag"; t.setAttribute("aria-hidden","true"); t.textContent=text; sec.appendChild(t);
+    var x=0,y=0,tx=0,ty=0,raf=0,done=false,shown=false;
+    function step(){raf=0;x+=(tx-x)*(still?1:.28);y+=(ty-y)*(still?1:.28);t.style.transform="translate("+x.toFixed(1)+"px,"+y.toFixed(1)+"px)";
+      if(Math.abs(tx-x)+Math.abs(ty-y)>.3) raf=requestAnimationFrame(step);}
+    function hide(){t.classList.remove("on");shown=false;}
+    sec.addEventListener("pointermove",function(ev){
+      if(done||ev.pointerType!=="mouse") return;
+      var r=sec.getBoundingClientRect(); tx=ev.clientX-r.left+16; ty=ev.clientY-r.top+18;
+      if(ev.target.closest("a,button,input,label,summary,details,.pq")){hide();return;}
+      if(!shown){x=tx;y=ty;shown=true;t.classList.add("on");}
+      if(!raf) raf=requestAnimationFrame(step);
+    });
+    sec.addEventListener("pointerleave",hide);
+    sec.addEventListener("pointerdown",function(ev){if(ev.button!==0||ev.target.closest("a,button,input,label,summary,details")) return;
+      done=true;t.classList.add("bye");hide();setTimeout(function(){t.remove();},400);});
+  }
+  tag(document.querySelector(".hero2"),"Nakresli");
+  var p=document.querySelector(".pdots"); if(p&&p.querySelector("[data-notes]")) tag(p,"Nalep");
+})();
+
+}catch(e){console.error(e);}
