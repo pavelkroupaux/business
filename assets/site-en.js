@@ -183,7 +183,7 @@ var CS = {};  /* slovník EN→CS z verze 4 smazán v kole 18 */
   var cb=document.getElementById("copy-mail");
   if(cb) cb.addEventListener("click",function(){
     function sel(){ var r=document.createRange(); r.selectNodeContents(document.getElementById("mail")); var x=getSelection(); x.removeAllRanges(); x.addRange(r); cb.textContent="Selected. Copy it now."; }
-    try{ navigator.clipboard.writeText("info@pavelkroupa.com").then(function(){ cb.textContent="Copied"; }, sel); }catch(e){ sel(); }
+    try{ navigator.clipboard.writeText("contact@pavelkroupa.com").then(function(){ cb.textContent="Copied"; }, sel); }catch(e){ sel(); }
   });
   /* ---------- theme: dokud se neklikne, řídí se systémem; tlačítko přepíná světlý a tmavý ---------- */
   var root=document.documentElement, tb=document.getElementById("theme"), tg=tb&&tb.querySelector(".tg");
@@ -357,7 +357,7 @@ try{
 }catch(e){console.error(e);}
 try{
 /* Kontakt: e-mail s předvyplněným předmětem a začátkem zprávy (bez skriptu zůstává prostý odkaz). */
-(function(){var a=document.getElementById("mail-go");if(a)a.href="mailto:info@pavelkroupa.com?subject="+encodeURIComponent("Inquiry from the website")+"&body="+encodeURIComponent("We are stuck on: ");})();
+(function(){var a=document.getElementById("mail-go");if(a)a.href="mailto:contact@pavelkroupa.com?subject="+encodeURIComponent("Inquiry from the website")+"&body="+encodeURIComponent("We are stuck on: ");})();
 
 }catch(e){console.error(e);}
 try{
@@ -422,20 +422,20 @@ try{
 
 }catch(e){console.error(e);}
 try{
-/* Kouzlo před nadpisem „Pak z toho vznikne funkční prototyp“: vyskočí hořčicové hvězdičky a slovo „magic“, pak se nadpis objeví */
+/* Kouzlo před nadpisem „Pak z toho postavím funkční prototyp“: rozsvítí se drobné jiskry a prokmitne „magic“, pak se nadpis zaostří */
 (function(){var h=document.querySelector("h2.lap-h");if(!h||!("IntersectionObserver" in window)||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
   h.removeAttribute("data-rv");h.classList.remove("in");h.classList.add("mg-h");
   var w=document.createElement("div");w.className="mg";h.parentNode.insertBefore(w,h);w.appendChild(h);
   var b=document.createElement("span");b.className="mg-burst";b.setAttribute("aria-hidden","true");
-  var S='<svg viewBox="0 0 24 24"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z"/></svg>';
-  [[-220,-52,34,0,-40],[-126,-80,20,.06,30],[-30,-92,30,.02,-20],[74,-74,18,.1,45],[178,-56,36,.04,20],[248,6,20,.12,-35],
-   [156,66,26,.08,25],[30,80,18,.14,-15],[-94,72,28,.1,35],[-210,34,18,.16,-25],[-276,-4,14,.2,0],[276,-38,14,.18,0]]
-  .forEach(function(p,i){var s=document.createElement("i");s.className="mg-s"+(i%3===1?" mg-d":"");
-    s.style.cssText="--x:"+p[0]+"px;--y:"+p[1]+"px;--z:"+p[2]+"px;--t:"+p[3]+"s;--r:"+p[4]+"deg";s.innerHTML=S;b.appendChild(s);});
+  var S='<svg viewBox="0 0 24 24"><path d="M12 0C12.5 9 15 11.5 24 12C15 12.5 12.5 15 12 24C11.5 15 9 12.5 0 12C9 11.5 11.5 9 12 0Z"/></svg>';
+  [[-190,-36,17,0],[-112,-62,11,.12],[-34,-72,20,.05],[54,-64,12,.2],[134,-46,18,.08],[208,-8,11,.26],
+   [156,44,15,.16],[46,58,10,.3],[-72,52,16,.22],[-168,24,11,.34]]
+  .forEach(function(p){var s=document.createElement("i");s.className="mg-s";
+    s.style.cssText="--x:"+p[0]+"px;--y:"+p[1]+"px;--z:"+p[2]+"px;--t:"+p[3]+"s";s.innerHTML=S;b.appendChild(s);});
   var m=document.createElement("span");m.className="mg-word";m.textContent="magic";b.appendChild(m);
   w.insertBefore(b,h);
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;io.disconnect();
-    w.classList.add("mg-go");setTimeout(function(){h.classList.add("mg-in");},640);});},{threshold:.9,rootMargin:"0px 0px -10% 0px"});
+    w.classList.add("mg-go");setTimeout(function(){h.classList.add("mg-in");},600);});},{threshold:.9,rootMargin:"0px 0px -10% 0px"});
   io.observe(w);
 })();
 
