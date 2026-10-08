@@ -322,7 +322,13 @@ try{
 (function(){var ills=[].slice.call(document.querySelectorAll(".ill"));if(!ills.length)return;
   function on(s){s.classList.remove("on");void s.getBoundingClientRect();s.classList.add("on");}
   if(!("IntersectionObserver" in window)||window.matchMedia("(prefers-reduced-motion: reduce)").matches){ills.forEach(function(s){s.classList.add("on");});return;}
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!e.target.classList.contains("on"))on(e.target);});},{threshold:.5});
+  /* v případech je pod sebou víc diagramů (.case-fig): další se spustí, až dokončí předchozí stejné varianty (počítač, mobil) */
+  function prevOf(s){var f=s.closest(".case-fig");if(!f)return null;var p=f.previousElementSibling;while(p&&!p.classList.contains("case-fig"))p=p.previousElementSibling;
+    return p?p.querySelector("svg."+(s.classList.contains("dg-m")?"dg-m":"dg-d")):null;}
+  function go(s){on(s);var a=s.getAnimations?s.getAnimations({subtree:true}).filter(function(x){var t=x.effect&&x.effect.getComputedTiming();return t&&isFinite(t.endTime);}):[];
+    s._done=Promise.all(a.map(function(x){return x.finished.catch(function(){});}));}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){var t=e.target;if(!e.isIntersecting||t.classList.contains("on")||t._wait)return;
+    var pv=prevOf(t);if(pv&&pv._done){t._wait=true;pv._done.then(function(){t._wait=false;go(t);});}else go(t);});},{threshold:.5});
   ills.forEach(function(s){io.observe(s);var p=s.parentNode;if(p&&window.matchMedia("(hover: hover)").matches){
     var box=p.closest(".svc,.svc-row,.svc-hero-ill");if(box)box.addEventListener("mouseenter",function(){on(s);});}});
 })();
@@ -463,6 +469,12 @@ try{
 
 }catch(e){console.error(e);}
 try{
+/* volba jazyka přepínačem EN/CS se pamatuje (pk-lang), úvodní přesměrování podle zařízení ji pak nepřebíjí */
+(function(){var a=document.getElementById("lang");if(!a)return;
+  a.addEventListener("click",function(){try{localStorage.setItem("pk-lang",a.getAttribute("hreflang")||"");}catch(e){}});})();
+
+}catch(e){console.error(e);}
+try{
 /* Štítek u kurzoru jako u spolupracovníka ve Figmě: „Draw“ u tužky v úvodu, „Stick it“ u lepíku v sekci s otázkami.
    Jde za myší s lehkým zpožděním, schová se nad odkazem a po prvním tahu nebo nalepení zmizí nadobro. Jen myš na počítači. */
 (function(){
@@ -471,22 +483,30 @@ try{
   function tag(sec,text,wait){
     if(!sec) return;
     var t=document.createElement("span"); t.className="mp-tag"; t.setAttribute("aria-hidden","true"); t.textContent=text; sec.appendChild(t);
-    var x=0,y=0,tx=0,ty=0,raf=0,done=false,shown=false,ok=!wait,inside=false,over=false;
-    /* štítek se ukáže až po animaci sekce; když je myš už uvnitř, objeví se u ní hned */
-    if(wait) wait(function(){ok=true;if(inside&&!over&&!done){x=tx;y=ty;shown=true;t.style.transform="translate("+x.toFixed(1)+"px,"+y.toFixed(1)+"px)";t.classList.add("on");}});
+    var x=0,y=0,tx=0,ty=0,raf=0,done=false,shown=false,ok=!wait,seen=false,out=false,lx=0,ly=0;
     function step(){raf=0;x+=(tx-x)*(still?1:.28);y+=(ty-y)*(still?1:.28);t.style.transform="translate("+x.toFixed(1)+"px,"+y.toFixed(1)+"px)";
       if(Math.abs(tx-x)+Math.abs(ty-y)>.3) raf=requestAnimationFrame(step);}
     function hide(){t.classList.remove("on");shown=false;}
+    /* lx, ly = poslední známá poloha myši v okně. Při scrollu se myš nehýbe, ale stránka ano, takže se štítek přepočítá sám
+       (a hned, bez doznívání) a schová se, když myš už není nad sekcí nebo je nad odkazem */
+    function place(el,snap){
+      var r=sec.getBoundingClientRect(); tx=lx-r.left+16; ty=ly-r.top+18;
+      if(!ok) return;
+      if(el&&el.closest&&el.closest("a,button,input,label,summary,details,.pq")){hide();return;}
+      if(!shown||snap){x=tx;y=ty;t.style.transform="translate("+x.toFixed(1)+"px,"+y.toFixed(1)+"px)";shown=true;t.classList.add("on");}
+      if(!raf) raf=requestAnimationFrame(step);}
+    function under(){if(!seen||out||done) return null;var el=document.elementFromPoint(lx,ly);return el&&sec.contains(el)?el:null;}
+    /* štítek se ukáže až po animaci sekce; když je myš už nad sekcí, objeví se u ní hned */
+    if(wait) wait(function(){ok=true;var el=under();if(el)place(el,true);});
     sec.addEventListener("pointermove",function(ev){
       if(done||ev.pointerType!=="mouse") return;
-      var r=sec.getBoundingClientRect(); tx=ev.clientX-r.left+16; ty=ev.clientY-r.top+18; inside=true;
-      over=!!ev.target.closest("a,button,input,label,summary,details,.pq");
-      if(!ok) return;
-      if(over){hide();return;}
-      if(!shown){x=tx;y=ty;shown=true;t.classList.add("on");}
-      if(!raf) raf=requestAnimationFrame(step);
+      lx=ev.clientX; ly=ev.clientY; seen=true; out=false; place(ev.target,false);
     });
-    sec.addEventListener("pointerleave",function(){inside=false;hide();});
+    document.documentElement.addEventListener("mouseleave",function(){out=true;hide();});
+    addEventListener("scroll",function(){
+      var el=under(); if(el) place(el,true); else if(shown) hide();
+    },{passive:true});
+    sec.addEventListener("pointerleave",hide);
     sec.addEventListener("pointerdown",function(ev){if(ev.button!==0||ev.target.closest("a,button,input,label,summary,details")) return;
       done=true;t.classList.add("bye");hide();setTimeout(function(){t.remove();},400);});
   }

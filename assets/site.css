@@ -1853,7 +1853,7 @@ section.case-dg{padding-top:clamp(36px,5vw,64px)}
 .tl-facts dd.tl-svc{display:flex;flex-wrap:wrap;gap:8px 26px}
 .cdg .cdg-it{stroke:var(--surface);stroke-width:2.5}
 .cdg .cdg-chip{fill:var(--ground);stroke:var(--line);stroke-width:1.4}
-.case-dg .case-dg-h2{margin-top:clamp(32px,5vw,56px)}
+.case-dg .case-dg-h2{margin-top:clamp(72px,9vw,128px)}
 /* úvod: kouzlo před nadpisem „Pak z toho postavím funkční prototyp“. Kolem nadpisu se rozsvítí drobné jiskry
    v hořčicové barvě a uprostřed na okamžik prokmitne „MAGIC“ s pruhem světla. Pak se nadpis zaostří.
    Bez skriptu nebo s omezeným pohybem je nadpis vidět rovnou. */
