@@ -1892,11 +1892,11 @@ section.case-dg{padding-top:clamp(36px,5vw,64px)}
 .mp-tag.bye{transition-duration:.3s}
 .hero2.drawing .mp-tag{opacity:0}
 @media(prefers-reduced-motion:reduce){.mp-tag{transition:none}}
-/* úvod: vybrané případy s fotkou vpravo */
-.cs-head{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:40px;align-items:end;margin-bottom:8px}
-.cs-head .eyebrow,.cs-head h2,.cs-head .lede{text-align:left;margin-inline:0}
-.cs-head .lede{margin-bottom:0}
-.cs-me{margin:0;justify-self:end;width:220px}
-.cs-me img{display:block;width:100%;height:auto;border-radius:14px;box-shadow:var(--shadow-1);transform:rotate(1.6deg)}
-.cs-me figcaption{margin:12px 0 0;font-family:var(--hand);font-size:15px;line-height:1.3;color:var(--muted);text-align:center}
-@media(max-width:700px){.cs-head{grid-template-columns:minmax(0,1fr) 108px;gap:18px;align-items:center}.cs-me{width:108px}.cs-me figcaption{display:none}}
+/* úvod: závěrečná výzva s fotkou vpravo */
+.cta-me{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:56px;align-items:center}
+.cta-me .eyebrow,.cta-me h2,.cta-me .lede{text-align:left;margin-inline:0}
+.cta-me .row{justify-content:flex-start}
+.cs-me{margin:0;justify-self:end;width:240px}
+.cs-me img{display:block;width:100%;height:auto;border-radius:14px;transform:rotate(1.6deg)}
+.cs-me figcaption{margin:14px 0 0;font-family:var(--hand);font-size:15px;line-height:1.3;color:var(--on-panel-soft);text-align:center}
+@media(max-width:700px){.cta-me{grid-template-columns:1fr;gap:28px}.cs-me{justify-self:center;width:200px}}
