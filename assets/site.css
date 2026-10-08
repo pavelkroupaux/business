@@ -1930,3 +1930,10 @@ section.case-dg{padding-top:clamp(36px,5vw,64px)}
   .bc-dot[aria-current]::before{width:34px;background:var(--ink);opacity:1}
 }
 @media(max-width:700px) and (prefers-reduced-motion:reduce){.bc-dot::before,.bc-arr{transition:none}}
+/* nadpis před notebookem: neviditelný zbytek textu zabírá místo, kurzor psaní, žluté se protáhne až po napsání */
+.mg-r{visibility:hidden}
+.mg-c{display:inline-block;width:0;height:.9em;vertical-align:-.08em;position:relative}
+.mg-c::after{content:"";position:absolute;left:2px;top:0;width:3px;height:100%;background:var(--ink);animation:twblink 1s steps(1) infinite}
+.mg-typing .fix{background:none!important;text-decoration-color:transparent!important}
+.mg-sweep .fix{background-repeat:no-repeat;animation:mg-sweep .6s cubic-bezier(.3,.6,.3,1) both}
+@keyframes mg-sweep{from{background-size:0 100%;text-decoration-color:transparent}to{background-size:100% 100%;text-decoration-color:var(--fix)}}
