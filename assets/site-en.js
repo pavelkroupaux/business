@@ -110,6 +110,8 @@ var CS = {};  /* slovník EN→CS z verze 4 smazán v kole 18 */
             }, idx*260);
           })(items[i],i);
         }
+        /* všechna nalepená (poslední začne po (n-1)×260 ms, nalepení trvá 460 ms): teprve pak štítek „Stick it“ */
+        setTimeout(function(){wrap.setAttribute("data-done","");wrap.dispatchEvent(new Event("notesdone"));},(items.length-1)*260+460);
       });
     },{rootMargin:"0px 0px -14% 0px",threshold:.3});
     nio.observe(wrap);
@@ -446,26 +448,78 @@ try{
 (function(){
   if(!window.matchMedia||!matchMedia("(hover: hover) and (pointer: fine)").matches) return;
   var still=matchMedia("(prefers-reduced-motion: reduce)").matches;
-  function tag(sec,text){
+  function tag(sec,text,wait){
     if(!sec) return;
     var t=document.createElement("span"); t.className="mp-tag"; t.setAttribute("aria-hidden","true"); t.textContent=text; sec.appendChild(t);
-    var x=0,y=0,tx=0,ty=0,raf=0,done=false,shown=false;
+    var x=0,y=0,tx=0,ty=0,raf=0,done=false,shown=false,ok=!wait,inside=false,over=false;
+    /* štítek se ukáže až po animaci sekce; když je myš už uvnitř, objeví se u ní hned */
+    if(wait) wait(function(){ok=true;if(inside&&!over&&!done){x=tx;y=ty;shown=true;t.style.transform="translate("+x.toFixed(1)+"px,"+y.toFixed(1)+"px)";t.classList.add("on");}});
     function step(){raf=0;x+=(tx-x)*(still?1:.28);y+=(ty-y)*(still?1:.28);t.style.transform="translate("+x.toFixed(1)+"px,"+y.toFixed(1)+"px)";
       if(Math.abs(tx-x)+Math.abs(ty-y)>.3) raf=requestAnimationFrame(step);}
     function hide(){t.classList.remove("on");shown=false;}
     sec.addEventListener("pointermove",function(ev){
       if(done||ev.pointerType!=="mouse") return;
-      var r=sec.getBoundingClientRect(); tx=ev.clientX-r.left+16; ty=ev.clientY-r.top+18;
-      if(ev.target.closest("a,button,input,label,summary,details,.pq")){hide();return;}
+      var r=sec.getBoundingClientRect(); tx=ev.clientX-r.left+16; ty=ev.clientY-r.top+18; inside=true;
+      over=!!ev.target.closest("a,button,input,label,summary,details,.pq");
+      if(!ok) return;
+      if(over){hide();return;}
       if(!shown){x=tx;y=ty;shown=true;t.classList.add("on");}
       if(!raf) raf=requestAnimationFrame(step);
     });
-    sec.addEventListener("pointerleave",hide);
+    sec.addEventListener("pointerleave",function(){inside=false;hide();});
     sec.addEventListener("pointerdown",function(ev){if(ev.button!==0||ev.target.closest("a,button,input,label,summary,details")) return;
       done=true;t.classList.add("bye");hide();setTimeout(function(){t.remove();},400);});
   }
-  tag(document.querySelector(".hero2"),"Draw");
-  var p=document.querySelector(".pdots"); if(p&&p.querySelector("[data-notes]")) tag(p,"Stick it");
+  /* úvod: až doběhne animace kresby (čeká na všechny animace v .hx), pak štítek i nápověda pod kresbou */
+  var hero=document.querySelector(".hero2");
+  tag(hero,"Draw",function(go){
+    function end(){if(hero) hero.classList.add("hx-done");go();}
+    var s=hero&&hero.querySelector(".hx");
+    if(!s||still){end();return;}
+    if(!s.getAnimations){setTimeout(end,5000);return;}
+    var a=s.getAnimations({subtree:true});
+    if(!a.length){end();return;}
+    Promise.all(a.map(function(x){return x.finished;})).then(end,end);
+  });
+  /* lepítka: až se nalepí všechna čtyři */
+  var p=document.querySelector(".pdots"), w=p&&p.querySelector("[data-notes]");
+  if(w) tag(p,"Stick it",function(go){
+    if(!w.hasAttribute("data-armed")||w.hasAttribute("data-done")) go(); else w.addEventListener("notesdone",go,{once:true});
+  });
+})();
+
+}catch(e){console.error(e);}
+try{
+/* Karusel na mobilu (data-bc): karty vedle sebe, další vykukuje zprava, pod nimi šipky a tečky.
+   Na širší obrazovce zůstává mřížka, ovládání je schované v CSS. */
+(function(){
+  var still=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  [].forEach.call(document.querySelectorAll("[data-bc]"),function(el){
+    var items=[].slice.call(el.children); if(items.length<2) return;
+    el.classList.add("bc");
+    function btn(c,l,h){var b=document.createElement("button");b.type="button";b.className=c;b.setAttribute("aria-label",l);if(h)b.innerHTML=h;return b;}
+    var A='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+    var nav=document.createElement("div"); nav.className="bc-nav";
+    var prev=btn("bc-arr bc-prev","Previous card",A), next=btn("bc-arr bc-next","Next card",A), dots=document.createElement("div"); dots.className="bc-dots";
+    var ds=items.map(function(it,i){var d=btn("bc-dot","Card %s of %s".replace("%s",i+1).replace("%s",items.length));d.addEventListener("click",function(){go(i);});dots.appendChild(d);return d;});
+    nav.appendChild(prev); nav.appendChild(dots); nav.appendChild(next);
+    el.parentNode.insertBefore(nav,el.nextSibling);
+    function pad(){return parseFloat(getComputedStyle(el).paddingLeft)||0;}
+    function go(i){i=Math.max(0,Math.min(items.length-1,i));
+      el.scrollTo({left:items[i].offsetLeft-pad(),behavior:still?"auto":"smooth"});}
+    var k=-1,raf=0;
+    function cur(){var x=el.scrollLeft,p=pad();
+      if(x>=el.scrollWidth-el.clientWidth-2) return items.length-1;
+      var b=0,bd=1e9;items.forEach(function(it,i){var d=Math.abs(it.offsetLeft-p-x);if(d<bd){bd=d;b=i;}});return b;}
+    function upd(){raf=0;var i=cur();if(i===k)return;k=i;
+      ds.forEach(function(d,j){if(j===i)d.setAttribute("aria-current","true");else d.removeAttribute("aria-current");});
+      prev.disabled=i===0;next.disabled=i===items.length-1;}
+    el.addEventListener("scroll",function(){if(!raf)raf=requestAnimationFrame(upd);},{passive:true});
+    addEventListener("resize",function(){k=-1;upd();});
+    prev.addEventListener("click",function(){go(cur()-1);});
+    next.addEventListener("click",function(){go(cur()+1);});
+    upd();
+  });
 })();
 
 }catch(e){console.error(e);}
