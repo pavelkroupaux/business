@@ -1931,14 +1931,14 @@ section.case-dg{padding-top:clamp(36px,5vw,64px)}
 @keyframes mg-sweep{from{background-size:0 100%;text-decoration-color:transparent}to{background-size:100% 100%;text-decoration-color:var(--fix)}}
 /* šipka nad nadpisem „Pak z toho postavím…“: před spuštěním je nenakreslená, pak se rychle nakreslí jako čáry v úvodní kresbě */
 .bridge.br-arm path{stroke-dasharray:1 2;stroke-dashoffset:1}
-.bridge.br-go path{animation:brdraw .5s cubic-bezier(.45,.05,.55,.95) forwards}
-.bridge.br-go path+path{animation-duration:.14s;animation-delay:.46s}
+.bridge.br-go path{animation:brdraw .3s cubic-bezier(.45,.05,.55,.95) forwards}
+.bridge.br-go path+path{animation-duration:.1s;animation-delay:.27s}
 @keyframes brdraw{to{stroke-dashoffset:0}}
 
 /* O mně: dvě výhody jako dlaždice s ilustrací (systémy, asynchronní práce) */
 .adv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;max-width:1000px;margin:28px auto 56px;text-align:left}
 .adv-c{background:var(--panel);border:1px solid var(--panel-line);border-radius:22px;padding:28px 28px 30px}
-.adv-ill{max-width:360px;margin:0 0 22px}
+.adv-ill{display:block;width:100%;max-width:228px;height:auto;margin:0 0 20px}
 .panel .adv-h{margin:0 0 10px;font-family:var(--display);font-size:clamp(24px,2.6vw,30px);font-weight:700;letter-spacing:-.02em;line-height:1.15;text-align:left;color:var(--on-panel)}
 .panel .adv-p{margin:0;max-width:none;font-size:17px;line-height:1.55;text-align:left;color:var(--on-panel-soft)}
 .adv-ill .a-nd{fill:var(--panel-deep);stroke:var(--on-panel-soft);stroke-width:1.5}
@@ -1950,9 +1950,14 @@ section.case-dg{padding-top:clamp(36px,5vw,64px)}
 .adv-ill .a-card{fill:var(--panel-deep);stroke:var(--on-panel-soft);stroke-width:1.5}
 .adv-ill .a-back{stroke:var(--panel-line)}
 .adv-ill .a-play{fill:#1D1D1F}
-.adv-ill .a-track{stroke:var(--panel-line);stroke-width:4;stroke-linecap:round}
-.adv-ill .a-prog{fill:none;stroke:var(--fix);stroke-width:4;stroke-linecap:round}
-.adv-ill .a-t{font-family:var(--display);font-size:12.5px;font-weight:600;fill:var(--on-panel)}
+.adv-ill .a-track{stroke:var(--panel-line);stroke-width:3;stroke-linecap:round}
+.adv-ill .a-prog{fill:none;stroke:var(--fix);stroke-width:3;stroke-linecap:round}
+.adv-ill .a-t{font-family:var(--display);font-size:12px;font-weight:600;fill:var(--on-panel)}
 .adv-ill .a-on{fill:#1D1D1F}
-.adv-ill .a-ts{font-family:var(--display);font-size:12px;fill:var(--on-panel-soft)}
+.adv-ill .a-ts{font-family:var(--display);font-size:11.5px;fill:var(--on-panel-soft)}
 @media(max-width:760px){.adv{grid-template-columns:1fr;gap:16px}.adv-c{padding:22px 20px 24px}}
+
+/* Ceny na kartách služeb (homepage, přehled služeb, „další služby“) jsou schované, aby neodradily dřív,
+   než si člověk službu přečte. Cena zůstává na stránce každé služby. Zpět: smaž tento řádek. */
+main:not(.ds) .svc-price,main:not(.ds) .pick-p{display:none}
+@media(max-width:700px){br.br-d{display:none}}

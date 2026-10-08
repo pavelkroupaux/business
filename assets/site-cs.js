@@ -433,7 +433,7 @@ try{
 }catch(e){console.error(e);}
 try{
 /* Kouzlo před nadpisem „Pak z toho postavím funkční prototyp“. Jedna časová osa, spustí se, když je nadpis zhruba v polovině obrazovky:
-   rozsvítí se jiskry a prokmitne „magic“, nadpis se napíše písmeno po písmenu (55 ms, stejně jako nadpis nad notebookem),
+   nejdřív se rychle nakreslí šipka, pak se rozsvítí jiskry a prokmitne „magic“, nadpis se napíše písmeno po písmenu (30 ms),
    žluté zvýraznění se protáhne pod slovy a teprve potom se otevře notebook (událost lapgo). */
 (function(){var h=document.querySelector("h2.lap-h");if(!h||!("IntersectionObserver" in window)||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
   h.removeAttribute("data-rv");h.classList.remove("in");
@@ -449,7 +449,7 @@ try{
   h.setAttribute("aria-label",full.textContent.replace(/\s+/g," ").trim());
   h.classList.add("mg-typing");h.innerHTML=upto(0);
   function type(i){h.innerHTML=upto(i);
-    if(i<total)setTimeout(function(){type(i+1);},55);else setTimeout(sweep,250);}
+    if(i<total)setTimeout(function(){type(i+1);},30);else setTimeout(sweep,250);}
   function sweep(){h.innerHTML=full.innerHTML;h.removeAttribute("aria-label");h.classList.remove("mg-typing");h.classList.add("mg-sweep");
     setTimeout(function(){var f=document.querySelector("[data-lap]");if(f)f.dispatchEvent(new Event("lapgo"));},900);}
   var w=document.createElement("div");w.className="mg";h.parentNode.insertBefore(w,h);w.appendChild(h);
@@ -466,7 +466,7 @@ try{
   if(br){[].forEach.call(br.querySelectorAll("path"),function(q){q.setAttribute("pathLength","1");});br.classList.add("br-arm");}
   /* spouštěč: horní okraj nadpisu přejde přes čáru 55 % výšky obrazovky */
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;io.disconnect();
-    w.classList.add("mg-go");if(br)br.classList.add("br-go");setTimeout(function(){type(1);},600);});},{threshold:0,rootMargin:"0px 0px -45% 0px"});
+    if(br)br.classList.add("br-go");setTimeout(function(){w.classList.add("mg-go");setTimeout(function(){type(1);},450);},br?380:0);});},{threshold:0,rootMargin:"0px 0px -45% 0px"});
   io.observe(w);
 })();
 
