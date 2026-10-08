@@ -461,9 +461,12 @@ try{
     s.style.cssText="--x:"+p[0]+"px;--y:"+p[1]+"px;--z:"+p[2]+"px;--t:"+p[3]+"s";s.innerHTML=S;b.appendChild(s);});
   var m=document.createElement("span");m.className="mg-word";m.textContent="magic";b.appendChild(m);
   w.insertBefore(b,h);
+  /* šipka nad nadpisem: nenakreslená, při spuštění se rychle nakreslí (třída br-go) */
+  var br=document.querySelector(".bridge");
+  if(br){[].forEach.call(br.querySelectorAll("path"),function(q){q.setAttribute("pathLength","1");});br.classList.add("br-arm");}
   /* spouštěč: horní okraj nadpisu přejde přes čáru 55 % výšky obrazovky */
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;io.disconnect();
-    w.classList.add("mg-go");setTimeout(function(){type(1);},600);});},{threshold:0,rootMargin:"0px 0px -45% 0px"});
+    w.classList.add("mg-go");if(br)br.classList.add("br-go");setTimeout(function(){type(1);},600);});},{threshold:0,rootMargin:"0px 0px -45% 0px"});
   io.observe(w);
 })();
 
@@ -483,28 +486,26 @@ try{
   function tag(sec,text,wait){
     if(!sec) return;
     var t=document.createElement("span"); t.className="mp-tag"; t.setAttribute("aria-hidden","true"); t.textContent=text; sec.appendChild(t);
-    var x=0,y=0,tx=0,ty=0,raf=0,done=false,shown=false,ok=!wait,seen=false,out=false,lx=0,ly=0;
-    function step(){raf=0;x+=(tx-x)*(still?1:.28);y+=(ty-y)*(still?1:.28);t.style.transform="translate("+x.toFixed(1)+"px,"+y.toFixed(1)+"px)";
-      if(Math.abs(tx-x)+Math.abs(ty-y)>.3) raf=requestAnimationFrame(step);}
+    var x=0,y=0,done=false,shown=false,ok=!wait,seen=false,out=false,lx=0,ly=0;
     function hide(){t.classList.remove("on");shown=false;}
-    /* lx, ly = poslední známá poloha myši v okně. Při scrollu se myš nehýbe, ale stránka ano, takže se štítek přepočítá sám
-       (a hned, bez doznívání) a schová se, když myš už není nad sekcí nebo je nad odkazem */
-    function place(el,snap){
-      var r=sec.getBoundingClientRect(); tx=lx-r.left+16; ty=ly-r.top+18;
+    /* lx, ly = poslední známá poloha myši v okně. Štítek sedí přesně u myši, bez doznívání. Při scrollu se myš nehýbe, ale stránka ano,
+       takže se poloha přepočítá i tehdy, a štítek se schová, když myš už není nad sekcí nebo je nad odkazem */
+    function place(el){
+      var r=sec.getBoundingClientRect(); x=lx-r.left+16; y=ly-r.top+18;
       if(!ok) return;
       if(el&&el.closest&&el.closest("a,button,input,label,summary,details,.pq")){hide();return;}
-      if(!shown||snap){x=tx;y=ty;t.style.transform="translate("+x.toFixed(1)+"px,"+y.toFixed(1)+"px)";shown=true;t.classList.add("on");}
-      if(!raf) raf=requestAnimationFrame(step);}
+      t.style.transform="translate("+x.toFixed(1)+"px,"+y.toFixed(1)+"px)";
+      if(!shown){shown=true;t.classList.add("on");}}
     function under(){if(!seen||out||done) return null;var el=document.elementFromPoint(lx,ly);return el&&sec.contains(el)?el:null;}
     /* štítek se ukáže až po animaci sekce; když je myš už nad sekcí, objeví se u ní hned */
-    if(wait) wait(function(){ok=true;var el=under();if(el)place(el,true);});
+    if(wait) wait(function(){ok=true;var el=under();if(el)place(el);});
     sec.addEventListener("pointermove",function(ev){
       if(done||ev.pointerType!=="mouse") return;
-      lx=ev.clientX; ly=ev.clientY; seen=true; out=false; place(ev.target,false);
+      lx=ev.clientX; ly=ev.clientY; seen=true; out=false; place(ev.target);
     });
     document.documentElement.addEventListener("mouseleave",function(){out=true;hide();});
     addEventListener("scroll",function(){
-      var el=under(); if(el) place(el,true); else if(shown) hide();
+      var el=under(); if(el) place(el); else if(shown) hide();
     },{passive:true});
     sec.addEventListener("pointerleave",hide);
     sec.addEventListener("pointerdown",function(ev){if(ev.button!==0||ev.target.closest("a,button,input,label,summary,details")) return;

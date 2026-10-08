@@ -59,7 +59,7 @@ Na počítači s myší jde po úvodní sekci kreslit. Kód je na konci `assets/
 
 ## Štítek u kurzoru
 
-U tužky v úvodu a u lepíku v sekci s otázkami jde za myší malý červený štítek jako u spolupracovníka ve Figmě: „Nakresli“ a „Nalep“ (anglicky „Draw“ a „Stick it“). Nad odkazy se schová a po prvním tahu nebo nalepení zmizí. Jen myš na počítači. Při scrollu štítek zůstává u kurzoru (přepočítává se podle poslední polohy myši) a schová se, když myš už není nad sekcí. Štítek „Nakresli“ (i nápověda „kresli“ pod kresbou) se ukáže až po doběhnutí animace kresby v úvodu, „Nalep“ až po nalepení všech čtyř lepítek. Skript na konci `site-cs.js` / `site-en.js` (hledej `mp-tag`), vzhled v `assets/site.css`.
+U tužky v úvodu a u lepíku v sekci s otázkami jde za myší malý červený štítek jako u spolupracovníka ve Figmě: „Nakresli“ a „Nalep“ (anglicky „Draw“ a „Stick it“). Nad odkazy se schová a po prvním tahu nebo nalepení zmizí. Jen myš na počítači. Štítek sedí přesně u kurzoru, bez doznívání a bez prolnutí. Při scrollu zůstává u kurzoru (přepočítává se podle poslední polohy myši) a schová se, když myš už není nad sekcí. Štítek „Nakresli“ se ukáže až po doběhnutí animace kresby v úvodu, „Nalep“ až po nalepení všech čtyř lepítek. Skript na konci `site-cs.js` / `site-en.js` (hledej `mp-tag`), vzhled v `assets/site.css`.
 
 ## Karusel na mobilu
 
@@ -97,7 +97,7 @@ Jen světlý a tmavý. Dokud návštěvník neklikne, web se řídí nastavením
 
 ## Kouzlo před nadpisem a spinner
 
-V úvodu u nadpisu „Pak z toho postavím funkční prototyp“ se nejdřív kolem rozsvítí drobné hořčicové jiskry a uprostřed na chvilku prokmitne „MAGIC“ s pruhem světla, pak se nadpis napíše písmeno po písmenu stejnou rychlostí jako nadpis nad notebookem. Přehraje se jednou, když je nadpis zhruba v polovině obrazovky. Pořadí: jiskry a „MAGIC“, nadpis se napíše, žluté zvýraznění se protáhne pod slovy a teprve potom se otevře notebook pod ním a rozjede animaci (skript nadpisu mu pošle událost `lapgo`, notebook je do té doby zavřený). Skript je na konci `site-cs.js` / `site-en.js` (hledej `mg-burst`), vzhled v `assets/site.css` pod „kouzlo před nadpisem“. S omezeným pohybem je nadpis vidět rovnou.
+V úvodu u nadpisu „Pak z toho postavím funkční prototyp“ se nejdřív kolem rozsvítí drobné hořčicové jiskry a uprostřed na chvilku prokmitne „MAGIC“ s pruhem světla, pak se nadpis napíše písmeno po písmenu stejnou rychlostí jako nadpis nad notebookem. Přehraje se jednou, když je nadpis zhruba v polovině obrazovky. Pořadí: rychle se nakreslí šipka nad nadpisem a rozsvítí se jiskry a „MAGIC“, nadpis se napíše, žluté zvýraznění se protáhne pod slovy a teprve potom se otevře notebook pod ním a rozjede animaci (skript nadpisu mu pošle událost `lapgo`, notebook je do té doby zavřený). Skript je na konci `site-cs.js` / `site-en.js` (hledej `mg-burst`), vzhled v `assets/site.css` pod „kouzlo před nadpisem“. S omezeným pohybem je nadpis vidět rovnou.
 
 Spinner `.pk-spin` je zjednodušená úvodní kresba: zamotaná linka, rovná čára a lepík s fajfkou jako v logu. Vzor HTML je na `/ds/` v části Pohyb. Na webu zatím nic nenačítá, v portfoliu se ukáže při odemykání.
 
