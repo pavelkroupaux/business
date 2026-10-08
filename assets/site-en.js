@@ -214,7 +214,8 @@ try{
 try{
 (function(){var f=document.querySelector("[data-lap]");if(!f)return;
   function play(){f.classList.remove("play");void f.getBoundingClientRect();f.classList.add("play");}
-  var b=f.querySelector(".lap-re");if(b)b.addEventListener("click",play);
+  /* znovu: víko už je otevřené, přehraje se jen diagram */
+  var b=f.querySelector(".lap-re");if(b)b.addEventListener("click",function(){f.classList.add("replay");play();});
   if(window.matchMedia("(prefers-reduced-motion: reduce)").matches||!("IntersectionObserver" in window)){f.classList.add("play");return;}
   /* notebook stojí zavřený a otevře se až po nadpisu nad ním (jiskry, psaní, žluté zvýraznění): ten pošle událost lapgo */
   if(document.querySelector("h2.lap-h")){f.addEventListener("lapgo",play,{once:true});return;}

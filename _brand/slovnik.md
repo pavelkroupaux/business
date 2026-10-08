@@ -29,10 +29,10 @@ tags: [brand, copywriting]
 
 ## Výzvy k akci
 
-- Book a 30-minute call
+- Book a meeting
 - Write to me
 - See my work
 - Read the case study
 - How it works
 
-Neměnit bez důvodu. Opakování stejné výzvy je záměr.
+Neměnit bez důvodu. Opakování stejné výzvy je záměr. Česky „Domluvit schůzku“ (dřív „Domluvit 30minutový hovor“, podle zpětné vazby málo akční). V textu kolem tlačítka může dál stát, že schůzka trvá 30 minut.

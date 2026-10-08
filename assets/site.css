@@ -1957,7 +1957,21 @@ section.case-dg{padding-top:clamp(36px,5vw,64px)}
 .adv-ill .a-ts{font-family:var(--display);font-size:11.5px;fill:var(--on-panel-soft)}
 @media(max-width:760px){.adv{grid-template-columns:1fr;gap:16px}.adv-c{padding:22px 20px 24px}}
 
-/* Ceny na kartách služeb (homepage, přehled služeb, „další služby“) jsou schované, aby neodradily dřív,
-   než si člověk službu přečte. Cena zůstává na stránce každé služby. Zpět: smaž tento řádek. */
-main:not(.ds) .svc-price,main:not(.ds) .pick-p{display:none}
+/* Na homepage jsou ceny na kartách služeb schované, aby neodradily dřív, než si člověk službu přečte.
+   Na stránkách služeb ceny zůstávají. Zpět: smaž tento řádek. */
+main.home .svc-price{display:none}
+.svc-note{margin:10px 0 0;font-size:15px;line-height:1.5;color:var(--muted)}
 @media(max-width:700px){br.br-d{display:none}}
+
+/* Notebook na homepage (lap2): víko se otevře za .5 s místo 1 s a vše ostatní začne o půl sekundy dřív (--sh).
+   Opakované přehrání (třída replay, tlačítko pod notebookem) víko neotevírá, rovnou kreslí diagram. */
+.lap2{--sh:.5s}
+.lap2.replay{--sh:.95s}
+.lap2.play .lid{animation-duration:.5s}
+.lap2.play.replay .lid{animation:none;transform:none}
+.lap2.play .d,.lap2.play .f{animation-delay:calc(var(--d) - var(--sh))}
+.lap2.play .z-diag{animation-delay:calc(4.95s - var(--sh)),calc(9.3s - var(--sh))}
+.lap2.play .z-s1{animation-delay:calc(5.5s - var(--sh)),calc(9.3s - var(--sh))}
+.lap2.play .cur2{animation-delay:calc(7.5s - var(--sh))}
+.lap2.play .rip2{animation-delay:calc(8.45s - var(--sh))}
+.lap2.play .btnf2{animation-delay:calc(8.5s - var(--sh))}
