@@ -4,6 +4,10 @@ Web je sada obyčejných HTML souborů. Nic se nestaví, nic se neinstaluje. Upr
 
 Nejjednodušší je dát úpravu Claudovi: „V repozitáři pavelkroupaux/business změň na stránce Služby cenu auditu na 35 000 Kč, česky i anglicky, a podle NAVOD.md zkontroluj, co s tím souvisí.“
 
+## Texty a značka
+
+Zásady pro psaní textů (hlas, zakázané vzorce, slovník, prompt pro AI) jsou ve složce `_brand/`. Začni souborem `_brand/README.md`. Po změně anglického textu spusť `python3 _tools/copy-lint.py --against HEAD`, ukáže zakázané vzorce a texty, které narostly.
+
 ## Kde co je
 
 | Cesta | Co to je |
@@ -18,6 +22,8 @@ Nejjednodušší je dát úpravu Claudovi: „V repozitáři pavelkroupaux/busin
 | `assets/site.css` | celý vzhled webu. Barvy a písmo jsou proměnné na začátku (`:root`) |
 | `assets/site-cs.js`, `assets/site-en.js` | chování (přepínač režimu, animace, kreslení v úvodu, formulář). Liší se jen texty |
 | `assets/img/`, `assets/fonts/` | obrázky a písmo |
+| `_brand/` | zásady pro texty a prompt pro AI, nepublikuje se |
+| `_tools/` | pomocné skripty (kontrola textů, diagramy), nepublikuje se |
 | `og/` | obrázky pro sdílení na sítích (1200 × 630 px), anglické v `og/en/` |
 | `logo/`, `favicon.*`, `icon-*.png`, `apple-touch-icon.png` | loga a ikony |
 | `robots.txt`, `sitemap.xml`, `llms.txt` | pro vyhledávače a AI asistenty |
