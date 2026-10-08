@@ -59,11 +59,15 @@ Na počítači s myší jde po úvodní sekci kreslit. Kód je na konci `assets/
 
 ## Štítek u kurzoru
 
-U tužky v úvodu a u lepíku v sekci s otázkami jde za myší malý červený štítek jako u spolupracovníka ve Figmě: „Nakresli“ a „Nalep“ (anglicky „Draw“ a „Stick it“). Nad odkazy se schová a po prvním tahu nebo nalepení zmizí. Jen myš na počítači. Štítek „Nakresli“ (i nápověda „kresli“ pod kresbou) se ukáže až po doběhnutí animace kresby v úvodu, „Nalep“ až po nalepení všech čtyř lepítek. Skript na konci `site-cs.js` / `site-en.js` (hledej `mp-tag`), vzhled v `assets/site.css`.
+U tužky v úvodu a u lepíku v sekci s otázkami jde za myší malý červený štítek jako u spolupracovníka ve Figmě: „Nakresli“ a „Nalep“ (anglicky „Draw“ a „Stick it“). Nad odkazy se schová a po prvním tahu nebo nalepení zmizí. Jen myš na počítači. Štítek sedí přesně u kurzoru, bez doznívání a bez prolnutí. Při scrollu zůstává u kurzoru (přepočítává se podle poslední polohy myši) a schová se, když myš už není nad sekcí. Štítek „Nakresli“ se ukáže až po doběhnutí animace kresby v úvodu, „Nalep“ až po nalepení všech čtyř lepítek. Skript na konci `site-cs.js` / `site-en.js` (hledej `mp-tag`), vzhled v `assets/site.css`.
 
 ## Karusel na mobilu
 
 Na mobilu (do 700 px) jsou některé řady karet vedle sebe: další karta vykukuje zprava, pod nimi jsou šipky a tečky. Je to na úvodu (kroky „Od první schůzky k první verzi“), u „Co dostanete“ na stránkách tří služeb a u prvních karet na O mně. Řadu zapne atribut `data-bc` na prvku s kartami, na širší obrazovce zůstává mřížka. Skript na konci `site-cs.js` / `site-en.js` (hledej `data-bc`), vzhled na konci `assets/site.css` (`.bc`, `.bc-nav`).
+
+## Jazyk při první návštěvě
+
+Česká stránka (ne `/en/`) má v hlavě krátký skript (hledej `pk-lang`). Při první návštěvě přesměruje na anglickou verzi téže stránky, když první jazyk zařízení není čeština, nebo když je časové pásmo jiné než Europe/Prague. Časové pásmo je jen odhad polohy, skutečnou polohu podle IP bez serveru zjistit nejde. Nepřesměruje roboty, návštěvníky, kteří přišli z jiné stránky webu, a ty, kdo si jazyk zvolili přepínačem EN/CS (volba se pamatuje v prohlížeči jako `pk-lang`). Skript je zkopírovaný ve všech 14 českých stránkách, změna = najít a nahradit ve všech.
 
 ## Lepítka s otázkami
 
@@ -79,7 +83,7 @@ Heirloom, Coinmate, Leeaf a BRENO mají nad časovou osou diagram (`section.case
 
 Diagramy se nepíšou ručně. Texty (česky i anglicky) a rozložení jsou v `_tools/case-diagrams.py`. Po změně spusť v kořeni `python3 _tools/case-diagrams.py`, skript diagramy ve všech osmi stránkách nahradí. Složky s podtržítkem GitHub Pages nepublikuje.
 
-Heirloom má pod prvním diagramem ještě druhý, „Pipeline pro definici produktu“: facilitace, AI prototyp z repozitáře a design systému, hosting na Vercelu, komentáře v prototypu a zpětná vazba zpátky do další iterace. Texty jsou ve stejném skriptu (klíče `p_…`). Čtyři iterace v prvním diagramu se rozsvítí jedna po druhé v řadě nad kruhem, na mobilu vedle něj.
+Když je v případu víc diagramů pod sebou, další se rozjede, až předchozí dokončí svou animaci (skript `prevOf` u `.ill`). Heirloom má pod prvním diagramem ještě druhý, „Pipeline pro definici produktu“: facilitace, AI prototyp z repozitáře a design systému, hosting na Vercelu, komentáře v prototypu a zpětná vazba zpátky do další iterace. Texty jsou ve stejném skriptu (klíče `p_…`). Čtyři iterace v prvním diagramu se rozsvítí jedna po druhé v řadě nad kruhem, na mobilu vedle něj.
 
 V tabulce „Ve zkratce“ je u každého případu poslední řádek „Služba“ nebo „Služby“ s odkazy na služby, které případu odpovídají.
 
@@ -93,7 +97,7 @@ Jen světlý a tmavý. Dokud návštěvník neklikne, web se řídí nastavením
 
 ## Kouzlo před nadpisem a spinner
 
-V úvodu u nadpisu „Pak z toho postavím funkční prototyp“ se nejdřív kolem rozsvítí drobné hořčicové jiskry a uprostřed na chvilku prokmitne „MAGIC“ s pruhem světla, pak se nadpis napíše písmeno po písmenu stejnou rychlostí jako nadpis nad notebookem. Přehraje se jednou, když je nadpis zhruba v polovině obrazovky. Pořadí: jiskry a „MAGIC“, nadpis se napíše, žluté zvýraznění se protáhne pod slovy a teprve potom se otevře notebook pod ním a rozjede animaci (skript nadpisu mu pošle událost `lapgo`, notebook je do té doby zavřený). Skript je na konci `site-cs.js` / `site-en.js` (hledej `mg-burst`), vzhled v `assets/site.css` pod „kouzlo před nadpisem“. S omezeným pohybem je nadpis vidět rovnou.
+V úvodu u nadpisu „Pak z toho postavím funkční prototyp“ se nejdřív kolem rozsvítí drobné hořčicové jiskry a uprostřed na chvilku prokmitne „MAGIC“ s pruhem světla, pak se nadpis napíše písmeno po písmenu stejnou rychlostí jako nadpis nad notebookem. Přehraje se jednou, když je nadpis zhruba v polovině obrazovky. Pořadí: rychle se nakreslí šipka nad nadpisem a rozsvítí se jiskry a „MAGIC“, nadpis se napíše, žluté zvýraznění se protáhne pod slovy a teprve potom se otevře notebook pod ním a rozjede animaci (skript nadpisu mu pošle událost `lapgo`, notebook je do té doby zavřený). Skript je na konci `site-cs.js` / `site-en.js` (hledej `mg-burst`), vzhled v `assets/site.css` pod „kouzlo před nadpisem“. S omezeným pohybem je nadpis vidět rovnou.
 
 Spinner `.pk-spin` je zjednodušená úvodní kresba: zamotaná linka, rovná čára a lepík s fajfkou jako v logu. Vzor HTML je na `/ds/` v části Pohyb. Na webu zatím nic nenačítá, v portfoliu se ukáže při odemykání.
 

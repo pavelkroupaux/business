@@ -35,6 +35,16 @@
 <meta name="twitter:image" content="https://pavelkroupa.com/og/og-vedeni-produktu.png">
 <link rel="preload" href="/assets/fonts/shantell-sans-latin-086ca6b5.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/shantell-sans-cs-0f694d8f.woff2" as="font" type="font/woff2" crossorigin>
+<script>/* první návštěva: jazyk zařízení jiný než čeština nebo časové pásmo mimo ČR vede na anglickou verzi. Volba přepínačem EN/CS se pamatuje (pk-lang). */
+(function(){try{
+if(localStorage.getItem("pk-lang")||/bot|crawl|spider|slurp|lighthouse|preview/i.test(navigator.userAgent))return;
+if(document.referrer&&document.referrer.indexOf(location.origin)===0)return;
+var l=(navigator.languages&&navigator.languages[0]||navigator.language||"").toLowerCase(),z="";
+try{z=Intl.DateTimeFormat().resolvedOptions().timeZone||"";}catch(e){}
+if(l.indexOf("cs")===0&&(!z||z==="Europe/Prague"))return;
+var a=document.querySelector('link[rel="alternate"][hreflang="en"]');if(!a)return;
+location.replace(new URL(a.href).pathname+location.search+location.hash);
+}catch(e){}})();</script>
 <link rel="stylesheet" href="/assets/site.css">
 <script type="application/ld+json">
 {
