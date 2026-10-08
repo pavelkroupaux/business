@@ -50,7 +50,7 @@ Každá stránka je samostatný soubor, takže co je na víc místech, je potře
 
 Web nemá formulář. Stránka Kontakt (`contact/index.html`, `en/contact/index.html`) nabízí dvě cesty: napsat e-mail a vybrat termín hovoru na `cal.com/pavelkroupa`. Tlačítko „Napsat e-mail“ (`#mail-go`) dostane ve skriptu (`site-cs.js` / `site-en.js`, hledej `mail-go`) předmět a začátek zprávy, bez skriptu je to prostý odkaz.
 
-Nad oběma kartami je malý notebook (`figure.cx` v HTML stránky, styl v `assets/site.css` pod „kontakt: notebooky“, skript hledej `.cx`): u e-mailu se rozbalí zpráva a kurzor klikne na Odeslat, u hovoru se vybere datum a potvrdí. Kalendář se poprvé pustí až po dohrání e-mailu. Přehraje se, když je vidět, a znovu po najetí myší na kartu nebo klepnutí. Při omezeném pohybu se ukáže rovnou konečný stav. Texty v obrázku jsou přímo v HTML, anglické v `en/contact/index.html`.
+Nad oběma kartami je malý notebook (`figure.cx` v HTML stránky, styl v `assets/site.css` pod „kontakt: notebooky“, skript hledej `.cx`): u e-mailu se rozbalí zpráva a kurzor klikne na Odeslat, u hovoru se vybere datum a potvrdí. Kalendář se poprvé pustí až po dohrání e-mailu. Přehraje se, když je vidět, a znovu po najetí myší na kartu nebo klepnutí. Při omezeném pohybu se přehraje taky (viz „Omezený pohyb“ níž). Texty v obrázku jsou přímo v HTML, anglické v `en/contact/index.html`.
 
 Telefon na webu není. Kdyby se přidával, nevypisuj ho do HTML, ať ho nenajdou sběrače: skriptem ho slož až po kliknutí na tlačítko „Zobrazit telefon“. To chrání před běžnými roboty, ne před robotem, který umí kliknout.
 
@@ -98,7 +98,7 @@ Jen světlý a tmavý. Dokud návštěvník neklikne, web se řídí nastavením
 
 ## Kouzlo před nadpisem a spinner
 
-V úvodu u nadpisu „Pak z toho postavím funkční prototyp“ se nejdřív kolem rozsvítí drobné hořčicové jiskry a uprostřed na chvilku prokmitne „MAGIC“ s pruhem světla, pak se nadpis napíše písmeno po písmenu stejnou rychlostí jako nadpis nad notebookem. Přehraje se jednou, když je nadpis zhruba v polovině obrazovky. Pořadí: rychle se nakreslí šipka nad nadpisem a rozsvítí se jiskry a „MAGIC“, nadpis se napíše, žluté zvýraznění se protáhne pod slovy a teprve potom se otevře notebook pod ním a rozjede animaci (skript nadpisu mu pošle událost `lapgo`, notebook je do té doby zavřený). Skript je na konci `site-cs.js` / `site-en.js` (hledej `mg-burst`), vzhled v `assets/site.css` pod „kouzlo před nadpisem“. S omezeným pohybem je nadpis vidět rovnou.
+V úvodu u nadpisu „Pak z toho postavím funkční prototyp“ se nejdřív kolem rozsvítí drobné hořčicové jiskry a uprostřed na chvilku prokmitne „MAGIC“ s pruhem světla, pak se nadpis napíše písmeno po písmenu stejnou rychlostí jako nadpis nad notebookem. Přehraje se jednou, když je nadpis zhruba v polovině obrazovky. Pořadí: rychle se nakreslí šipka nad nadpisem a rozsvítí se jiskry a „MAGIC“, nadpis se napíše, žluté zvýraznění se protáhne pod slovy a teprve potom se otevře notebook pod ním a rozjede animaci (skript nadpisu mu pošle událost `lapgo`, notebook je do té doby zavřený). Skript je na konci `site-cs.js` / `site-en.js` (hledej `mg-burst`), vzhled v `assets/site.css` pod „kouzlo před nadpisem“. S omezeným pohybem se šipka nakreslí a nadpis napíše, jen jiskry a „MAGIC“ vynechá.
 
 Spinner `.pk-spin` je zjednodušená úvodní kresba: zamotaná linka, rovná čára a lepík s fajfkou jako v logu. Vzor HTML je na `/ds/` v části Pohyb. Na webu zatím nic nenačítá, v portfoliu se ukáže při odemykání.
 
@@ -129,3 +129,7 @@ Web měří Cloudflare Web Analytics, bez cookies, takže nepotřebuje cookie li
 ## Historie
 
 Web vznikl v Claude Chat jako jeden HTML soubor a skript v Pythonu ho rozdělil na stránky. Od 5. 10. 2026 se stránky upravují přímo a Python už není potřeba. Původní build je v historii gitu (složka `web/`), kdyby bylo potřeba se k němu vrátit.
+
+## Omezený pohyb
+
+Když má návštěvník v systému omezený pohyb (ve Windows vypnuté Nastavení → Přístupnost → Vizuální efekty → Efekty animací, na Macu „Omezit pohyb“), web animace nevypíná úplně. Kreslení čar, prolínání, psaní textu a notebook zůstávají. Vypnou se jen velké pohyby: přiblížení v notebooku, jiskry a „MAGIC“, lepítka v letu (jen se prolnou), posun při odhalování sekcí, scrollytelling, běžící pásy a plynulý scroll. Pravidla jsou v `assets/site.css` (hledej `prefers-reduced-motion`) a ve skriptech `site-cs.js` / `site-en.js`.

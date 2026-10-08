@@ -352,11 +352,6 @@ html[lang="cs"] .hx-en{display:none}
 html:not([lang="cs"]) .hx-cs{display:none}
 .hx-cap{margin:22px auto 0;font-family:var(--display);font-size:13.5px;font-weight:500;
   color:var(--faint);text-align:center;max-width:none}
-@media(prefers-reduced-motion:reduce){
-  .hx-one,.hx-r{animation:none!important;stroke-dashoffset:0!important}
-  .hx-pool{animation:none;opacity:1}
-  .hx-lab text{animation:none;opacity:1}
-}
 
 /* ---------- spouštěče: čtyři lepítka nalepená na tabuli ---------- */
 .notes{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;
@@ -398,8 +393,7 @@ html.js .notes[data-armed] .note{opacity:0}
 html.js .notes[data-armed] .note.stuck{opacity:1;
   animation:stick .46s cubic-bezier(.2,.8,.3,1.05) both}
 @media(prefers-reduced-motion:reduce){
-  html.js .notes[data-armed] .note{opacity:1;animation:none}
-  .note .ch{clip-path:none;animation:none}
+  html.js .notes[data-armed] .note.stuck{animation:calmfade .46s ease both}
 }
 
 /* ---------- karty prací ---------- */
@@ -893,10 +887,13 @@ body{background:
 html.js [data-rv]{opacity:0;transform:translateY(16px)}
 html.js [data-rv].in{opacity:1;transform:none;
   transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+/* Omezený pohyb (ve Windows vypnuté „Efekty animací“) neznamená žádný pohyb: kreslení, prolínání a psaní zůstává,
+   vypínají se jen velké pohyby: přiblížení v notebooku, jiskry, lepítka v letu, scrollytelling, běžící pásy, plynulý scroll. */
 @media(prefers-reduced-motion:reduce){
-  *{transition:none!important;animation:none!important}
-  html.js [data-rv]{opacity:1!important;transform:none!important}
+  html.js [data-rv]{transform:none!important}
+  html{scroll-behavior:auto!important}
 }
+@keyframes calmfade{from{opacity:0}to{opacity:1}}
 
 /* ---------- v5: doplňky pro nový obsah, jen z tokenů v4 ---------- */
 .lede-wrap{display:block}
@@ -1101,7 +1098,7 @@ html.js [data-rv].in{opacity:1;transform:none;
 .lap-cap{font-family:var(--hand);font-size:18px;color:var(--muted);text-align:center;margin:22px auto 0;max-width:52ch;line-height:1.5}
 .lap-re{display:inline-block;margin-left:8px;font-family:var(--display);font-size:13px;font-weight:600;color:var(--ink);background:var(--surface);
   border:0;border-radius:980px;padding:6px 12px;cursor:pointer;vertical-align:1px}
-@media (prefers-reduced-motion:reduce){.lap *{animation-duration:1ms!important;animation-delay:0s!important}}
+@media (prefers-reduced-motion:reduce){.lap2.play .z-diag,.lap2.play .z-s1,.lap.play .s1,.lap.play .s2{animation:none!important}}
 
 /* ---------- v5 kolo 4 ---------- */
 /* šipka z workshopu do prototypu */
@@ -1179,7 +1176,6 @@ a.card:hover .card-go::after,a.svc:hover .svc-go::after,a.svc-more:hover::after,
 .tw-c{display:inline-block;width:3px;height:.9em;margin-left:4px;vertical-align:-.08em;background:var(--ink);animation:twblink 1s steps(1) infinite}
 @keyframes twblink{50%{opacity:0}}
 .bridge{padding-left:0;margin-bottom:10px}
-@media (prefers-reduced-motion:reduce){.tw-c{display:none}}
 
 /* ---------- v5 kolo 6 ---------- */
 .hx-me{transform-box:fill-box;transform-origin:center;opacity:0;animation:hxme .5s cubic-bezier(.2,.8,.3,1.25) 1.15s forwards}
@@ -1187,7 +1183,6 @@ a.card:hover .card-go::after,a.svc:hover .svc-go::after,a.svc-more:hover::after,
 .hx-bulb{animation:hxbulb .9s ease-out 1.75s forwards}
 @keyframes hxbulb{0%{opacity:0}25%{opacity:1}40%{opacity:.25}55%{opacity:1}68%{opacity:.5}80%,100%{opacity:1}}
 .hero2 .lede-wrap{margin-bottom:6px}
-@media (prefers-reduced-motion:reduce){.hx-me,.hx-bulb,.hx-x{opacity:1!important;animation:none!important}}
 
 /* ---------- v5 kolo 7: pás log v černé sekci ---------- */
 .logos-h{font-family:var(--display);font-size:13px;font-weight:600;color:var(--on-panel-soft);text-align:center;margin:0 auto 6px;max-width:none}
@@ -1276,7 +1271,6 @@ a.card:hover .card-go::after,a.svc:hover .svc-go::after,a.svc-more:hover::after,
 .ill.on .numt{animation:don .3s ease var(--i) forwards}
 .ill .ln{stroke-dasharray:1;stroke-dashoffset:1;opacity:0}
 .ill.on .ln{animation:lapdraw .5s ease var(--i) forwards}
-@media (prefers-reduced-motion:reduce){.ill *{animation-duration:1ms!important;animation-delay:0s!important}}
 /* miniatury */
 .svc-thumb{max-width:210px;margin:-4px 0 14px;color:var(--ink)}
 .svc-hero-ill{max-width:280px;margin:8px auto 22px;color:var(--ink)}
@@ -1461,28 +1455,6 @@ a.pick .svc-thumb{margin:0 0 10px}
 .ct-f input,.ct-f textarea,.ct-f select{min-width:0;width:100%;box-sizing:border-box}
 /* nejmenší telefony: dlouhá slova v nadpisech (spolupracovat, Recommendations) by sahala až do okraje */
 @media(max-width:360px){h1{font-size:40px}h2{font-size:31px}}
-/* omezený pohyb: notebook a infografiky služeb rovnou v konečném stavu. Pravidlo *{animation:none!important}
-   jinak vypne i jejich zkrácené animace (.lap *, .ill * na 1 ms) a zůstane prázdný notebook a nevyplněné infografiky. */
-@media(prefers-reduced-motion:reduce){
-  .lap.play .lid{animation-name:lapopen!important}
-  .lap.play .d{animation-name:lapdraw!important}
-  .lap.play .f{animation-name:lapfade!important}
-  .lap.play .cur,.lap2.play .cur2{animation-name:lapcur!important}
-  .lap.play .rip,.lap2.play .rip2{animation-name:laprip!important}
-  .lap.play .btnf,.lap2.play .btnf2{animation-name:lapbtn!important}
-  .lap.play .s1{animation-name:lapout!important}
-  .lap.play .s2{animation-name:lapin,lapshrink!important}
-  .lap2.play .z-diag{animation-name:zin,zout!important}
-  .lap2.play .z-s1{animation-name:s1in,s1out!important}
-  .ill.on .ln{animation-name:lapdraw!important}
-  .ill.on .ia{animation-name:illin!important}
-  .ill.on .dfill{animation-name:dfill!important}
-  .ill.on .don,.ill.on .numt{animation-name:don!important}
-  .ill.on .wk{animation-name:wk!important}
-  .ill.on .prog{animation-name:prog!important}
-  .ill.on .num{animation-name:numon!important}
-  .lap.play *,.ill.on *{animation-fill-mode:forwards!important}
-}
 
 /* ---------- v5 kolo 19: kreslení v úvodu ---------- */
 .hero2{position:relative}

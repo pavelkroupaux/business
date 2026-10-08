@@ -44,8 +44,7 @@ var CS = {};  /* slovník EN→CS z verze 4 smazán v kole 18 */
       if(el.offsetParent!==null||el.getClientRects().length) io.observe(el);
     });
   }
-  if("IntersectionObserver" in window &&
-     !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+  if("IntersectionObserver" in window){
     document.documentElement.classList.add("js");
     tag();
     io=new IntersectionObserver(function(es){
@@ -94,7 +93,6 @@ var CS = {};  /* slovník EN→CS z verze 4 smazán v kole 18 */
   function notes(){
     var wrap=document.querySelector("[data-notes]");
     if(!wrap||!("IntersectionObserver" in window)) return;
-    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     wrap.setAttribute("data-armed","");
     var items=wrap.querySelectorAll(".note");
     var nio=new IntersectionObserver(function(es,obs){
@@ -216,7 +214,7 @@ try{
   function play(){f.classList.remove("play");void f.getBoundingClientRect();f.classList.add("play");}
   /* znovu: víko už je otevřené, přehraje se jen diagram */
   var b=f.querySelector(".lap-re");if(b)b.addEventListener("click",function(){f.classList.add("replay");play();});
-  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches||!("IntersectionObserver" in window)){f.classList.add("play");return;}
+  if(!("IntersectionObserver" in window)){f.classList.add("play");return;}
   /* notebook stojí zavřený a otevře se až po nadpisu nad ním (jiskry, psaní, žluté zvýraznění): ten pošle událost lapgo */
   if(document.querySelector("h2.lap-h")){f.addEventListener("lapgo",play,{once:true});return;}
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&e.target.offsetParent!==null){play();io.disconnect();}});},{threshold:.45});
@@ -322,7 +320,7 @@ try{
 try{
 (function(){var ills=[].slice.call(document.querySelectorAll(".ill"));if(!ills.length)return;
   function on(s){s.classList.remove("on");void s.getBoundingClientRect();s.classList.add("on");}
-  if(!("IntersectionObserver" in window)||window.matchMedia("(prefers-reduced-motion: reduce)").matches){ills.forEach(function(s){s.classList.add("on");});return;}
+  if(!("IntersectionObserver" in window)){ills.forEach(function(s){s.classList.add("on");});return;}
   /* v případech je pod sebou víc diagramů (.case-fig): další se spustí, až dokončí předchozí stejné varianty (počítač, mobil) */
   function prevOf(s){var f=s.closest(".case-fig");if(!f)return null;var p=f.previousElementSibling;while(p&&!p.classList.contains("case-fig"))p=p.previousElementSibling;
     return p?p.querySelector("svg."+(s.classList.contains("dg-m")?"dg-m":"dg-d")):null;}
@@ -337,9 +335,7 @@ try{
 }catch(e){console.error(e);}
 try{
 (function(){var els=document.querySelectorAll(".tw-loop");if(!els.length)return;
-  var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   els.forEach(function(w){var words=w.getAttribute("data-words").split("|"),k=0,started=false;
-    if(reduce){w.textContent=words[0];return;}
     function typeTo(word,done){var cur=w.textContent;
       (function del(){if(cur.length){cur=cur.slice(0,-1);w.textContent=cur;setTimeout(del,28);}
         else(function typ(i){w.textContent=word.slice(0,i);if(i<word.length)setTimeout(function(){typ(i+1);},60);else done();})(1);})();}
@@ -352,7 +348,7 @@ try{
 try{
 /* Kontakt: notebooky nad kartami se přehrají, když jsou vidět, a znovu po najetí myší nebo klepnutí. */
 (function(){var fs=document.querySelectorAll(".cx");if(!fs.length)return;
-  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches||!("IntersectionObserver" in window)){fs.forEach(function(f){f.classList.add("still");});return;}
+  if(!("IntersectionObserver" in window)){fs.forEach(function(f){f.classList.add("still");});return;}
   /* Kalendář se poprvé přehraje až po dokončení e-mailu (asi 4,8 s), pak už každý zvlášť. */
   var plays=[].map.call(fs,function(f){var busy=false,card=f.closest(".ct-way")||f;
     function play(){if(busy)return;busy=true;f.classList.remove("play");void f.getBoundingClientRect();f.classList.add("play");setTimeout(function(){busy=false;},5000);}
@@ -436,7 +432,7 @@ try{
 /* Kouzlo před nadpisem „Pak z toho postavím funkční prototyp“. Jedna časová osa, spustí se, když je nadpis zhruba v polovině obrazovky:
    nejdřív se rychle nakreslí šipka, pak se rozsvítí jiskry a prokmitne „magic“, nadpis se napíše písmeno po písmenu (30 ms),
    žluté zvýraznění se protáhne pod slovy a teprve potom se otevře notebook (událost lapgo). */
-(function(){var h=document.querySelector("h2.lap-h");if(!h||!("IntersectionObserver" in window)||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+(function(){var h=document.querySelector("h2.lap-h");if(!h||!("IntersectionObserver" in window))return;var calm=matchMedia("(prefers-reduced-motion: reduce)").matches;
   h.removeAttribute("data-rv");h.classList.remove("in");
   /* psaní: napsaná část je vidět, zbytek je neviditelný, ale zabírá místo, takže se nadpis nepřelamuje a nepřeskakuje */
   var full=h.cloneNode(true),total=full.textContent.length;
@@ -467,7 +463,7 @@ try{
   if(br){[].forEach.call(br.querySelectorAll("path"),function(q){q.setAttribute("pathLength","1");});br.classList.add("br-arm");}
   /* spouštěč: horní okraj nadpisu přejde přes čáru 55 % výšky obrazovky */
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;io.disconnect();
-    if(br)br.classList.add("br-go");setTimeout(function(){w.classList.add("mg-go");setTimeout(function(){type(1);},450);},br?380:0);});},{threshold:0,rootMargin:"0px 0px -45% 0px"});
+    if(br)br.classList.add("br-go");setTimeout(function(){if(!calm)w.classList.add("mg-go");setTimeout(function(){type(1);},calm?0:450);},br?380:0);});},{threshold:0,rootMargin:"0px 0px -45% 0px"});
   io.observe(w);
 })();
 
@@ -517,7 +513,7 @@ try{
   tag(hero,"Nakresli",function(go){
     function end(){if(hero) hero.classList.add("hx-done");go();}
     var s=hero&&hero.querySelector(".hx");
-    if(!s||still){end();return;}
+    if(!s){end();return;}
     if(!s.getAnimations){setTimeout(end,5000);return;}
     var a=s.getAnimations({subtree:true});
     if(!a.length){end();return;}
