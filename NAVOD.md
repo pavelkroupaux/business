@@ -93,7 +93,7 @@ Jen světlý a tmavý. Dokud návštěvník neklikne, web se řídí nastavením
 
 ## Kouzlo před nadpisem a spinner
 
-V úvodu u nadpisu „Pak z toho postavím funkční prototyp“ se nejdřív kolem rozsvítí drobné hořčicové jiskry a uprostřed na chvilku prokmitne „MAGIC“ s pruhem světla, pak se nadpis napíše písmeno po písmenu stejnou rychlostí jako nadpis nad notebookem. Přehraje se jednou, když je nadpis vidět. Skript je na konci `site-cs.js` / `site-en.js` (hledej `mg-burst`), vzhled v `assets/site.css` pod „kouzlo před nadpisem“. S omezeným pohybem je nadpis vidět rovnou.
+V úvodu u nadpisu „Pak z toho postavím funkční prototyp“ se nejdřív kolem rozsvítí drobné hořčicové jiskry a uprostřed na chvilku prokmitne „MAGIC“ s pruhem světla, pak se nadpis napíše písmeno po písmenu stejnou rychlostí jako nadpis nad notebookem. Přehraje se jednou, když je nadpis zhruba v polovině obrazovky. Pořadí: jiskry a „MAGIC“, nadpis se napíše, žluté zvýraznění se protáhne pod slovy a teprve potom se otevře notebook pod ním a rozjede animaci (skript nadpisu mu pošle událost `lapgo`, notebook je do té doby zavřený). Skript je na konci `site-cs.js` / `site-en.js` (hledej `mg-burst`), vzhled v `assets/site.css` pod „kouzlo před nadpisem“. S omezeným pohybem je nadpis vidět rovnou.
 
 Spinner `.pk-spin` je zjednodušená úvodní kresba: zamotaná linka, rovná čára a lepík s fajfkou jako v logu. Vzor HTML je na `/ds/` v části Pohyb. Na webu zatím nic nenačítá, v portfoliu se ukáže při odemykání.
 

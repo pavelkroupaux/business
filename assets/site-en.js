@@ -216,6 +216,8 @@ try{
   function play(){f.classList.remove("play");void f.getBoundingClientRect();f.classList.add("play");}
   var b=f.querySelector(".lap-re");if(b)b.addEventListener("click",play);
   if(window.matchMedia("(prefers-reduced-motion: reduce)").matches||!("IntersectionObserver" in window)){f.classList.add("play");return;}
+  /* notebook stojí zavřený a otevře se až po nadpisu nad ním (jiskry, psaní, žluté zvýraznění): ten pošle událost lapgo */
+  if(document.querySelector("h2.lap-h")){f.addEventListener("lapgo",play,{once:true});return;}
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&e.target.offsetParent!==null){play();io.disconnect();}});},{threshold:.45});
   io.observe(f);
   window.addEventListener("hashchange",function(){if(!f.classList.contains("play")){io.disconnect();io.observe(f);}});
@@ -424,22 +426,26 @@ try{
 
 }catch(e){console.error(e);}
 try{
-/* Kouzlo před nadpisem „Pak z toho postavím funkční prototyp“: rozsvítí se drobné jiskry a prokmitne „magic“, pak se nadpis napíše písmeno po písmenu (55 ms, stejně jako nadpis nad notebookem) */
+/* Kouzlo před nadpisem „Pak z toho postavím funkční prototyp“. Jedna časová osa, spustí se, když je nadpis zhruba v polovině obrazovky:
+   rozsvítí se jiskry a prokmitne „magic“, nadpis se napíše písmeno po písmenu (55 ms, stejně jako nadpis nad notebookem),
+   žluté zvýraznění se protáhne pod slovy a teprve potom se otevře notebook (událost lapgo). */
 (function(){var h=document.querySelector("h2.lap-h");if(!h||!("IntersectionObserver" in window)||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
   h.removeAttribute("data-rv");h.classList.remove("in");
-  /* psaní: z kopie nadpisu se ukáže prvních n znaků i se zvýrazněním; výška nadpisu zůstává, aby text pod ním neposkakoval */
+  /* psaní: napsaná část je vidět, zbytek je neviditelný, ale zabírá místo, takže se nadpis nepřelamuje a nepřeskakuje */
   var full=h.cloneNode(true),total=full.textContent.length;
   function upto(n){var c=full.cloneNode(true),left=n,tw=document.createTreeWalker(c,NodeFilter.SHOW_TEXT),ts=[],t;
     while((t=tw.nextNode()))ts.push(t);
-    ts.forEach(function(t){var k=Math.min(left,t.data.length);left-=k;if(k){t.data=t.data.slice(0,k);return;}
-      (t.parentNode===c?t:t.parentNode).remove();});
+    ts.forEach(function(t){var k=Math.min(left,t.data.length);left-=k;
+      if(k<t.data.length){var r=document.createElement("span");r.className="mg-r";r.textContent=t.data.slice(k);t.data=t.data.slice(0,k);t.parentNode.insertBefore(r,t.nextSibling);}});
+    if(n>0){var q=document.createElement("span");q.className="mg-c";q.setAttribute("aria-hidden","true");var r0=c.querySelector(".mg-r");
+      if(r0)r0.parentNode.insertBefore(q,r0);else c.appendChild(q);}
     return c.innerHTML;}
-  var C='<span class="tw-c" aria-hidden="true"></span>';
   h.setAttribute("aria-label",full.textContent.replace(/\s+/g," ").trim());
-  h.style.minHeight=h.offsetHeight+"px";h.innerHTML=upto(0)+C;
-  function type(i){h.innerHTML=upto(i)+C;
-    if(i<total)setTimeout(function(){type(i+1);},55);
-    else setTimeout(function(){h.innerHTML=full.innerHTML;h.style.minHeight="";h.removeAttribute("aria-label");},1600);}
+  h.classList.add("mg-typing");h.innerHTML=upto(0);
+  function type(i){h.innerHTML=upto(i);
+    if(i<total)setTimeout(function(){type(i+1);},55);else setTimeout(sweep,250);}
+  function sweep(){h.innerHTML=full.innerHTML;h.removeAttribute("aria-label");h.classList.remove("mg-typing");h.classList.add("mg-sweep");
+    setTimeout(function(){var f=document.querySelector("[data-lap]");if(f)f.dispatchEvent(new Event("lapgo"));},900);}
   var w=document.createElement("div");w.className="mg";h.parentNode.insertBefore(w,h);w.appendChild(h);
   var b=document.createElement("span");b.className="mg-burst";b.setAttribute("aria-hidden","true");
   var S='<svg viewBox="0 0 24 24"><path d="M12 0C12.5 9 15 11.5 24 12C15 12.5 12.5 15 12 24C11.5 15 9 12.5 0 12C9 11.5 11.5 9 12 0Z"/></svg>';
@@ -449,8 +455,9 @@ try{
     s.style.cssText="--x:"+p[0]+"px;--y:"+p[1]+"px;--z:"+p[2]+"px;--t:"+p[3]+"s";s.innerHTML=S;b.appendChild(s);});
   var m=document.createElement("span");m.className="mg-word";m.textContent="magic";b.appendChild(m);
   w.insertBefore(b,h);
+  /* spouštěč: horní okraj nadpisu přejde přes čáru 55 % výšky obrazovky */
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;io.disconnect();
-    w.classList.add("mg-go");setTimeout(function(){type(1);},600);});},{threshold:.9,rootMargin:"0px 0px -10% 0px"});
+    w.classList.add("mg-go");setTimeout(function(){type(1);},600);});},{threshold:0,rootMargin:"0px 0px -45% 0px"});
   io.observe(w);
 })();
 
