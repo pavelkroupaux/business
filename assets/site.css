@@ -1900,3 +1900,11 @@ section.case-dg{padding-top:clamp(36px,5vw,64px)}
 .cs-me img{display:block;width:100%;height:auto;border-radius:14px;transform:rotate(1.6deg)}
 .cs-me figcaption{margin:14px 0 0;font-family:var(--hand);font-size:15px;line-height:1.3;color:var(--on-panel-soft);text-align:center}
 @media(max-width:700px){.cta-me{grid-template-columns:1fr;gap:28px}.cs-me{justify-self:center;width:200px}}
+
+/* audit: výchozí stav, dvě situace vedle sebe, na mobilu pod sebou; rozbalí se tlačítkem jako kroky na úvodu */
+.proc-steps.sp-2{grid-template-columns:repeat(2,minmax(0,1fr));max-width:900px;margin-inline:auto}
+.proc-steps.sp-2::before{display:none}
+.panel .pstep{background:rgba(255,255,255,.08);box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 0 0 1px rgba(255,255,255,.08)}
+.panel .pstep-when{color:var(--on-panel-soft)}
+.panel .pstep p{color:var(--on-panel-soft)}
+@media(max-width:760px){.proc-steps.sp-2{grid-template-columns:1fr;max-width:560px}}

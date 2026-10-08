@@ -299,7 +299,7 @@ try{
 
 }catch(e){console.error(e);}
 try{
-(function(){var b=document.querySelector(".proc-toggle"),l=document.querySelector(".proc-steps");if(!b||!l)return;
+(function(){var b=document.querySelector(".proc-toggle"),l=document.querySelector(".proc-steps");if(!b||!l)return;var t0=b.textContent;
   /* po rozbalení i sbalení plynule sjede (ease-in-out) k prvnímu kroku, aby čtenář nezůstal uprostřed */
   var raf=0;function stop(){cancelAnimationFrame(raf);raf=0;["wheel","touchstart","keydown"].forEach(function(e){removeEventListener(e,stop);});}
   function toFirst(){var first=l.querySelector(".pstep");if(!first)return;var top=document.querySelector(".top"),
@@ -311,7 +311,7 @@ try{
     (function step(now){var t=Math.min(1,(now-t0)/ms),e=t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
       scrollTo(0,y0+d*e);if(t<1)raf=requestAnimationFrame(step);else stop();})(t0);}
   b.addEventListener("click",function(){var o=l.classList.toggle("open");b.setAttribute("aria-expanded",o?"true":"false");
-    b.textContent=o?"Skrýt podrobnosti":"Jak to probíhá podrobně";toFirst();});})();
+    b.textContent=o?"Skrýt podrobnosti":t0;toFirst();});})();
 
 }catch(e){console.error(e);}
 try{
