@@ -1879,8 +1879,6 @@ section.case-dg{padding-top:clamp(36px,5vw,64px)}
   30%{opacity:1;letter-spacing:.38em;padding-left:.38em}
   70%{opacity:1;background-position:0 0}
   100%{opacity:0;letter-spacing:.38em;padding-left:.38em;background-position:0 0}}
-.mg-h{opacity:0;transform:translateY(6px);filter:blur(4px)}
-.mg-h.mg-in{opacity:1;transform:none;filter:none;transition:opacity .6s ease,transform .7s cubic-bezier(.2,.7,.3,1),filter .6s ease}
 @media(max-width:560px){.mg-burst{transform:scale(.7)}}
 /* nenakreslené čáry (.lap .d, .cx .d, .ill .ln) jsou do začátku kreslení skryté: kulatý konec čáry
    s nulovou délkou by jinak ukázal tečku tam, kde čára začíná. Animace lapdraw je zviditelní. */

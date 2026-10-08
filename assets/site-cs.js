@@ -424,9 +424,22 @@ try{
 
 }catch(e){console.error(e);}
 try{
-/* Kouzlo před nadpisem „Pak z toho postavím funkční prototyp“: rozsvítí se drobné jiskry a prokmitne „magic“, pak se nadpis zaostří */
+/* Kouzlo před nadpisem „Pak z toho postavím funkční prototyp“: rozsvítí se drobné jiskry a prokmitne „magic“, pak se nadpis napíše písmeno po písmenu (55 ms, stejně jako nadpis nad notebookem) */
 (function(){var h=document.querySelector("h2.lap-h");if(!h||!("IntersectionObserver" in window)||matchMedia("(prefers-reduced-motion: reduce)").matches)return;
-  h.removeAttribute("data-rv");h.classList.remove("in");h.classList.add("mg-h");
+  h.removeAttribute("data-rv");h.classList.remove("in");
+  /* psaní: z kopie nadpisu se ukáže prvních n znaků i se zvýrazněním; výška nadpisu zůstává, aby text pod ním neposkakoval */
+  var full=h.cloneNode(true),total=full.textContent.length;
+  function upto(n){var c=full.cloneNode(true),left=n,tw=document.createTreeWalker(c,NodeFilter.SHOW_TEXT),ts=[],t;
+    while((t=tw.nextNode()))ts.push(t);
+    ts.forEach(function(t){var k=Math.min(left,t.data.length);left-=k;if(k){t.data=t.data.slice(0,k);return;}
+      (t.parentNode===c?t:t.parentNode).remove();});
+    return c.innerHTML;}
+  var C='<span class="tw-c" aria-hidden="true"></span>';
+  h.setAttribute("aria-label",full.textContent.replace(/\s+/g," ").trim());
+  h.style.minHeight=h.offsetHeight+"px";h.innerHTML=upto(0)+C;
+  function type(i){h.innerHTML=upto(i)+C;
+    if(i<total)setTimeout(function(){type(i+1);},55);
+    else setTimeout(function(){h.innerHTML=full.innerHTML;h.style.minHeight="";h.removeAttribute("aria-label");},1600);}
   var w=document.createElement("div");w.className="mg";h.parentNode.insertBefore(w,h);w.appendChild(h);
   var b=document.createElement("span");b.className="mg-burst";b.setAttribute("aria-hidden","true");
   var S='<svg viewBox="0 0 24 24"><path d="M12 0C12.5 9 15 11.5 24 12C15 12.5 12.5 15 12 24C11.5 15 9 12.5 0 12C9 11.5 11.5 9 12 0Z"/></svg>';
@@ -437,7 +450,7 @@ try{
   var m=document.createElement("span");m.className="mg-word";m.textContent="magic";b.appendChild(m);
   w.insertBefore(b,h);
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;io.disconnect();
-    w.classList.add("mg-go");setTimeout(function(){h.classList.add("mg-in");},600);});},{threshold:.9,rootMargin:"0px 0px -10% 0px"});
+    w.classList.add("mg-go");setTimeout(function(){type(1);},600);});},{threshold:.9,rootMargin:"0px 0px -10% 0px"});
   io.observe(w);
 })();
 
