@@ -1908,3 +1908,27 @@ section.case-dg{padding-top:clamp(36px,5vw,64px)}
 .panel .pstep-when{color:var(--on-panel-soft)}
 .panel .pstep p{color:var(--on-panel-soft)}
 @media(max-width:760px){.proc-steps.sp-2{grid-template-columns:1fr;max-width:560px}}
+/* nápověda „kresli“ pod kresbou až po dokreslení úvodní animace */
+@media (hover:hover) and (pointer:fine){.hero2:not(.hx-done) .hx-pen-hint{opacity:0}}
+/* karusel na mobilu (data-bc): karty vedle sebe, další vykukuje zprava, pod nimi šipky a tečky. Skript přidá .bc a ovládání. */
+.bc-nav{display:none}
+@media(max-width:700px){
+  [data-bc].bc{display:flex;grid-template-columns:none;gap:14px;max-width:none;position:relative;align-items:stretch;
+    margin-left:-20px;margin-right:-20px;padding:8px 20px 44px;scroll-padding-inline:20px;
+    overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none}
+  [data-bc].bc::-webkit-scrollbar{display:none}
+  [data-bc].bc::before{display:none}
+  [data-bc].bc>*{flex:0 0 84%;max-width:360px;box-sizing:border-box;margin:0;scroll-snap-align:start}
+  .bc-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:-16px}
+  .bc-arr{width:48px;height:48px;border-radius:50%;border:0;padding:0;display:grid;place-items:center;cursor:pointer;
+    background:var(--ink);color:var(--ground);transition:background .2s,color .2s}
+  .bc-arr svg{width:22px;height:22px}
+  .bc-prev svg{transform:scaleX(-1)}
+  .bc-arr:disabled{background:transparent;color:var(--faint);cursor:default}
+  .bc-dots{display:flex;align-items:center}
+  .bc-dot{width:22px;height:32px;border:0;padding:0;background:none;cursor:pointer;display:grid;place-items:center}
+  .bc-dot::before{content:"";width:10px;height:10px;border-radius:5px;background:var(--faint);opacity:.35;transition:width .3s cubic-bezier(.2,.7,.3,1),opacity .3s}
+  .bc-dot[aria-current]{width:44px}
+  .bc-dot[aria-current]::before{width:34px;background:var(--ink);opacity:1}
+}
+@media(max-width:700px) and (prefers-reduced-motion:reduce){.bc-dot::before,.bc-arr{transition:none}}

@@ -59,7 +59,11 @@ Na počítači s myší jde po úvodní sekci kreslit. Kód je na konci `assets/
 
 ## Štítek u kurzoru
 
-U tužky v úvodu a u lepíku v sekci s otázkami jde za myší malý červený štítek jako u spolupracovníka ve Figmě: „Nakresli“ a „Nalep“ (anglicky „Draw“ a „Stick it“). Nad odkazy se schová a po prvním tahu nebo nalepení zmizí. Jen myš na počítači. Skript na konci `site-cs.js` / `site-en.js` (hledej `mp-tag`), vzhled v `assets/site.css`.
+U tužky v úvodu a u lepíku v sekci s otázkami jde za myší malý červený štítek jako u spolupracovníka ve Figmě: „Nakresli“ a „Nalep“ (anglicky „Draw“ a „Stick it“). Nad odkazy se schová a po prvním tahu nebo nalepení zmizí. Jen myš na počítači. Štítek „Nakresli“ (i nápověda „kresli“ pod kresbou) se ukáže až po doběhnutí animace kresby v úvodu, „Nalep“ až po nalepení všech čtyř lepítek. Skript na konci `site-cs.js` / `site-en.js` (hledej `mp-tag`), vzhled v `assets/site.css`.
+
+## Karusel na mobilu
+
+Na mobilu (do 700 px) jsou některé řady karet vedle sebe: další karta vykukuje zprava, pod nimi jsou šipky a tečky. Je to na úvodu (kroky „Od první schůzky k první verzi“), u „Co dostanete“ na stránkách tří služeb a u prvních karet na O mně. Řadu zapne atribut `data-bc` na prvku s kartami, na širší obrazovce zůstává mřížka. Skript na konci `site-cs.js` / `site-en.js` (hledej `data-bc`), vzhled na konci `assets/site.css` (`.bc`, `.bc-nav`).
 
 ## Lepítka s otázkami
 
