@@ -1947,3 +1947,20 @@ main.home .svc-price{display:none}
 .lap2.play .cur2{animation-delay:calc(7.5s - var(--sh))}
 .lap2.play .rip2{animation-delay:calc(8.45s - var(--sh))}
 .lap2.play .btnf2{animation-delay:calc(8.5s - var(--sh))}
+
+/* případy: ukázky práce, posuvník předtím/potom (Coinmate). Nový design jednou přejede přes starý, pak se dá táhnout. */
+.cmp-h{margin-top:56px!important}
+.cmp-list{display:grid;gap:40px}
+.cmp-list figcaption{margin:12px 0 0;font-size:15px;line-height:1.5;color:var(--muted);text-align:left}
+.cmp{--p:50%;position:relative;aspect-ratio:2000/1018;overflow:hidden;border-radius:14px;border:1px solid var(--line);background:var(--surface);touch-action:pan-y;user-select:none;-webkit-user-select:none;cursor:ew-resize}
+.cmp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;display:block;pointer-events:none;border-radius:0}
+.cmp .cmp-after{clip-path:inset(0 0 0 var(--p))}
+.cmp-bar{position:absolute;top:0;bottom:0;left:var(--p);width:2px;margin-left:-1px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.12);pointer-events:none}
+.cmp-bar i{position:absolute;top:50%;left:50%;width:38px;height:38px;margin:-19px 0 0 -19px;border-radius:50%;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center}
+.cmp-bar svg{width:20px;height:20px;fill:none;stroke:#1D1D1F;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cmp-tag{position:absolute;bottom:12px;font-family:var(--display);font-size:12.5px;line-height:1;padding:7px 11px;border-radius:999px;background:rgba(17,17,17,.72);color:#fff;pointer-events:none}
+.cmp-b{left:12px}
+.cmp-a{right:12px}
+.cmp-range{position:absolute;left:0;bottom:0;width:1px;height:1px;opacity:0;margin:0;pointer-events:none}
+.cmp:has(.cmp-range:focus-visible){outline:2px solid var(--ink);outline-offset:3px}
+.cmp-pic{display:block;width:100%;height:auto;border-radius:14px;border:1px solid var(--line)}

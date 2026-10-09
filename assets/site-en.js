@@ -561,3 +561,27 @@ try{
 })();
 
 }catch(e){console.error(e);}
+try{
+/* Případy: posuvník předtím/potom (.cmp). Nový design jednou přejede přes starý a zastaví se uprostřed, pak se dá táhnout
+   myší, prstem do strany nebo šipkami (skrytý input range). S omezeným pohybem rovnou uprostřed. */
+(function(){var cs=document.querySelectorAll(".cmp");if(!cs.length)return;
+  var calm=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  [].forEach.call(cs,function(c){var r=c.querySelector(".cmp-range"),touched=false;
+    function set(v){v=Math.max(0,Math.min(100,v));c.style.setProperty("--p",v+"%");r.value=Math.round(v);}
+    function fromX(x){var b=c.getBoundingClientRect();set((x-b.left)/b.width*100);}
+    c.addEventListener("pointerdown",function(e){touched=true;c.setPointerCapture(e.pointerId);if(e.pointerType==="mouse")fromX(e.clientX);});
+    c.addEventListener("pointermove",function(e){if(c.hasPointerCapture(e.pointerId))fromX(e.clientX);});
+    r.addEventListener("input",function(){touched=true;set(+r.value);});
+    if(calm||!("IntersectionObserver" in window)){set(50);return;}
+    set(100);
+    var o=new IntersectionObserver(function(es){if(!es[0].isIntersecting)return;o.disconnect();
+      var keys=[[0,100],[1500,0],[2200,0],[3000,50]],t0=null;
+      function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
+      function step(ts){if(touched)return;if(t0===null)t0=ts;var t=ts-t0;
+        for(var i=1;i<keys.length;i++){if(t<=keys[i][0]){var a=keys[i-1],b=keys[i];set(a[1]+(b[1]-a[1])*ease((t-a[0])/(b[0]-a[0])));requestAnimationFrame(step);return;}}
+        set(50);}
+      setTimeout(function(){requestAnimationFrame(step);},300);},{threshold:.5});
+    o.observe(c);});
+})();
+
+}catch(e){console.error(e);}
