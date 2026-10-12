@@ -84,9 +84,15 @@ Heirloom, Coinmate, Leeaf a BRENO mají nad časovou osou diagram (`section.case
 
 Diagramy se nepíšou ručně. Texty (česky i anglicky) a rozložení jsou v `_tools/case-diagrams.py`. Po změně spusť v kořeni `python3 _tools/case-diagrams.py`, skript diagramy ve všech osmi stránkách nahradí. Složky s podtržítkem GitHub Pages nepublikuje.
 
-Když je v případu víc diagramů pod sebou, další se rozjede, až předchozí dokončí svou animaci (skript `prevOf` u `.ill`). Heirloom má pod prvním diagramem ještě druhý, „Pipeline pro definici produktu“: facilitace, AI prototyp z repozitáře a design systému, hosting na Vercelu, komentáře v prototypu a zpětná vazba zpátky do další iterace. Texty jsou ve stejném skriptu (klíče `p_…`). Čtyři iterace v prvním diagramu se rozsvítí jedna po druhé v řadě nad kruhem, na mobilu vedle něj.
+Když je v případu víc diagramů pod sebou, další se rozjede, až předchozí dokončí svou animaci (skript `prevOf` u `.ill`) To platí jen na počítači. Na mobilu se svislý diagram rozjede, jakmile je vidět jeho horní kraj, a každá část se nakreslí, až přijde na obrazovku. Nečeká se na předchozí diagram ani na konec horní části (skript `goM`). Heirloom má pod prvním diagramem ještě druhý, „Pipeline pro definici produktu“: facilitace, AI prototyp z repozitáře a design systému, hosting na Vercelu, komentáře v prototypu a zpětná vazba zpátky do další iterace. Texty jsou ve stejném skriptu (klíče `p_…`). Čtyři iterace v prvním diagramu se rozsvítí jedna po druhé v řadě nad kruhem, na mobilu vedle něj.
 
 V tabulce „Ve zkratce“ je u každého případu poslední řádek „Služba“ nebo „Služby“ s odkazy na služby, které případu odpovídají.
+
+## Galerie náhledů v případech
+
+Heirloom, Coinmate a Leeaf mají pod tabulkou „Ve zkratce“ řadu náhledů jako v App Store (`div.cg`). Náhledy jsou stejně vysoké, řada začíná u sloupce textu a přetéká až k okrajům okna. Posouvá se prstem, trackpadem nebo šipkami nad řadou, které na dotykových zařízeních nejsou. Po kliknutí se otevře galerie přes celou obrazovku se šipkami, klávesami doleva a doprava, swipem a zavřením přes Esc nebo křížek. Popisek (`span.cg-cap`) je vidět až v galerii, v řadě ho přečte jen čtečka obrazovky.
+
+Nový obrázek přidáš jako další `li.cg-item` ve stejném tvaru jako ostatní, s `width`, `height` a `alt`. Když má obrázek světlou a tmavou verzi, dej do tlačítka dva obrázky s třídami `th-l` a `th-d`. Ukáže se ten, který odpovídá režimu webu, i v galerii. Vzhled je v `assets/site.css` pod „případy: galerie náhledů“, skript na konci `assets/site-cs.js` a `assets/site-en.js` (liší se jen popisky tlačítek).
 
 ## Infografika Vedení produktu na část úvazku
 

@@ -1964,3 +1964,53 @@ main.home .svc-price{display:none}
 .cmp-range{position:absolute;left:0;bottom:0;width:1px;height:1px;opacity:0;margin:0;pointer-events:none}
 .cmp:has(.cmp-range:focus-visible){outline:2px solid var(--ink);outline-offset:3px}
 .cmp-pic{display:block;width:100%;height:auto;border-radius:14px;border:1px solid var(--line)}
+
+/* světlá a tmavá verze obrázku (.th-l, .th-d): vidět je ta, která odpovídá režimu webu. Skrytý obrázek se líně nenačte */
+.th-d{display:none!important}
+:root[data-theme="dark"] .th-l{display:none!important}
+:root[data-theme="dark"] .th-d{display:block!important}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .th-l{display:none!important}:root:not([data-theme="light"]) .th-d{display:block!important}}
+
+/* případy: galerie náhledů (.cg) jako v App Store. Stejně vysoké náhledy v řadě, která začíná u sloupce textu a přetéká až k okrajům okna
+   (--vw je šířka okna bez posuvníku a --cg-px okraj řady v px pro scroll-padding, obojí nastavuje skript). Po kliknutí galerie přes celou obrazovku (.cg-lb). Popisky (.cg-cap) jsou vidět až tam */
+.cg{margin-top:56px;--cg-h:clamp(240px,40vw,380px);--cg-pad:calc((var(--vw,100vw) - 100%)/2)}
+.cg-head{display:flex;align-items:center;gap:16px;margin:0 0 14px;min-height:38px}
+.cg-head .eyebrow.tl-h{margin:0}
+.cg-nav{display:flex;gap:8px;margin-left:auto}
+.cg-btn{width:38px;height:38px;padding:0;border-radius:50%;border:1px solid var(--line);background:var(--raise);color:var(--ink);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:opacity .2s,background-color .2s}
+.cg-btn:hover:not(:disabled){background:var(--surface)}
+.cg-btn:disabled{opacity:.3;cursor:default}
+.cg-btn svg,.cg-lb-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media(hover:none){.cg-nav{display:none}}
+.cg-track{list-style:none;display:flex;gap:16px;margin:0 calc(-1*var(--cg-pad));padding:6px var(--cg-pad) 18px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding-inline:var(--cg-px,0px);scrollbar-width:none;overscroll-behavior-x:contain}
+.cg-track::-webkit-scrollbar{display:none}
+.cg-item{position:relative;flex:none;margin:0;scroll-snap-align:start}
+.cg-open{display:block;height:var(--cg-h);max-width:calc(var(--vw,100vw) - 56px);padding:0;margin:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--surface);cursor:zoom-in;transition:transform .35s cubic-bezier(.2,.7,.3,1),box-shadow .35s}
+.cg-open img{display:block;height:100%;width:auto;max-width:none;object-fit:cover;object-position:left top;border-radius:0}
+.cg-open:hover{transform:translateY(-4px);box-shadow:var(--shadow-1)}
+.cg-open:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.cg-cap{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.cg+.case-cta{margin-top:40px}
+.cg-lb{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;background:rgba(12,12,14,.95);color:#fff;overscroll-behavior:contain}
+.cg-lb::backdrop{background:transparent}
+.cg-lb[open]{display:grid;grid-template-rows:auto minmax(0,1fr) auto;animation:cgLbIn .25s ease both}
+@keyframes cgLbIn{from{opacity:0}}
+.cg-lb-top{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;font-family:var(--display);font-size:14px;color:rgba(255,255,255,.7)}
+.cg-lb-stage{position:relative;display:flex;align-items:center;justify-content:center;min-height:0;padding:0 72px;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.cg-lb-img{display:block;max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:12px;-webkit-user-drag:none;transition:opacity .2s}
+.cg-lb-img.wait{opacity:0}
+.cg-lb-cap{margin:0 auto;padding:16px 20px 26px;max-width:68ch;min-height:3em;text-align:center;font-family:var(--display);font-size:15px;line-height:1.5;color:rgba(255,255,255,.86)}
+.cg-lb-btn{width:44px;height:44px;padding:0;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:background-color .2s,opacity .2s}
+.cg-lb-btn:hover:not(:disabled){background:rgba(255,255,255,.24)}
+.cg-lb-btn:disabled{opacity:.25;cursor:default}
+.cg-lb-btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.cg-lb-prev,.cg-lb-next{position:absolute;top:50%;margin-top:-22px}
+.cg-lb-prev{left:16px}
+.cg-lb-next{right:16px}
+@media(max-width:680px){.cg-lb-stage{padding:0 10px}.cg-lb-prev,.cg-lb-next{display:none}}
+@media(prefers-reduced-motion:reduce){.cg-open,.cg-lb-img{transition:none}.cg-open:hover{transform:none}.cg-lb[open]{animation:none}}
+.cg-fits .cg-nav{visibility:hidden}
+@media(hover:none){.cg-head:not(:has(.eyebrow)){display:none}}
+
+/* případy: diagram na mobilu (svg.dg-m) se kreslí po částech, jak přijdou na obrazovku. Část pod okrajem čeká (.hold), skript */
+.ill.on [style].hold{animation:none!important}
