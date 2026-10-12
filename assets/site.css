@@ -1947,3 +1947,32 @@ main.home .svc-price{display:none}
 .lap2.play .cur2{animation-delay:calc(7.5s - var(--sh))}
 .lap2.play .rip2{animation-delay:calc(8.45s - var(--sh))}
 .lap2.play .btnf2{animation-delay:calc(8.5s - var(--sh))}
+
+/* Úvod: odkaz Proč to jde tak rychle, „Proč to jde tak rychle?“ pod perexem kroků a modal s diagramem (já vs. AI bez zkušeností). Bez animace. */
+.why-row{margin:-14px auto 30px;text-align:center}
+.why-go{font:inherit;font-family:var(--display);font-weight:600;font-size:15.5px;color:var(--ink);background:none;border:0;
+  padding:2px 0;cursor:pointer;border-bottom:2px solid var(--fix)}
+.why-go:hover{border-bottom-color:var(--fix-deep)}
+.why{border:0;padding:0;width:min(560px,calc(100vw - 32px));max-height:calc(100dvh - 32px);border-radius:20px;
+  background:var(--raise);color:var(--ink);box-shadow:0 0 0 1px var(--line),0 24px 60px rgba(17,17,17,.28)}
+.why::backdrop{background:rgba(17,17,17,.55)}
+html:has(dialog.why[open]){overflow:hidden}
+.why-in{position:relative;padding:34px 32px 30px}
+.why-x{position:absolute;top:12px;right:12px;width:40px;height:40px;display:grid;place-items:center;border:0;border-radius:50%;
+  background:none;color:var(--muted);cursor:pointer}
+.why-x:hover{background:var(--surface);color:var(--ink)}
+.why-x svg{width:20px;height:20px}
+.why h2{font-size:clamp(24px,3vw,30px);text-align:left;margin:26px 0 12px;max-width:none}
+.why p{margin:0;text-align:left;max-width:none;font-size:17px;line-height:1.55;color:var(--muted)}
+.why-dg{display:block;width:100%;height:auto;margin-top:4px}
+.why-dg .w-h{font-family:var(--hand);font-size:16px;font-weight:600;fill:var(--ink);stroke:none}
+.why-dg .w-t{font-family:var(--display);font-size:12.5px;fill:var(--muted);stroke:none}
+.why-dg .w-ln{stroke:var(--ink);stroke-width:2}
+.why-dg .w-nd{stroke:var(--ink);stroke-width:2;fill:var(--raise)}
+.why-dg .w-ic{stroke:var(--ink);stroke-width:2}
+.why-dg .w-ok{fill:var(--fix);stroke:none}
+.why-dg .w-ck{stroke:var(--on-fix);stroke-width:3}
+.why-dg .w-sep{stroke:var(--line);stroke-width:1.5;stroke-dasharray:4 6}
+.why-dg .w-br{stroke:var(--muted);stroke-width:1.6;stroke-dasharray:5 5}
+.why-dg .w-sh{stroke:var(--muted);stroke-width:2}
+@media(max-width:480px){.why-in{padding:28px 20px 24px}.why-dg .w-t{font-size:17px}.why-dg .w-h{font-size:21px}}

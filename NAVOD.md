@@ -104,6 +104,8 @@ Spinner `.pk-spin` je zjednodušená úvodní kresba: zamotaná linka, rovná č
 
 Tlačítko „Jak to probíhá podrobně“ po rozbalení i sbalení plynule sjede k prvnímu kroku (hledej `proc-toggle`).
 
+Pod perexem kroků na úvodu je odkaz „Proč to jde tak rychle?“ (anglicky „How can it be this fast?“). Otevře modal (`dialog#why` v `index.html` / `en/index.html`) s jednoduchým diagramem bez animace: nahoře nápad, iterace a hotovo, dole AI bez zkušeností, kde z iterace vedou čáry do čtyř různých tvarů. Texty i diagram jsou přímo v HTML, vzhled v `assets/site.css` pod „Úvod: odkaz Proč to jde tak rychle“, skript na konci `site-cs.js` / `site-en.js` (hledej `why-go`).
+
 ## Patička
 
 Uprostřed patičky je odkaz na lab.pavelkroupa.com s baňkou (`a.foot-lab`). Při najetí myší zčervená a baňka bublá, stejně jako odkaz Lab v hlavičce portfolia.

@@ -560,4 +560,12 @@ try{
   });
 })();
 
+/* Úvod: modal „Proč to jde tak rychle?“ (dialog#why). Zavře se křížkem, Esc nebo klikem mimo. */
+(function(){var d=document.getElementById("why"),b=document.querySelector(".why-go");if(!d||!b||!d.showModal)return;
+  b.addEventListener("click",function(){d.showModal();});
+  d.querySelector(".why-x").addEventListener("click",function(){d.close();});
+  d.addEventListener("click",function(e){if(e.target===d)d.close();});
+  d.addEventListener("close",function(){b.focus();});
+})();
+
 }catch(e){console.error(e);}
