@@ -2011,3 +2011,6 @@ main.home .svc-price{display:none}
 @media(prefers-reduced-motion:reduce){.cg-open,.cg-lb-img{transition:none}.cg-open:hover{transform:none}.cg-lb[open]{animation:none}}
 .cg-fits .cg-nav{visibility:hidden}
 @media(hover:none){.cg-head:not(:has(.eyebrow)){display:none}}
+
+/* případy: diagram na mobilu (svg.dg-m) se kreslí po částech, jak přijdou na obrazovku. Část pod okrajem čeká (.hold), skript */
+.ill.on [style].hold{animation:none!important}

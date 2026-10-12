@@ -328,7 +328,17 @@ try{
     s._done=Promise.all(a.map(function(x){return x.finished.catch(function(){});}));}
   var io=new IntersectionObserver(function(es){es.forEach(function(e){var t=e.target;if(!e.isIntersecting||t.classList.contains("on")||t._wait)return;
     var pv=prevOf(t);if(pv&&pv._done){t._wait=true;pv._done.then(function(){t._wait=false;go(t);});}else go(t);});},{threshold:.5});
-  ills.forEach(function(s){io.observe(s);var p=s.parentNode;if(p&&window.matchMedia("(hover: hover)").matches){
+  /* na mobilu (svg.dg-m) se nečeká na předchozí diagram ani na konec první části: diagram se rozjede, jakmile je vidět jeho horní kraj,
+     a každý prvek se nakreslí, až přijde na obrazovku. Prvky, které přijdou naráz, si nechají původní pořadí, začnou hned a stihnou se do 1,6 s */
+  function goM(s){var els=[].slice.call(s.querySelectorAll('[style*="--i"]'));
+    els.forEach(function(el){if(el._i==null)el._i=parseFloat(el.style.getPropertyValue("--i"))||0;el.classList.add("hold");});
+    s.classList.add("on");
+    var o=new IntersectionObserver(function(es){var b=[];es.forEach(function(e){if(e.isIntersecting)b.push(e.target);});if(!b.length)return;
+      var is=b.map(function(t){return t._i;}),m=Math.min.apply(null,is),k=Math.min(1,1.6/Math.max(.01,Math.max.apply(null,is)-m));
+      b.forEach(function(t){o.unobserve(t);t.style.setProperty("--i",((t._i-m)*k+.1).toFixed(2)+"s");t.classList.remove("hold");});},{rootMargin:"0px 0px -10% 0px"});
+    els.forEach(function(el){o.observe(el);});}
+  var iom=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting||e.target.classList.contains("on"))return;iom.unobserve(e.target);goM(e.target);});},{rootMargin:"0px 0px -10% 0px"});
+  ills.forEach(function(s){if(s.classList.contains("dg-m")&&s.closest(".case-fig"))iom.observe(s);else io.observe(s);var p=s.parentNode;if(p&&window.matchMedia("(hover: hover)").matches){
     var box=p.closest(".svc,.svc-row,.svc-hero-ill");if(box)box.addEventListener("mouseenter",function(){on(s);});}});
 })();
 
