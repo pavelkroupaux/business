@@ -53,7 +53,13 @@ const profileArt = `<svg class="art" viewBox="0 0 1584 396" aria-hidden="true">
   <path d="${T}" ${STROKE} stroke-width="${(6.2 / S).toFixed(2)}" transform="translate(${TX} ${TY}) scale(${S})"/>
   <path d="${LINE}" ${STROKE} stroke-width="6.2"/>${sticker(1340, 96, 196)}</svg>`;
 // Firma, titulní obrázek: 1128 × 191. Logo firmy zakrývá levý dolní roh.
-const coverArt = `<svg class="art" viewBox="0 0 1128 191" aria-hidden="true">${sticker(968, 34, 118)}</svg>`;
+// Malá zamotaná čára pod nadpisem, z ní čára stoupá doprava a šipkou ukazuje na lepítko.
+const CS = 0.6, CX = 468, CY = 100, CEND = [CX + 216.348 * CS, CY + 64.2667 * CS];
+const CLINE = hand([CEND, [640, 136], [700, 137], [770, 135], [850, 118], [938, 97]], 11);
+const CHEV = hand([[910, 63], [943, 97], [902, 131]], 3);
+const coverArt = `<svg class="art" viewBox="0 0 1128 191" aria-hidden="true">
+  <path d="${T}" ${STROKE} stroke-width="${(4.2 / CS).toFixed(2)}" transform="translate(${CX} ${CY}) scale(${CS})"/>
+  <path d="${CLINE}" ${STROKE} stroke-width="4.2"/><path d="${CHEV}" ${STROKE} stroke-width="4.2"/>${sticker(968, 34, 118)}</svg>`;
 for (const lang of ['cs', 'en']) {
   const t = TXT[lang];
   pages.push({ file: `linkedin-profil-${lang}.png`, w: 1584, h: 396, html: base(lang, 1584, 396,
