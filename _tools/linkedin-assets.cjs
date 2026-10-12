@@ -52,22 +52,25 @@ const LINE = hand([END, [335, 118], [378, 176], [412, 248], [452, 312], [520, 34
 const profileArt = `<svg class="art" viewBox="0 0 1584 396" aria-hidden="true">
   <path d="${T}" ${STROKE} stroke-width="${(6.2 / S).toFixed(2)}" transform="translate(${TX} ${TY}) scale(${S})"/>
   <path d="${LINE}" ${STROKE} stroke-width="6.2"/>${sticker(1340, 96, 196)}</svg>`;
-// Firma, titulní obrázek: 1128 × 191. Logo firmy zakrývá levý dolní roh.
-// Malá zamotaná čára pod nadpisem, z ní čára stoupá doprava a šipkou ukazuje na lepítko.
-const CS = 0.6, CX = 468, CY = 100, CEND = [CX + 216.348 * CS, CY + 64.2667 * CS];
-const CLINE = hand([CEND, [640, 136], [700, 137], [770, 135], [850, 118], [938, 97]], 11);
-const CHEV = hand([[910, 63], [943, 97], [902, 131]], 3);
-const coverArt = `<svg class="art" viewBox="0 0 1128 191" aria-hidden="true">
-  <path d="${T}" ${STROKE} stroke-width="${(4.2 / CS).toFixed(2)}" transform="translate(${CX} ${CY}) scale(${CS})"/>
-  <path d="${CLINE}" ${STROKE} stroke-width="4.2"/><path d="${CHEV}" ${STROKE} stroke-width="4.2"/>${sticker(968, 34, 118)}</svg>`;
+// Firma, titulní obrázek: 1128 × 191. Logo firmy zakrývá levý dolní roh a na mobilu se okraje ořízne,
+// proto je všechno uprostřed: nadpis nahoře, pod ním čára z úvodu (zamotaná čára, šipka) a lepítko místo dokumentu.
+function homeLine() {
+  const html = fs.readFileSync(path.join(ROOT, 'en/index.html'), 'utf8');
+  const one = (html.match(/<path class="hx-one" d="([^"]*)"/) || [])[1];
+  const arrow = (html.match(/<path class="hx-r" d="(M1476 190[^"]*)"/) || [])[1];
+  if (!one || !arrow) throw new Error('čára z úvodu nenalezena');
+  return `<path d="${one}" ${STROKE} stroke-width="4.55" transform="translate(4 30) scale(2.86)"/><path d="${arrow}" ${STROKE} stroke-width="13"/>${sticker(1560, 92, 238)}`;
+}
+const coverArt = `<svg class="line" viewBox="0 20 1810 350" aria-hidden="true">${homeLine()}</svg>`;
 for (const lang of ['cs', 'en']) {
   const t = TXT[lang];
   pages.push({ file: `linkedin-profil-${lang}.png`, w: 1584, h: 396, html: base(lang, 1584, 396,
     `${profileArt}<div class="txt"><h1>${t.h}</h1><p class="sub">${t.s}</p><span class="url">pavelkroupa.com</span></div>`,
     `.txt{left:486px;top:58px;width:820px}h1{font-size:64px}.sub{margin-top:20px;font-size:23px;line-height:1.35}.url{margin-top:16px;font-size:20px}`) });
   pages.push({ file: `linkedin-firma-cover-${lang}.png`, w: 1128, h: 191, html: base(lang, 1128, 191,
-    `${coverArt}<div class="txt"><h1>${t.h}</h1><span class="url">pavelkroupa.com</span></div>`,
-    `.txt{left:210px;top:52px;width:720px}h1{font-size:${lang === 'cs' ? 34 : 38}px;white-space:nowrap}.url{margin-top:14px;font-size:19px}`) });
+    `<div class="txt"><h1>${t.h}</h1></div>${coverArt}`,
+    `.txt{left:0;right:0;top:26px;text-align:center}h1{display:inline-block;font-size:${lang === 'cs' ? 28 : 30}px;white-space:nowrap}
+     .line{position:absolute;left:50%;top:76px;width:540px;transform:translateX(-50%)}`) });
 }
 // Firma, logo: 400 × 400. Lepítko s fajfkou na bílém.
 pages.push({ file: 'linkedin-firma-logo-400.png', w: 400, h: 400, html: `<!doctype html><html><head><meta charset="utf-8"><style>
