@@ -25,6 +25,7 @@ Zásady pro psaní textů (hlas, zakázané vzorce, slovník, prompt pro AI) jso
 | `_brand/` | zásady pro texty a prompt pro AI, nepublikuje se |
 | `_tools/` | pomocné skripty (kontrola textů, diagramy), nepublikuje se |
 | `og/` | obrázky pro sdílení na sítích (1200 × 630 px), anglické v `og/en/` |
+| `linkedin/` | hlavička profilu, logo a titulní obrázek firemní stránky na LinkedInu. Vytvoří je `node _tools/linkedin-assets.cjs` |
 | `logo/`, `favicon.*`, `icon-*.png`, `apple-touch-icon.png` | loga a ikony |
 | `robots.txt`, `sitemap.xml`, `llms.txt` | pro vyhledávače a AI asistenty |
 | `CNAME`, `_config.yml` | doména a nastavení GitHub Pages, neměnit |
