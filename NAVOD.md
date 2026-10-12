@@ -88,6 +88,12 @@ Když je v případu víc diagramů pod sebou, další se rozjede, až předchoz
 
 V tabulce „Ve zkratce“ je u každého případu poslední řádek „Služba“ nebo „Služby“ s odkazy na služby, které případu odpovídají.
 
+## Galerie náhledů v případech
+
+Heirloom, Coinmate a Leeaf mají pod tabulkou „Ve zkratce“ řadu náhledů jako v App Store (`div.cg`). Náhledy jsou stejně vysoké, řada začíná u sloupce textu a přetéká až k okrajům okna. Posouvá se prstem, trackpadem nebo šipkami nad řadou, které na dotykových zařízeních nejsou. Po kliknutí se otevře galerie přes celou obrazovku se šipkami, klávesami doleva a doprava, swipem a zavřením přes Esc nebo křížek. Popisek (`span.cg-cap`) je vidět až v galerii, v řadě ho přečte jen čtečka obrazovky.
+
+Nový obrázek přidáš jako další `li.cg-item` ve stejném tvaru jako ostatní, s `width`, `height` a `alt`. Když má obrázek světlou a tmavou verzi, dej do tlačítka dva obrázky s třídami `th-l` a `th-d`. Ukáže se ten, který odpovídá režimu webu, i v galerii. Vzhled je v `assets/site.css` pod „případy: galerie náhledů“, skript na konci `assets/site-cs.js` a `assets/site-en.js` (liší se jen popisky tlačítek).
+
 ## Infografika Vedení produktu na část úvazku
 
 Dny v týdnu, rozsvítí se úterý a čtvrtek, pak čára od otazníku (vedení) ke kompasu, střelka se roztočí, kompas se rozsvítí žlutě, čára do vývoje a zaškrtnutí. Je na úvodu, na Službách a na stránce služby, česky i anglicky. Generuje ji `_tools/fractional-diagram.py`.

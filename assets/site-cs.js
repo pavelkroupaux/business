@@ -585,3 +585,39 @@ try{
 })();
 
 }catch(e){console.error(e);}
+try{
+/* Případy: galerie náhledů (.cg). Šipky posouvají řadu o kus a na koncích zhasnou. Klik otevře galerii přes celou obrazovku:
+   šipky, klávesy doleva/doprava, swipe, Esc zavře. Ukáže se ta verze obrázku, která odpovídá režimu webu. */
+(function(){var gs=document.querySelectorAll(".cg");if(!gs.length)return;
+  var L={gal:"Galerie obrázků",close:"Zavřít",prev:"Předchozí obrázek",next:"Další obrázek"};
+  var root=document.documentElement,calm=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function vw(){root.style.setProperty("--vw",root.clientWidth+"px");[].forEach.call(gs,function(g){g.style.setProperty("--cg-px",Math.max(0,(root.clientWidth-g.clientWidth)/2)+"px");});}
+  vw();addEventListener("resize",vw);
+  var ico={p:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>',n:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>',x:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>'};
+  var d,im,cap,cnt,bp,bn,items=[],idx=0;
+  function vis(b){var a=b.querySelectorAll("img");for(var k=0;k<a.length;k++)if(getComputedStyle(a[k]).display!=="none")return a[k];return a[0];}
+  function show(i){if(i<0||i>=items.length)return;idx=i;var b=items[i],s=vis(b),c=b.parentNode.querySelector(".cg-cap"),w=+s.getAttribute("width"),h=+s.getAttribute("height");
+    im.classList.add("wait");im.style.maxWidth=w?"min(100%,"+w+"px)":"";im.style.maxHeight=h?"min(100%,"+h+"px)":"";
+    im.src=s.currentSrc||s.src;im.alt=s.alt;
+    var on=function(){im.classList.remove("wait");};if(im.decode)im.decode().then(on,on);else on();
+    cap.textContent=c?c.textContent:"";cnt.textContent=(i+1)+" / "+items.length;bp.disabled=i===0;bn.disabled=i===items.length-1;}
+  function build(){d=document.createElement("dialog");d.className="cg-lb";d.setAttribute("aria-label",L.gal);
+    d.innerHTML='<div class="cg-lb-top"><span class="cg-lb-cnt"></span><button class="cg-lb-btn cg-lb-x" type="button" aria-label="'+L.close+'">'+ico.x+'</button></div><div class="cg-lb-stage"><img class="cg-lb-img" alt=""><button class="cg-lb-btn cg-lb-prev" type="button" aria-label="'+L.prev+'">'+ico.p+'</button><button class="cg-lb-btn cg-lb-next" type="button" aria-label="'+L.next+'">'+ico.n+'</button></div><p class="cg-lb-cap" aria-live="polite"></p>';
+    document.body.appendChild(d);im=d.querySelector(".cg-lb-img");cap=d.querySelector(".cg-lb-cap");cnt=d.querySelector(".cg-lb-cnt");bp=d.querySelector(".cg-lb-prev");bn=d.querySelector(".cg-lb-next");
+    d.querySelector(".cg-lb-x").addEventListener("click",function(){d.close();});
+    bp.addEventListener("click",function(){show(idx-1);});bn.addEventListener("click",function(){show(idx+1);});
+    d.addEventListener("keydown",function(e){if(e.key==="ArrowLeft"){e.preventDefault();show(idx-1);}else if(e.key==="ArrowRight"){e.preventDefault();show(idx+1);}});
+    var x0=null,moved=false;
+    d.addEventListener("pointerdown",function(e){x0=e.clientX;moved=false;});
+    d.addEventListener("pointerup",function(e){if(x0===null)return;var dx=e.clientX-x0;x0=null;if(Math.abs(dx)>10)moved=true;if(Math.abs(dx)>50)show(idx+(dx<0?1:-1));});
+    d.addEventListener("click",function(e){if(moved){moved=false;return;}if(e.target===d||e.target.classList.contains("cg-lb-stage"))d.close();});
+    d.addEventListener("close",function(){root.style.overflow="";var b=items[idx];if(b){b.scrollIntoView({block:"nearest",inline:"nearest"});b.focus({preventScroll:true});}});}
+  [].forEach.call(gs,function(g){var t=g.querySelector(".cg-track"),p=g.querySelector(".cg-prev"),n=g.querySelector(".cg-next"),bs=[].slice.call(g.querySelectorAll(".cg-open"));
+    function upd(){if(!p)return;var m=t.scrollWidth-t.clientWidth;p.disabled=t.scrollLeft<=2;n.disabled=t.scrollLeft>=m-2;g.classList.toggle("cg-fits",m<=2);}
+    function go(k){t.scrollBy({left:k*g.clientWidth*.8,behavior:calm?"auto":"smooth"});}
+    if(p){p.addEventListener("click",function(){go(-1);});n.addEventListener("click",function(){go(1);});}
+    t.addEventListener("scroll",upd,{passive:true});addEventListener("resize",upd);addEventListener("load",upd);upd();
+    bs.forEach(function(b,i){b.addEventListener("click",function(){if(!d)build();if(typeof d.showModal!=="function")return;items=bs;show(i);root.style.overflow="hidden";d.showModal();});});});
+})();
+
+}catch(e){console.error(e);}
