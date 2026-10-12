@@ -53,15 +53,19 @@ const profileArt = `<svg class="art" viewBox="0 0 1584 396" aria-hidden="true">
   <path d="${T}" ${STROKE} stroke-width="${(6.2 / S).toFixed(2)}" transform="translate(${TX} ${TY}) scale(${S})"/>
   <path d="${LINE}" ${STROKE} stroke-width="6.2"/>${sticker(1340, 96, 196)}</svg>`;
 // Firma, titulní obrázek: 1128 × 191. Logo firmy zakrývá levý dolní roh a na mobilu se okraje ořízne,
-// proto je všechno uprostřed: nadpis nahoře, pod ním čára z úvodu (zamotaná čára, šipka) a lepítko místo dokumentu.
-function homeLine() {
+// proto je všechno uprostřed: nadpis nahoře, pod ním kresba z úvodu (zamotaná čára, fotka, šipka) s lepítkem místo dokumentu.
+function homeArt() {
   const html = fs.readFileSync(path.join(ROOT, 'en/index.html'), 'utf8');
-  const one = (html.match(/<path class="hx-one" d="([^"]*)"/) || [])[1];
-  const arrow = (html.match(/<path class="hx-r" d="(M1476 190[^"]*)"/) || [])[1];
-  if (!one || !arrow) throw new Error('čára z úvodu nenalezena');
-  return `<path d="${one}" ${STROKE} stroke-width="4.55" transform="translate(4 30) scale(2.86)"/><path d="${arrow}" ${STROKE} stroke-width="13"/>${sticker(1560, 92, 238)}`;
+  const m = html.match(/<svg class="hx"[\s\S]*?<\/svg>/);
+  if (!m) throw new Error('svg.hx nenalezeno');
+  return m[0]
+    .replace(/<svg class="hx" viewBox="[^"]*" role="img" aria-label="[^"]*">/, '<svg class="hx line" viewBox="0 0 1810 370" aria-hidden="true">')
+    .replace(/<path class="hx-r" d="M1(5[89]|[6-9]\d)\d[^>]*>/g, '') // dokument s odškrtávátky
+    .replace(/<path class="hx-x"[^>]*>/g, '')
+    .replace(/<g class="hx-lab"[\s\S]*?<\/g>/, '')
+    .replace(/<\/svg>$/, `${sticker(1560, 92, 238)}</svg>`);
 }
-const coverArt = `<svg class="line" viewBox="0 20 1810 350" aria-hidden="true">${homeLine()}</svg>`;
+const coverArt = homeArt();
 for (const lang of ['cs', 'en']) {
   const t = TXT[lang];
   pages.push({ file: `linkedin-profil-${lang}.png`, w: 1584, h: 396, html: base(lang, 1584, 396,
@@ -70,7 +74,7 @@ for (const lang of ['cs', 'en']) {
   pages.push({ file: `linkedin-firma-cover-${lang}.png`, w: 1128, h: 191, html: base(lang, 1128, 191,
     `<div class="txt"><h1>${t.h}</h1></div>${coverArt}`,
     `.txt{left:0;right:0;top:26px;text-align:center}h1{display:inline-block;font-size:${lang === 'cs' ? 28 : 30}px;white-space:nowrap}
-     .line{position:absolute;left:50%;top:76px;width:540px;transform:translateX(-50%)}`) });
+     .line{position:absolute;left:50%;top:66px;width:560px;height:auto;margin:0;transform:translateX(-50%)}`) });
 }
 // Firma, logo: 400 × 400. Logo pk ve čtverci na bílém (logo/pk/pk-svetle-ctverec.svg).
 const PK = fs.readFileSync(path.join(ROOT, 'logo/pk/pk-svetle-ctverec.svg'), 'utf8');
