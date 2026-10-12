@@ -72,9 +72,10 @@ for (const lang of ['cs', 'en']) {
     `.txt{left:0;right:0;top:26px;text-align:center}h1{display:inline-block;font-size:${lang === 'cs' ? 28 : 30}px;white-space:nowrap}
      .line{position:absolute;left:50%;top:76px;width:540px;transform:translateX(-50%)}`) });
 }
-// Firma, logo: 400 × 400. Lepítko s fajfkou na bílém.
+// Firma, logo: 400 × 400. Logo pk ve čtverci na bílém (logo/pk/pk-svetle-ctverec.svg).
+const PK = fs.readFileSync(path.join(ROOT, 'logo/pk/pk-svetle-ctverec.svg'), 'utf8');
 pages.push({ file: 'linkedin-firma-logo-400.png', w: 400, h: 400, html: `<!doctype html><html><head><meta charset="utf-8"><style>
-  html,body{margin:0;width:400px;height:400px;background:#fff;display:grid;place-items:center}svg{width:300px;height:300px}</style></head><body>${STICKER}</body></html>` });
+  html,body{margin:0;width:400px;height:400px;background:#fff}svg{display:block;width:400px;height:400px}</style></head><body>${PK}</body></html>` });
 
 (async () => {
   fs.mkdirSync(OUT, { recursive: true });
