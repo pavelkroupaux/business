@@ -328,7 +328,17 @@ try{
     s._done=Promise.all(a.map(function(x){return x.finished.catch(function(){});}));}
   var io=new IntersectionObserver(function(es){es.forEach(function(e){var t=e.target;if(!e.isIntersecting||t.classList.contains("on")||t._wait)return;
     var pv=prevOf(t);if(pv&&pv._done){t._wait=true;pv._done.then(function(){t._wait=false;go(t);});}else go(t);});},{threshold:.5});
-  ills.forEach(function(s){io.observe(s);var p=s.parentNode;if(p&&window.matchMedia("(hover: hover)").matches){
+  /* na mobilu (svg.dg-m) se nečeká na předchozí diagram ani na konec první části: diagram se rozjede, jakmile je vidět jeho horní kraj,
+     a každý prvek se nakreslí, až přijde na obrazovku. Prvky, které přijdou naráz, si nechají původní pořadí, začnou hned a stihnou se do 1,6 s */
+  function goM(s){var els=[].slice.call(s.querySelectorAll('[style*="--i"]'));
+    els.forEach(function(el){if(el._i==null)el._i=parseFloat(el.style.getPropertyValue("--i"))||0;el.classList.add("hold");});
+    s.classList.add("on");
+    var o=new IntersectionObserver(function(es){var b=[];es.forEach(function(e){if(e.isIntersecting)b.push(e.target);});if(!b.length)return;
+      var is=b.map(function(t){return t._i;}),m=Math.min.apply(null,is),k=Math.min(1,1.6/Math.max(.01,Math.max.apply(null,is)-m));
+      b.forEach(function(t){o.unobserve(t);t.style.setProperty("--i",((t._i-m)*k+.1).toFixed(2)+"s");t.classList.remove("hold");});},{rootMargin:"0px 0px -10% 0px"});
+    els.forEach(function(el){o.observe(el);});}
+  var iom=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting||e.target.classList.contains("on"))return;iom.unobserve(e.target);goM(e.target);});},{rootMargin:"0px 0px -10% 0px"});
+  ills.forEach(function(s){if(s.classList.contains("dg-m")&&s.closest(".case-fig"))iom.observe(s);else io.observe(s);var p=s.parentNode;if(p&&window.matchMedia("(hover: hover)").matches){
     var box=p.closest(".svc,.svc-row,.svc-hero-ill");if(box)box.addEventListener("mouseenter",function(){on(s);});}});
 })();
 
@@ -566,6 +576,66 @@ try{
   d.querySelector(".why-x").addEventListener("click",function(){d.close();});
   d.addEventListener("click",function(e){if(e.target===d)d.close();});
   d.addEventListener("close",function(){b.focus();});
+})();
+
+}catch(e){console.error(e);}
+try{
+/* Případy: posuvník předtím/potom (.cmp). Nový design jednou přejede přes starý a zastaví se uprostřed, pak se dá táhnout
+   myší, prstem do strany nebo šipkami (skrytý input range). S omezeným pohybem rovnou uprostřed. */
+(function(){var cs=document.querySelectorAll(".cmp");if(!cs.length)return;
+  var calm=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  [].forEach.call(cs,function(c){var r=c.querySelector(".cmp-range"),touched=false;
+    function set(v){v=Math.max(0,Math.min(100,v));c.style.setProperty("--p",v+"%");r.value=Math.round(v);}
+    function fromX(x){var b=c.getBoundingClientRect();set((x-b.left)/b.width*100);}
+    c.addEventListener("pointerdown",function(e){touched=true;c.setPointerCapture(e.pointerId);if(e.pointerType==="mouse")fromX(e.clientX);});
+    c.addEventListener("pointermove",function(e){if(c.hasPointerCapture(e.pointerId))fromX(e.clientX);});
+    r.addEventListener("input",function(){touched=true;set(+r.value);});
+    if(calm||!("IntersectionObserver" in window)){set(50);return;}
+    set(100);
+    var o=new IntersectionObserver(function(es){if(!es[0].isIntersecting)return;o.disconnect();
+      var keys=[[0,100],[1500,0],[2200,0],[3000,50]],t0=null;
+      function ease(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
+      function step(ts){if(touched)return;if(t0===null)t0=ts;var t=ts-t0;
+        for(var i=1;i<keys.length;i++){if(t<=keys[i][0]){var a=keys[i-1],b=keys[i];set(a[1]+(b[1]-a[1])*ease((t-a[0])/(b[0]-a[0])));requestAnimationFrame(step);return;}}
+        set(50);}
+      setTimeout(function(){requestAnimationFrame(step);},300);},{threshold:.5});
+    o.observe(c);});
+})();
+
+}catch(e){console.error(e);}
+try{
+/* Případy: galerie náhledů (.cg). Šipky posouvají řadu o kus a na koncích zhasnou. Klik otevře galerii přes celou obrazovku:
+   šipky, klávesy doleva/doprava, swipe, Esc zavře. Ukáže se ta verze obrázku, která odpovídá režimu webu. */
+(function(){var gs=document.querySelectorAll(".cg");if(!gs.length)return;
+  var L={gal:"Galerie obrázků",close:"Zavřít",prev:"Předchozí obrázek",next:"Další obrázek"};
+  var root=document.documentElement,calm=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function vw(){root.style.setProperty("--vw",root.clientWidth+"px");[].forEach.call(gs,function(g){g.style.setProperty("--cg-px",Math.max(0,(root.clientWidth-g.clientWidth)/2)+"px");});}
+  vw();addEventListener("resize",vw);
+  var ico={p:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>',n:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>',x:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>'};
+  var d,im,cap,cnt,bp,bn,items=[],idx=0;
+  function vis(b){var a=b.querySelectorAll("img");for(var k=0;k<a.length;k++)if(getComputedStyle(a[k]).display!=="none")return a[k];return a[0];}
+  function show(i){if(i<0||i>=items.length)return;idx=i;var b=items[i],s=vis(b),c=b.parentNode.querySelector(".cg-cap"),w=+s.getAttribute("width"),h=+s.getAttribute("height");
+    im.classList.add("wait");im.style.maxWidth=w?"min(100%,"+w+"px)":"";im.style.maxHeight=h?"min(100%,"+h+"px)":"";
+    im.src=s.currentSrc||s.src;im.alt=s.alt;
+    var on=function(){im.classList.remove("wait");};if(im.decode)im.decode().then(on,on);else on();
+    cap.textContent=c?c.textContent:"";cnt.textContent=(i+1)+" / "+items.length;bp.disabled=i===0;bn.disabled=i===items.length-1;}
+  function build(){d=document.createElement("dialog");d.className="cg-lb";d.setAttribute("aria-label",L.gal);
+    d.innerHTML='<div class="cg-lb-top"><span class="cg-lb-cnt"></span><button class="cg-lb-btn cg-lb-x" type="button" aria-label="'+L.close+'">'+ico.x+'</button></div><div class="cg-lb-stage"><img class="cg-lb-img" alt=""><button class="cg-lb-btn cg-lb-prev" type="button" aria-label="'+L.prev+'">'+ico.p+'</button><button class="cg-lb-btn cg-lb-next" type="button" aria-label="'+L.next+'">'+ico.n+'</button></div><p class="cg-lb-cap" aria-live="polite"></p>';
+    document.body.appendChild(d);im=d.querySelector(".cg-lb-img");cap=d.querySelector(".cg-lb-cap");cnt=d.querySelector(".cg-lb-cnt");bp=d.querySelector(".cg-lb-prev");bn=d.querySelector(".cg-lb-next");
+    d.querySelector(".cg-lb-x").addEventListener("click",function(){d.close();});
+    bp.addEventListener("click",function(){show(idx-1);});bn.addEventListener("click",function(){show(idx+1);});
+    d.addEventListener("keydown",function(e){if(e.key==="ArrowLeft"){e.preventDefault();show(idx-1);}else if(e.key==="ArrowRight"){e.preventDefault();show(idx+1);}});
+    var x0=null,moved=false;
+    d.addEventListener("pointerdown",function(e){x0=e.clientX;moved=false;});
+    d.addEventListener("pointerup",function(e){if(x0===null)return;var dx=e.clientX-x0;x0=null;if(Math.abs(dx)>10)moved=true;if(Math.abs(dx)>50)show(idx+(dx<0?1:-1));});
+    d.addEventListener("click",function(e){if(moved){moved=false;return;}if(e.target===d||e.target.classList.contains("cg-lb-stage"))d.close();});
+    d.addEventListener("close",function(){root.style.overflow="";var b=items[idx];if(b){b.scrollIntoView({block:"nearest",inline:"nearest"});b.focus({preventScroll:true});}});}
+  [].forEach.call(gs,function(g){var t=g.querySelector(".cg-track"),p=g.querySelector(".cg-prev"),n=g.querySelector(".cg-next"),bs=[].slice.call(g.querySelectorAll(".cg-open"));
+    function upd(){if(!p)return;var m=t.scrollWidth-t.clientWidth;p.disabled=t.scrollLeft<=2;n.disabled=t.scrollLeft>=m-2;g.classList.toggle("cg-fits",m<=2);}
+    function go(k){t.scrollBy({left:k*g.clientWidth*.8,behavior:calm?"auto":"smooth"});}
+    if(p){p.addEventListener("click",function(){go(-1);});n.addEventListener("click",function(){go(1);});}
+    t.addEventListener("scroll",upd,{passive:true});addEventListener("resize",upd);addEventListener("load",upd);upd();
+    bs.forEach(function(b,i){b.addEventListener("click",function(){if(!d)build();if(typeof d.showModal!=="function")return;items=bs;show(i);root.style.overflow="hidden";d.showModal();});});});
 })();
 
 }catch(e){console.error(e);}
