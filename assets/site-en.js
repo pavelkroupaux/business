@@ -570,8 +570,33 @@ try{
   });
 })();
 
-/* Úvod: modal „Proč to jde tak rychle?“ (dialog#why). Zavře se křížkem, Esc nebo klikem mimo. */
+/* Úvod: nápověda ke scrollování (button.peek). Vykoukne, až doběhne kresba v úvodu, jen když je stránka nahoře.
+   Po prvním posunutí zajede dolů a zmizí, klik posune pod úvod. */
+(function(){var p=document.querySelector(".peek"),h=document.querySelector(".hero2");if(!p||!h)return;
+  var still=matchMedia("(prefers-reduced-motion: reduce)").matches,gone=false;
+  function top(){return (window.scrollY||0)<40;}
+  function show(){if(gone||!top())return;p.hidden=false;requestAnimationFrame(function(){requestAnimationFrame(function(){p.classList.add("on");});});}
+  function hide(){if(gone)return;gone=true;p.classList.remove("on");p.classList.add("off");setTimeout(function(){p.hidden=true;},500);}
+  if(!top()){gone=true;return;}
+  var s=h.querySelector(".hx"),a=s&&s.getAnimations?s.getAnimations({subtree:true}):[];
+  var t=setTimeout(show,3200);
+  if(a.length)Promise.all(a.map(function(x){return x.finished;})).then(function(){clearTimeout(t);setTimeout(show,400);},function(){});
+  else{clearTimeout(t);setTimeout(show,2500);}
+  addEventListener("scroll",function f(){if(top())return;clearTimeout(t);hide();removeEventListener("scroll",f);},{passive:true});
+  p.addEventListener("click",function(){var y=h.getBoundingClientRect().bottom+window.scrollY-60;
+    window.scrollTo({top:y,behavior:still?"auto":"smooth"});});
+})();
+
+/* Úvod: modal „Proč to jde tak rychle?“ (dialog#why). Zavře se křížkem, Esc nebo klikem mimo. Animace otevření je v CSS. */
 (function(){var d=document.getElementById("why"),b=document.querySelector(".why-go");if(!d||!b||!d.showModal)return;
+  /* jiskry kolem obsahu jako u „magic“ (CSS .why-s), rozsvítí se při každém otevření */
+  var sp=document.createElement("div");sp.className="why-sp";sp.setAttribute("aria-hidden","true");
+  var S='<svg viewBox="0 0 24 24"><path d="M12 0C12.5 9 15 11.5 24 12C15 12.5 12.5 15 12 24C11.5 15 9 12.5 0 12C9 11.5 11.5 9 12 0Z"/></svg>';
+  [["8%","6%",16,.25],["30%","3%",10,.4],["62%","5%",14,.3],["90%","14%",18,.2],["95%","38%",11,.5],
+   ["86%","62%",15,.45],["6%","44%",12,.55],["4%","72%",17,.35],["48%","34%",10,.6],["74%","30%",13,.38]]
+  .forEach(function(p){var s=document.createElement("i");s.className="why-s";
+    s.style.cssText="--x:"+p[0]+";--y:"+p[1]+";--z:"+p[2]+"px;--t:"+p[3]+"s";s.innerHTML=S;sp.appendChild(s);});
+  d.querySelector(".why-in").appendChild(sp);
   b.addEventListener("click",function(){d.showModal();});
   d.querySelector(".why-x").addEventListener("click",function(){d.close();});
   d.addEventListener("click",function(e){if(e.target===d)d.close();});

@@ -77,7 +77,7 @@ V sekci „Kdy týmy potřebují moji pomoc“ je na počítači s myší kurzor
 
 ## Časová osa v případech
 
-Každý případ (`portfolio/…/index.html`, `en/portfolio/…/index.html`) má pod nadpisem svislou časovou osu (`ol.tl`): červený bod je místo, kde se to zaseklo, prázdné body jsou kroky a žlutý bod je výsledek. Pod ní je tabulka „Ve zkratce“ (`dl.tl-facts`) s klientem, obdobím, oborem a rolí. Vzhled je v `assets/site.css` pod „případy: časová osa“. Pod tabulkou je výzva k hovoru (`.case-cta`). Dole jsou vždy dva další případy v pořadí Heirloom, Coinmate, WPP, Leeaf, BRENO.
+Každý případ (`portfolio/…/index.html`, `en/portfolio/…/index.html`) má pod nadpisem svislou časovou osu (`ol.tl`): červený bod je místo, kde se to zaseklo, prázdné body jsou kroky a žlutý bod je výsledek. Pod ní je tabulka „Ve zkratce“ (`dl.tl-facts`) s klientem, obdobím, oborem a rolí. Vzhled je v `assets/site.css` pod „případy: časová osa“. Pod tabulkou je výzva k hovoru (`.case-cta`): karta s větším textem vlevo a tlačítkem vpravo, na mobilu pod sebou. Dole jsou vždy dva další případy v pořadí Heirloom, Coinmate, WPP, Leeaf, BRENO.
 
 ## Diagram „Jak to proběhlo“ v případech
 
@@ -109,9 +109,13 @@ V úvodu u nadpisu „Pak z toho postavím funkční prototyp“ se nejdřív ko
 
 Spinner `.pk-spin` je zjednodušená úvodní kresba: zamotaná linka, rovná čára a lepík s fajfkou jako v logu. Vzor HTML je na `/ds/` v části Pohyb. Na webu zatím nic nenačítá, v portfoliu se ukáže při odemykání.
 
-Tlačítko „Jak to probíhá podrobně“ po rozbalení i sbalení plynule sjede k prvnímu kroku (hledej `proc-toggle`).
+Tlačítko „Jak to probíhá podrobně“ po rozbalení i sbalení plynule sjede k prvnímu kroku (hledej `proc-toggle`). Pod kroky jsou tečky jako v úvodu (`div.proc-field`, vzhled na konci části „Úvod: odkaz Proč to jde tak rychle“ v `assets/site.css`), nahoře i dole se ztrácejí.
 
-Pod perexem kroků na úvodu je odkaz „Proč to jde tak rychle?“ (anglicky „How can it be this fast?“). Otevře modal (`dialog#why` v `index.html` / `en/index.html`) s jednoduchým diagramem bez animace: nahoře AI se zkušeností (nápad, iterace, hotovo), dole AI bez zkušeností, kde z iterace vedou čáry do čtyř různých tvarů. Texty i diagram jsou přímo v HTML, vzhled v `assets/site.css` pod „Úvod: odkaz Proč to jde tak rychle“, skript na konci `site-cs.js` / `site-en.js` (hledej `why-go`).
+## Nápověda ke scrollování
+
+V úvodu u spodního okraje okna vykoukne žlutý lepík s očima (`button.peek` na konci sekce `.hero2`), rozhlédne se, mrkne a dvakrát se podívá dolů. Ukáže se, až doběhne kresba (nejpozději po 3,2 s), a jen když je stránka nahoře. Po prvním posunutí zajede a zmizí, klik posune pod úvod. Skript na konci `site-cs.js` / `site-en.js` (hledej `peek`), vzhled na konci `assets/site.css`.
+
+Pod perexem kroků na úvodu je odkaz „Proč to jde tak rychle?“ (anglicky „How can it be this fast?“). Otevře modal (`dialog#why` v `index.html` / `en/index.html`) s jednoduchým diagramem: nahoře AI se zkušeností (nápad, iterace, hotovo), dole AI bez zkušeností, kde z iterace vedou čáry do čtyř různých tvarů. Modal vyskočí zespodu s pružným dojezdem jako lekce v Duolingu a kolem se rozsvítí jiskry jako u „MAGIC“. Pak se ukáže celý horní diagram (`g.w-a`), hned po něm dolní (`g.w-b`) a nakonec vyskočí text (`div.why-txt`). Přehraje se při každém otevření, s omezeným pohybem se části jen prolnou. Texty i diagram jsou přímo v HTML, vzhled v `assets/site.css` pod „Úvod: odkaz Proč to jde tak rychle“, skript na konci `site-cs.js` / `site-en.js` (hledej `why-go`).
 
 ## Patička
 

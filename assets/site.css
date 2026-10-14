@@ -1733,8 +1733,15 @@ section.case-tl{padding-top:clamp(40px,5vw,64px)}
 /* jeden případ jako příklad (služba Audit) */
 .case-next .cards.case-one{grid-template-columns:1fr;max-width:560px;margin:36px auto 0;text-align:left}
 /* případy: výzva k hovoru pod časovou osou */
-.case-cta{margin:8px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px}
-.case-cta p{margin:0;max-width:44ch;font-family:var(--display);font-size:17px;line-height:1.45;color:var(--muted)}
+/* karta: větší text vlevo, tlačítko vpravo, za tlačítkem jemná žlutá záře. Na mobilu pod sebou. */
+.case-cta{margin:8px 0 0;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:22px 40px;
+  padding:clamp(26px,3.4vw,40px) clamp(24px,3.8vw,48px);border-radius:24px;box-shadow:var(--glass-shadow);
+  background:radial-gradient(55% 140% at 100% 50%,rgba(255,206,27,.22),transparent 70%),var(--raise)}
+.case-cta p{margin:0;max-width:34ch;font-family:var(--display);font-size:clamp(20px,2.2vw,25px);font-weight:600;
+  line-height:1.3;letter-spacing:-.022em;color:var(--ink);text-align:left}
+.case-cta .btn{white-space:nowrap}
+@media(max-width:640px){.case-cta{grid-template-columns:1fr;background:radial-gradient(90% 70% at 100% 100%,rgba(255,206,27,.2),transparent 70%),var(--raise)}
+  .case-cta .btn{justify-self:start}}
 /* vedení na část úvazku: střelka kompasu se roztočí a ustálí */
 .ill .cmp-n{transform-box:view-box;transform-origin:161px 146px}
 .ill.on .cmp-n{animation:cmpn 2.2s cubic-bezier(.3,.6,.3,1) 2.9s both}
@@ -1948,7 +1955,10 @@ main.home .svc-price{display:none}
 .lap2.play .rip2{animation-delay:calc(8.45s - var(--sh))}
 .lap2.play .btnf2{animation-delay:calc(8.5s - var(--sh))}
 
-/* Úvod: odkaz Proč to jde tak rychle, „Proč to jde tak rychle?“ pod perexem kroků a modal s diagramem (já vs. AI bez zkušeností). Bez animace. */
+/* Úvod: odkaz Proč to jde tak rychle, „Proč to jde tak rychle?“ pod perexem kroků a modal s diagramem (já vs. AI bez zkušeností).
+   Modal vyskočí zespodu s pružným dojezdem jako lekce v Duolingu a kolem se rozsvítí jiskry jako u „magic“. Pak se ukáže
+   celý horní diagram (AI se zkušeností), hned po něm dolní (AI bez zkušeností) a nakonec vyskočí text. Dialog je zavřený
+   display:none, takže se animace přehraje při každém otevření. */
 .why-row{margin:-14px auto 30px;text-align:center}
 .why-go{font:inherit;font-family:var(--display);font-weight:600;font-size:15.5px;color:var(--ink);background:none;border:0;
   padding:2px 0;cursor:pointer;border-bottom:2px solid var(--fix)}
@@ -1976,6 +1986,38 @@ html:has(dialog.why[open]){overflow:hidden}
 .why-dg .w-br{stroke:var(--muted);stroke-width:1.6;stroke-dasharray:5 5}
 .why-dg .w-sh{stroke:var(--muted);stroke-width:2}
 @media(max-width:480px){.why-in{padding:28px 20px 24px}.why-dg .w-t{font-size:17px}.why-dg .w-h{font-size:21px}}
+.why[open]{animation:why-in .55s cubic-bezier(.3,1.45,.5,1) both}
+.why[open]::backdrop{animation:why-fade .3s ease both}
+@keyframes why-in{from{opacity:0;transform:translateY(56px) scale(.88)}40%{opacity:1}to{opacity:1;transform:none}}
+@keyframes why-fade{from{opacity:0}}
+.why-dg .w-a,.why-dg .w-b{transform-box:view-box;transform-origin:50% 50%}
+.why[open] .w-a{animation:why-pop .45s cubic-bezier(.3,1.4,.5,1) .35s both}
+.why[open] .w-b{animation:why-pop .45s cubic-bezier(.3,1.4,.5,1) .85s both}
+.why[open] .why-txt{animation:why-jump .55s cubic-bezier(.3,1.6,.5,1) 1.4s both}
+@keyframes why-pop{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes why-jump{from{opacity:0;transform:translateY(22px) scale(.92)}50%{opacity:1}to{opacity:1;transform:none}}
+.why-txt{transform-origin:50% 100%}
+.why-sp{position:absolute;inset:0;pointer-events:none;z-index:2}
+.why-s{position:absolute;left:var(--x);top:var(--y);width:var(--z);height:var(--z);margin:calc(var(--z)/-2) 0 0 calc(var(--z)/-2);
+  color:var(--fix-deep);opacity:0;transform:scale(0)}
+.why-s svg{display:block;width:100%;height:100%;fill:currentColor}
+.why[open] .why-s{animation:why-spark 1s cubic-bezier(.3,.6,.3,1) var(--t) both}
+@keyframes why-spark{0%{opacity:0;transform:scale(0)}35%{opacity:1;transform:translateY(-3px) scale(1)}55%{opacity:.4}70%{opacity:1}
+  100%{opacity:0;transform:translateY(-9px) scale(.2)}}
+@media (prefers-reduced-motion:reduce){
+  .why[open]{animation:why-fade .25s ease both}
+  .why[open] .w-a,.why[open] .w-b,.why[open] .why-txt{animation-name:why-fade;animation-timing-function:ease}
+  .why-sp{display:none}}
+
+/* úvod: tečky pod kroky „Od první schůzky k první verzi“, aby prázdná plocha pod kartami nebyla jen bílá.
+   Začínají pod odkazem „Proč to jde tak rychle?“, nahoře i dole se ztrácejí a sahají do horního okraje další sekce. */
+.proc{overflow-x:clip}
+.proc-field{position:relative;isolation:isolate}
+.proc-field::before{content:"";position:absolute;z-index:-1;left:50%;width:100vw;margin-left:-50vw;top:-12px;
+  bottom:calc(-1*clamp(96px,12vw,168px) - clamp(60px,8vw,120px));pointer-events:none;
+  background-image:radial-gradient(var(--grid) 1.4px,transparent 1.4px);background-size:26px 26px;
+  -webkit-mask-image:linear-gradient(transparent,#000 90px,#000 calc(100% - 150px),transparent);
+  mask-image:linear-gradient(transparent,#000 90px,#000 calc(100% - 150px),transparent)}
 
 /* případy: ukázky práce, posuvník předtím/potom (Coinmate). Nový design jednou přejede přes starý, pak se dá táhnout. */
 .cmp-h{margin-top:56px!important}
@@ -2043,3 +2085,27 @@ html:has(dialog.why[open]){overflow:hidden}
 
 /* případy: diagram na mobilu (svg.dg-m) se kreslí po částech, jak přijdou na obrazovku. Část pod okrajem čeká (.hold), skript */
 .ill.on [style].hold{animation:none!important}
+
+/* úvod: nápověda ke scrollování. Žlutý lepík s očima vykoukne u spodního okraje okna, rozhlédne se, mrkne
+   a dvakrát se podívá dolů. Zmizí po prvním posunutí stránky, klik posune pod úvod. Skript hledej „peek“. */
+.peek{position:fixed;left:50%;bottom:0;z-index:20;width:72px;height:56px;padding:0;border:0;background:none;cursor:pointer;
+  transform:translate(-50%,110%);transition:transform .6s cubic-bezier(.3,1.5,.5,1);-webkit-tap-highlight-color:transparent}
+.peek[hidden]{display:none}
+.peek.on{transform:translate(-50%,0)}
+.peek.off{transform:translate(-50%,110%);transition:transform .35s cubic-bezier(.5,0,.8,.4)}
+.peek svg{display:block;width:100%;height:100%;overflow:hidden}
+.peek-h{transition:transform .3s cubic-bezier(.3,1.5,.5,1)}
+.peek:hover .peek-h{transform:translateY(-5px)}
+.peek:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:12px}
+.peek-e{transform-box:fill-box;transform-origin:50% 50%}
+.peek.on .peek-p{animation:peek-look 5s ease-in-out .7s infinite}
+.peek.on .peek-e{animation:peek-blink 5s .7s infinite}
+.peek.on .peek-m{animation:peek-nod 5s .7s infinite}
+@keyframes peek-look{0%,10%{transform:none}16%,28%{transform:translate(-3.5px,-1px)}34%,46%{transform:translate(3.5px,-1px)}
+  54%,92%{transform:translate(0,3.5px)}100%{transform:none}}
+@keyframes peek-blink{0%,48%,52%,100%{transform:none}50%{transform:scaleY(.1)}}
+@keyframes peek-nod{0%,56%,74%,100%{transform:none}62%,80%{transform:translateY(4px)}68%,86%{transform:none}}
+@media (prefers-reduced-motion:reduce){
+  .peek,.peek.on,.peek.off{transform:translate(-50%,0);transition:opacity .3s}
+  .peek{opacity:0}.peek.on{opacity:1}.peek.off{opacity:0}
+  .peek.on .peek-p,.peek.on .peek-e,.peek.on .peek-m{animation:none}}
