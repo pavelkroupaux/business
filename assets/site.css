@@ -2007,11 +2007,17 @@ html:has(dialog.why[open]){overflow:hidden}
    Začínají pod odkazem „Proč to jde tak rychle?“, nahoře i dole se ztrácejí a sahají do horního okraje další sekce. */
 .proc{overflow-x:clip}
 .proc-field{position:relative;isolation:isolate}
-.proc-field::before{content:"";position:absolute;z-index:-1;left:50%;width:100vw;margin-left:-50vw;top:-12px;
+.proc-field::before{content:"";position:absolute;z-index:-1;left:50%;width:100vw;margin-left:-50vw;top:-64px;
   bottom:calc(-1*clamp(96px,12vw,168px) - clamp(60px,8vw,120px));pointer-events:none;
   background-image:radial-gradient(var(--grid) 1.4px,transparent 1.4px);background-size:26px 26px;
-  -webkit-mask-image:linear-gradient(transparent,#000 90px,#000 calc(100% - 150px),transparent);
-  mask-image:linear-gradient(transparent,#000 90px,#000 calc(100% - 150px),transparent)}
+  -webkit-mask-image:linear-gradient(transparent,#000 44px,#000 calc(100% - 150px),transparent);
+  mask-image:linear-gradient(transparent,#000 44px,#000 calc(100% - 150px),transparent)}
+/* na počítači větší mezera mezi kartami, aby spojovací čárkovaná linka ve výšce ikon byla vidět */
+@media(min-width:981px){
+  .proc-steps{gap:40px}
+  .proc-steps::before{left:6%;right:6%;top:50px;height:2px;border:0;opacity:1;
+    background:repeating-linear-gradient(90deg,var(--faint) 0 7px,transparent 7px 13px)}
+  .proc-steps.sp-2::before{display:none}}
 
 /* případy: ukázky práce, posuvník předtím/potom (Coinmate). Nový design jednou přejede přes starý, pak se dá táhnout. */
 .cmp-h{margin-top:56px!important}
