@@ -1956,9 +1956,9 @@ main.home .svc-price{display:none}
 .lap2.play .btnf2{animation-delay:calc(8.5s - var(--sh))}
 
 /* Úvod: odkaz Proč to jde tak rychle, „Proč to jde tak rychle?“ pod perexem kroků a modal s diagramem (já vs. AI bez zkušeností).
-   Modal vyskočí zespodu s pružným dojezdem jako lekce v Duolingu a kolem se rozsvítí jiskry jako u „magic“. Pak se ukáže
-   celý horní diagram (AI se zkušeností), hned po něm dolní (AI bez zkušeností) a nakonec vyskočí text. Dialog je zavřený
-   display:none, takže se animace přehraje při každém otevření. */
+   Otevření jako nativní iOS: krátké zvětšení s prolnutím po křivce bez překmitu, pozadí ztmavne. Hned za tím se ukáže
+   horní diagram (AI se zkušeností), dolní (AI bez zkušeností) a text. Zavření je ještě kratší (.out, skript).
+   Dialog je zavřený display:none, takže se animace přehraje při každém otevření. */
 .why-row{margin:-14px auto 30px;text-align:center}
 .why-go{font:inherit;font-family:var(--display);font-weight:600;font-size:15.5px;color:var(--ink);background:none;border:0;
   padding:2px 0;cursor:pointer;border-bottom:2px solid var(--fix)}
@@ -1986,28 +1986,21 @@ html:has(dialog.why[open]){overflow:hidden}
 .why-dg .w-br{stroke:var(--muted);stroke-width:1.6;stroke-dasharray:5 5}
 .why-dg .w-sh{stroke:var(--muted);stroke-width:2}
 @media(max-width:480px){.why-in{padding:28px 20px 24px}.why-dg .w-t{font-size:17px}.why-dg .w-h{font-size:21px}}
-.why[open]{animation:why-in .55s cubic-bezier(.3,1.45,.5,1) both}
-.why[open]::backdrop{animation:why-fade .3s ease both}
-@keyframes why-in{from{opacity:0;transform:translateY(56px) scale(.88)}40%{opacity:1}to{opacity:1;transform:none}}
+.why[open]{animation:why-in .32s cubic-bezier(.32,.72,0,1) both}
+.why[open]::backdrop{animation:why-fade .25s ease-out both}
+.why[open].out{animation:why-out .18s cubic-bezier(.4,0,1,1) both}
+.why[open].out::backdrop{animation:why-fade .18s ease-in reverse both}
+@keyframes why-in{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
+@keyframes why-out{to{opacity:0;transform:scale(.96)}}
 @keyframes why-fade{from{opacity:0}}
-.why-dg .w-a,.why-dg .w-b{transform-box:view-box;transform-origin:50% 50%}
-.why[open] .w-a{animation:why-pop .45s cubic-bezier(.3,1.4,.5,1) .35s both}
-.why[open] .w-b{animation:why-pop .45s cubic-bezier(.3,1.4,.5,1) .85s both}
-.why[open] .why-txt{animation:why-jump .55s cubic-bezier(.3,1.6,.5,1) 1.4s both}
-@keyframes why-pop{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
-@keyframes why-jump{from{opacity:0;transform:translateY(22px) scale(.92)}50%{opacity:1}to{opacity:1;transform:none}}
-.why-txt{transform-origin:50% 100%}
-.why-sp{position:absolute;inset:0;pointer-events:none;z-index:2}
-.why-s{position:absolute;left:var(--x);top:var(--y);width:var(--z);height:var(--z);margin:calc(var(--z)/-2) 0 0 calc(var(--z)/-2);
-  color:var(--fix-deep);opacity:0;transform:scale(0)}
-.why-s svg{display:block;width:100%;height:100%;fill:currentColor}
-.why[open] .why-s{animation:why-spark 1s cubic-bezier(.3,.6,.3,1) var(--t) both}
-@keyframes why-spark{0%{opacity:0;transform:scale(0)}35%{opacity:1;transform:translateY(-3px) scale(1)}55%{opacity:.4}70%{opacity:1}
-  100%{opacity:0;transform:translateY(-9px) scale(.2)}}
+.why[open] .w-a{animation:why-up .3s cubic-bezier(.32,.72,0,1) .08s both}
+.why[open] .w-b{animation:why-up .3s cubic-bezier(.32,.72,0,1) .2s both}
+.why[open] .why-txt{animation:why-up .3s cubic-bezier(.32,.72,0,1) .32s both}
+@keyframes why-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){
-  .why[open]{animation:why-fade .25s ease both}
-  .why[open] .w-a,.why[open] .w-b,.why[open] .why-txt{animation-name:why-fade;animation-timing-function:ease}
-  .why-sp{display:none}}
+  .why[open],.why[open].out{animation:why-fade .2s ease both}
+  .why[open].out{animation-direction:reverse}
+  .why[open] .w-a,.why[open] .w-b,.why[open] .why-txt{animation-name:why-fade}}
 
 /* úvod: tečky pod kroky „Od první schůzky k první verzi“, aby prázdná plocha pod kartami nebyla jen bílá.
    Začínají pod odkazem „Proč to jde tak rychle?“, nahoře i dole se ztrácejí a sahají do horního okraje další sekce. */
