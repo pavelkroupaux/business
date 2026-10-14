@@ -2125,3 +2125,10 @@ html:has(dialog.why[open]){overflow:hidden}
   .pk-spin-n{animation:none;transform:rotate(-6deg)}
   .pk-spin svg{animation:pk-spin-fade 1.6s ease-in-out infinite alternate}
   @keyframes pk-spin-fade{from{opacity:1}to{opacity:.35}}}
+
+/* loader při pomalém načítání: skript v hlavě každé stránky (hledej „pk-load“) ho přidá, když se stránka
+   načítá déle než 0,6 s, a po načtení ho prolne pryč. Uprostřed spinner .pk-spin. */
+.pk-load{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:var(--ground);animation:pk-load-in .25s ease both}
+.pk-load .pk-spin{height:48px}
+.pk-load.out{opacity:0;transition:opacity .3s ease;pointer-events:none}
+@keyframes pk-load-in{from{opacity:0}}

@@ -107,7 +107,9 @@ Jen světlý a tmavý. Dokud návštěvník neklikne, web se řídí nastavením
 
 V úvodu u nadpisu „Pak z toho postavím funkční prototyp“ se nejdřív kolem rozsvítí drobné hořčicové jiskry a uprostřed na chvilku prokmitne „MAGIC“ s pruhem světla, pak se nadpis napíše písmeno po písmenu stejnou rychlostí jako nadpis nad notebookem. Přehraje se jednou, když je nadpis zhruba v polovině obrazovky. Pořadí: rychle se nakreslí šipka nad nadpisem a rozsvítí se jiskry a „MAGIC“, nadpis se napíše, žluté zvýraznění se protáhne pod slovy a teprve potom se otevře notebook pod ním a rozjede animaci (skript nadpisu mu pošle událost `lapgo`, notebook je do té doby zavřený). Skript je na konci `site-cs.js` / `site-en.js` (hledej `mg-burst`), vzhled v `assets/site.css` pod „kouzlo před nadpisem“. S omezeným pohybem se šipka nakreslí a nadpis napíše, jen jiskry a „MAGIC“ vynechá.
 
-Spinner `.pk-spin` je zjednodušená úvodní kresba: zamotaná linka, rovná čára a lepík s fajfkou jako v logu. Vzor HTML je na `/ds/` v části Pohyb. Na webu zatím nic nenačítá, v portfoliu se ukáže při odemykání.
+Spinner `.pk-spin` je zmenšená úvodní kresba: tenká zamotaná linka, rovná čára a lepík s fajfkou jako v logu. Vzor HTML je na `/ds/` v části Pohyb, v portfoliu se ukáže při odemykání.
+
+Na webu slouží jako loader při pomalém načítání (`.pk-load`). Krátký skript v hlavě každé stránky (hned za `site.css`, hledej `pk-load`, je ve všech 31 stránkách) ho po 0,6 s ukáže uprostřed obrazovky, pokud stránka ještě není hotová. Zmizí, jakmile se spustí skript webu (`site-cs.js` / `site-en.js` hned na začátku volá `pkReady`), nejpozději po 8 s. Prohlížeč nic nevykreslí, dokud nestáhne `site.css`, takže čas se počítá až od té chvíle. Na rychlém připojení se loader vůbec neukáže.
 
 Tlačítko „Jak to probíhá podrobně“ po rozbalení i sbalení plynule sjede k prvnímu kroku (hledej `proc-toggle`). Pod kroky jsou tečky jako v úvodu (`div.proc-field`, vzhled na konci části „Úvod: odkaz Proč to jde tak rychle“ v `assets/site.css`), nahoře i dole se ztrácejí.
 

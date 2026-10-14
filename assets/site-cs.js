@@ -1,3 +1,5 @@
+/* loader při pomalém načítání (skript v hlavě stránky): skript webu je načtený, spinner zmizí */
+if(window.pkReady)window.pkReady();
 /* staré odkazy s #/ vedou na samostatné stránky */
 (function(){var h=location.hash;if(h.indexOf("#/")!==0)return;var r=h.slice(1),p=r==="/reference"?"/portfolio/#refs":r.indexOf("/work/")===0?"/portfolio/"+r.slice(6)+"/":r.indexOf("/contact/")===0?"/contact/?service="+r.slice(9):r.slice(-1)==="/"?r:r+"/";location.replace(p);})();
 try{
