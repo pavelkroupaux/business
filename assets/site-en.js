@@ -667,4 +667,13 @@ try{
     bs.forEach(function(b,i){b.addEventListener("click",function(){if(!d)build();if(typeof d.showModal!=="function")return;items=bs;show(i);root.style.overflow="hidden";d.showModal();});});});
 })();
 
+/* Úvod: kroky „Od první schůzky k první verzi“ naskočí jeden po druhém. CTA portrét se jednou srovná na místo. */
+(function(){
+  if(!("IntersectionObserver" in window)||matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var targets=[].slice.call(document.querySelectorAll("main.home .proc-steps,.cs-me"));
+  [].forEach.call(document.querySelectorAll("main.home .proc-steps .pstep"),function(p,i){p.style.setProperty("--i",i);});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;io.unobserve(e.target);e.target.classList.add("in");});},{threshold:.25,rootMargin:"0px 0px -6% 0px"});
+  targets.forEach(function(t){t.classList.add("pre");io.observe(t);});
+})();
+
 }catch(e){console.error(e);}

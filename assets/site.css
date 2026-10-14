@@ -2132,3 +2132,23 @@ html:has(dialog.why[open]){overflow:hidden}
 .pk-load .pk-spin{height:48px}
 .pk-load.out{opacity:0;transition:opacity .3s ease;pointer-events:none}
 @keyframes pk-load-in{from{opacity:0}}
+
+/* úvod: méně prázdného místa mezi kroky a „Vybranými případy“ */
+main.home .proc{padding-bottom:clamp(40px,5vw,64px)}
+main.home .proc + .canvas{padding-top:clamp(48px,6vw,80px)}
+main.home .proc-field::before{bottom:calc(-1*clamp(40px,5vw,64px) - clamp(24px,3vw,40px));
+  -webkit-mask-image:linear-gradient(transparent,#000 44px,#000 calc(100% - 90px),transparent);
+  mask-image:linear-gradient(transparent,#000 44px,#000 calc(100% - 90px),transparent)}
+
+/* úvod: kroky naskakují jeden po druhém (třídy .pre a .in přidává skript), CTA portrét se srovná na místo */
+@keyframes pstep-pop{0%{opacity:0;transform:translateY(28px) scale(.9)}60%{opacity:1;transform:translateY(-4px) scale(1.02)}100%{opacity:1;transform:none}}
+@keyframes pstep-line{from{opacity:0}to{opacity:1}}
+main.home .proc-steps.pre .pstep{opacity:0}
+main.home .proc-steps.pre::before{opacity:0}
+main.home .proc-steps.in .pstep{animation:pstep-pop .5s cubic-bezier(.2,.8,.3,1) both;animation-delay:calc(var(--i,0)*.14s)}
+main.home .proc-steps.in::before{animation:pstep-line .6s ease .5s both}
+@keyframes me-in{from{opacity:0;transform:translateY(22px) rotate(-5deg) scale(.96)}to{opacity:1;transform:rotate(1.6deg)}}
+@keyframes me-cap{from{opacity:0}to{opacity:1}}
+.cs-me.pre img,.cs-me.pre figcaption{opacity:0}
+.cs-me.in img{animation:me-in .8s cubic-bezier(.2,.8,.3,1) both}
+.cs-me.in figcaption{animation:me-cap .6s ease .5s both}
