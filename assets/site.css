@@ -2101,3 +2101,21 @@ html:has(dialog.why[open]){overflow:hidden}
 @keyframes peek-shine{0%{-webkit-mask-position:0 100%;mask-position:0 100%}70%,100%{-webkit-mask-position:0 0;mask-position:0 0}}
 @media (max-width:899px){.peek{display:none!important}}
 @media (prefers-reduced-motion:reduce){.peek.shine{animation:none}}
+
+/* spinner: zjednodušená úvodní kresba. Zamotaná linka se rozplete do rovné čáry a na konci vyskočí lepík
+   s fajfkou jako v logu. Výška jako běžný spinner (24 px), šířka dvojnásobná. Použití:
+   <span class="pk-spin" role="status" aria-label="Načítám"><svg …></svg></span>, vzor je na /ds/ */
+.pk-spin{display:inline-block;height:24px;aspect-ratio:2/1;color:var(--ink);vertical-align:middle;line-height:0}
+.pk-spin svg{display:block;width:100%;height:100%;overflow:visible;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.pk-spin-l{stroke:currentColor;stroke-width:2.6;stroke-dasharray:1;stroke-dashoffset:1;animation:pk-spin-l 1.9s cubic-bezier(.45,.05,.35,1) infinite}
+.pk-spin-n{transform-box:fill-box;transform-origin:50% 50%;transform:rotate(-6deg) scale(0);animation:pk-spin-n 1.9s ease infinite}
+.pk-spin-n rect{fill:var(--fix)}
+.pk-spin-c{stroke:#111;stroke-width:2.6;stroke-dasharray:1;stroke-dashoffset:1;animation:pk-spin-c 1.9s ease infinite}
+@keyframes pk-spin-l{0%{stroke-dashoffset:1;opacity:1}45%,80%{stroke-dashoffset:0;opacity:1}94%,100%{stroke-dashoffset:0;opacity:0}}
+@keyframes pk-spin-n{0%,40%{transform:rotate(-40deg) scale(0);opacity:1}54%{transform:rotate(-2deg) scale(1.18)}62%,80%{transform:rotate(-6deg) scale(1);opacity:1}94%,100%{transform:rotate(-6deg) scale(.7);opacity:0}}
+@keyframes pk-spin-c{0%,56%{stroke-dashoffset:1;opacity:1}70%,80%{stroke-dashoffset:0;opacity:1}94%,100%{stroke-dashoffset:0;opacity:0}}
+@media (prefers-reduced-motion:reduce){
+  .pk-spin-l,.pk-spin-c{animation:none;stroke-dashoffset:0}
+  .pk-spin-n{animation:none;transform:rotate(-6deg)}
+  .pk-spin svg{animation:pk-spin-fade 1.6s ease-in-out infinite alternate}
+  @keyframes pk-spin-fade{from{opacity:1}to{opacity:.35}}}
