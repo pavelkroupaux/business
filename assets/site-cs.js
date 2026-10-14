@@ -570,18 +570,24 @@ try{
   });
 })();
 
-/* Úvod: nápověda ke scrollování (button.peek). Vykoukne, až doběhne kresba v úvodu, jen když je stránka nahoře.
-   Po prvním posunutí zajede dolů a zmizí, klik posune pod úvod. */
+/* Úvod: nápověda ke scrollování (button.peek), jen od 900 px. Šedý chevron se ukáže po doběhnutí kresby v úvodu,
+   jen když je stránka nahoře. Když se v úvodu 2 s nic neděje (pohyb myši, kreslení), začne jemně pulzovat.
+   Po prvním posunutí zmizí, klik posune pod úvod. */
 (function(){var p=document.querySelector(".peek"),h=document.querySelector(".hero2");if(!p||!h)return;
-  var still=matchMedia("(prefers-reduced-motion: reduce)").matches,gone=false;
+  if(!matchMedia("(min-width: 900px)").matches)return;
+  var still=matchMedia("(prefers-reduced-motion: reduce)").matches,gone=false,shown=false,idle=0;
   function top(){return (window.scrollY||0)<40;}
-  function show(){if(gone||!top())return;p.hidden=false;requestAnimationFrame(function(){requestAnimationFrame(function(){p.classList.add("on");});});}
-  function hide(){if(gone)return;gone=true;p.classList.remove("on");p.classList.add("off");setTimeout(function(){p.hidden=true;},500);}
-  if(!top()){gone=true;return;}
+  function arm(){clearTimeout(idle);p.classList.remove("pulse");if(shown&&!gone)idle=setTimeout(function(){p.classList.add("pulse");},2000);}
+  function show(){if(gone||shown||!top())return;shown=true;p.hidden=false;
+    requestAnimationFrame(function(){requestAnimationFrame(function(){p.classList.add("on");arm();});});}
+  function hide(){if(gone)return;gone=true;clearTimeout(idle);p.classList.remove("on","pulse");p.classList.add("off");setTimeout(function(){p.hidden=true;},400);}
+  if(!top())return;
   var s=h.querySelector(".hx"),a=s&&s.getAnimations?s.getAnimations({subtree:true}):[];
-  var t=setTimeout(show,3200);
-  if(a.length)Promise.all(a.map(function(x){return x.finished;})).then(function(){clearTimeout(t);setTimeout(show,400);},function(){});
-  else{clearTimeout(t);setTimeout(show,2500);}
+  var t=setTimeout(show,6000);
+  if(a.length)Promise.all(a.map(function(x){return x.finished;})).then(function(){clearTimeout(t);show();},function(){});
+  else{clearTimeout(t);show();}
+  h.addEventListener("pointermove",function(){if(shown)arm();},{passive:true});
+  h.addEventListener("pointerdown",function(){if(shown)arm();});
   addEventListener("scroll",function f(){if(top())return;clearTimeout(t);hide();removeEventListener("scroll",f);},{passive:true});
   p.addEventListener("click",function(){var y=h.getBoundingClientRect().bottom+window.scrollY-60;
     window.scrollTo({top:y,behavior:still?"auto":"smooth"});});

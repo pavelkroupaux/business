@@ -113,7 +113,7 @@ Tlačítko „Jak to probíhá podrobně“ po rozbalení i sbalení plynule sje
 
 ## Nápověda ke scrollování
 
-V úvodu u spodního okraje okna vykoukne žlutý lepík s očima (`button.peek` na konci sekce `.hero2`), rozhlédne se, mrkne a dvakrát se podívá dolů. Ukáže se, až doběhne kresba (nejpozději po 3,2 s), a jen když je stránka nahoře. Po prvním posunutí zajede a zmizí, klik posune pod úvod. Skript na konci `site-cs.js` / `site-en.js` (hledej `peek`), vzhled na konci `assets/site.css`.
+V úvodu u spodního okraje okna je jemný šedý dvojitý chevron (`button.peek` na konci sekce `.hero2`), jen na počítači a větším tabletu (od 900 px). Ukáže se po doběhnutí kresby a jen když je stránka nahoře. Když se v úvodu 2 s nic neděje (pohyb myši, kreslení), začne jemně pulzovat. Po prvním posunutí zmizí, klik posune pod úvod. Skript na konci `site-cs.js` / `site-en.js` (hledej `peek`), vzhled na konci `assets/site.css`.
 
 Pod perexem kroků na úvodu je odkaz „Proč to jde tak rychle?“ (anglicky „How can it be this fast?“). Otevře modal (`dialog#why` v `index.html` / `en/index.html`) s jednoduchým diagramem: nahoře AI se zkušeností (nápad, iterace, hotovo), dole AI bez zkušeností, kde z iterace vedou čáry do čtyř různých tvarů. Modal vyskočí zespodu s pružným dojezdem jako lekce v Duolingu a kolem se rozsvítí jiskry jako u „MAGIC“. Pak se ukáže celý horní diagram (`g.w-a`), hned po něm dolní (`g.w-b`) a nakonec vyskočí text (`div.why-txt`). Přehraje se při každém otevření, s omezeným pohybem se části jen prolnou. Texty i diagram jsou přímo v HTML, vzhled v `assets/site.css` pod „Úvod: odkaz Proč to jde tak rychle“, skript na konci `site-cs.js` / `site-en.js` (hledej `why-go`).
 

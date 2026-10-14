@@ -2086,26 +2086,20 @@ html:has(dialog.why[open]){overflow:hidden}
 /* případy: diagram na mobilu (svg.dg-m) se kreslí po částech, jak přijdou na obrazovku. Část pod okrajem čeká (.hold), skript */
 .ill.on [style].hold{animation:none!important}
 
-/* úvod: nápověda ke scrollování. Žlutý lepík s očima vykoukne u spodního okraje okna, rozhlédne se, mrkne
-   a dvakrát se podívá dolů. Zmizí po prvním posunutí stránky, klik posune pod úvod. Skript hledej „peek“. */
-.peek{position:fixed;left:50%;bottom:0;z-index:20;width:72px;height:56px;padding:0;border:0;background:none;cursor:pointer;
-  transform:translate(-50%,110%);transition:transform .6s cubic-bezier(.3,1.5,.5,1);-webkit-tap-highlight-color:transparent}
+/* úvod: nápověda ke scrollování. Jemný šedý dvojitý chevron u spodního okraje okna, jen na počítači a větším tabletu.
+   Ukáže se po doběhnutí kresby. Když se v úvodu 2 s nic neděje, začne jemně pulzovat (.pulse). Zmizí po prvním
+   posunutí stránky, klik posune pod úvod. Skript hledej „peek“. */
+.peek{position:fixed;left:50%;bottom:18px;z-index:20;width:44px;height:44px;margin-left:-22px;padding:8px;border:0;border-radius:50%;
+  background:none;color:var(--faint);cursor:pointer;opacity:0;transition:opacity .6s ease,color .2s}
 .peek[hidden]{display:none}
-.peek.on{transform:translate(-50%,0)}
-.peek.off{transform:translate(-50%,110%);transition:transform .35s cubic-bezier(.5,0,.8,.4)}
-.peek svg{display:block;width:100%;height:100%;overflow:hidden}
-.peek-h{transition:transform .3s cubic-bezier(.3,1.5,.5,1)}
-.peek:hover .peek-h{transform:translateY(-5px)}
-.peek:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:12px}
-.peek-e{transform-box:fill-box;transform-origin:50% 50%}
-.peek.on .peek-p{animation:peek-look 5s ease-in-out .7s infinite}
-.peek.on .peek-e{animation:peek-blink 5s .7s infinite}
-.peek.on .peek-m{animation:peek-nod 5s .7s infinite}
-@keyframes peek-look{0%,10%{transform:none}16%,28%{transform:translate(-3.5px,-1px)}34%,46%{transform:translate(3.5px,-1px)}
-  54%,92%{transform:translate(0,3.5px)}100%{transform:none}}
-@keyframes peek-blink{0%,48%,52%,100%{transform:none}50%{transform:scaleY(.1)}}
-@keyframes peek-nod{0%,56%,74%,100%{transform:none}62%,80%{transform:translateY(4px)}68%,86%{transform:none}}
-@media (prefers-reduced-motion:reduce){
-  .peek,.peek.on,.peek.off{transform:translate(-50%,0);transition:opacity .3s}
-  .peek{opacity:0}.peek.on{opacity:1}.peek.off{opacity:0}
-  .peek.on .peek-p,.peek.on .peek-e,.peek.on .peek-m{animation:none}}
+.peek.on{opacity:.75}
+.peek.off{opacity:0;transition:opacity .3s ease}
+.peek:hover{color:var(--ink);opacity:1}
+.peek:focus-visible{outline:2px solid var(--ink);outline-offset:2px;opacity:1}
+.peek svg{display:block;width:100%;height:100%}
+.peek-2{opacity:.55}
+.peek.pulse .peek-1{animation:peek-pulse 2.4s ease-in-out infinite}
+.peek.pulse .peek-2{animation:peek-pulse 2.4s ease-in-out .18s infinite}
+@keyframes peek-pulse{0%,100%{opacity:.55;transform:none}50%{opacity:1;transform:translateY(3px)}}
+@media (max-width:899px){.peek{display:none!important}}
+@media (prefers-reduced-motion:reduce){.peek.pulse .peek-1,.peek.pulse .peek-2{animation:none}}
