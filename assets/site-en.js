@@ -570,17 +570,17 @@ try{
   });
 })();
 
-/* Úvod: nápověda ke scrollování (button.peek), jen od 900 px. Šedý chevron se ukáže po doběhnutí kresby v úvodu,
-   jen když je stránka nahoře. Když se v úvodu 2 s nic neděje (pohyb myši, kreslení), začne jemně pulzovat.
+/* Úvod: nápověda ke scrollování (button.peek), jen od 900 px. „scroll“ a dva chevrony se ukážou po doběhnutí kresby v úvodu,
+   jen když je stránka nahoře. Když se v úvodu 2 s nic neděje (pohyb myši, kreslení), přejíždí přes něj shora dolů lesk.
    Po prvním posunutí zmizí, klik posune pod úvod. */
 (function(){var p=document.querySelector(".peek"),h=document.querySelector(".hero2");if(!p||!h)return;
   if(!matchMedia("(min-width: 900px)").matches)return;
   var still=matchMedia("(prefers-reduced-motion: reduce)").matches,gone=false,shown=false,idle=0;
   function top(){return (window.scrollY||0)<40;}
-  function arm(){clearTimeout(idle);p.classList.remove("pulse");if(shown&&!gone)idle=setTimeout(function(){p.classList.add("pulse");},2000);}
+  function arm(){clearTimeout(idle);p.classList.remove("shine");if(shown&&!gone)idle=setTimeout(function(){p.classList.add("shine");},2000);}
   function show(){if(gone||shown||!top())return;shown=true;p.hidden=false;
     requestAnimationFrame(function(){requestAnimationFrame(function(){p.classList.add("on");arm();});});}
-  function hide(){if(gone)return;gone=true;clearTimeout(idle);p.classList.remove("on","pulse");p.classList.add("off");setTimeout(function(){p.hidden=true;},400);}
+  function hide(){if(gone)return;gone=true;clearTimeout(idle);p.classList.remove("on","shine");p.classList.add("off");setTimeout(function(){p.hidden=true;},400);}
   if(!top())return;
   var s=h.querySelector(".hx"),a=s&&s.getAnimations?s.getAnimations({subtree:true}):[];
   var t=setTimeout(show,6000);

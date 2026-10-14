@@ -2080,20 +2080,24 @@ html:has(dialog.why[open]){overflow:hidden}
 /* případy: diagram na mobilu (svg.dg-m) se kreslí po částech, jak přijdou na obrazovku. Část pod okrajem čeká (.hold), skript */
 .ill.on [style].hold{animation:none!important}
 
-/* úvod: nápověda ke scrollování. Jemný šedý dvojitý chevron u spodního okraje okna, jen na počítači a větším tabletu.
-   Ukáže se po doběhnutí kresby. Když se v úvodu 2 s nic neděje, začne jemně pulzovat (.pulse). Zmizí po prvním
-   posunutí stránky, klik posune pod úvod. Skript hledej „peek“. */
-.peek{position:fixed;left:50%;bottom:18px;z-index:20;width:44px;height:44px;margin-left:-22px;padding:8px;border:0;border-radius:50%;
-  background:none;color:var(--faint);cursor:pointer;opacity:0;transition:opacity .6s ease,color .2s}
+/* úvod: nápověda ke scrollování. Malé „scroll“ a pod ním dva chevrony jako od fixy, šedé, u spodního okraje okna,
+   jen na počítači a větším tabletu. Ukáže se po doběhnutí kresby. Když se v úvodu 2 s nic neděje, přejede přes
+   text i chevrony shora dolů lesk (.shine, maska jako u načítání v Claude). Zmizí po prvním posunutí stránky,
+   klik posune pod úvod. Skript hledej „peek“. */
+.peek{position:fixed;left:50%;bottom:14px;z-index:20;display:flex;flex-direction:column;align-items:center;gap:1px;
+  padding:6px 10px;border:0;border-radius:14px;background:none;color:var(--muted);cursor:pointer;
+  transform:translateX(-50%);opacity:0;transition:opacity .6s ease,color .2s;
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.45) 0 42%,#000 50%,rgba(0,0,0,.45) 58% 100%);
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.45) 0 42%,#000 50%,rgba(0,0,0,.45) 58% 100%);
+  -webkit-mask-size:100% 300%;mask-size:100% 300%;-webkit-mask-position:0 100%;mask-position:0 100%}
 .peek[hidden]{display:none}
-.peek.on{opacity:.75}
+.peek.on{opacity:1}
 .peek.off{opacity:0;transition:opacity .3s ease}
-.peek:hover{color:var(--ink);opacity:1}
-.peek:focus-visible{outline:2px solid var(--ink);outline-offset:2px;opacity:1}
-.peek svg{display:block;width:100%;height:100%}
-.peek-2{opacity:.55}
-.peek.pulse .peek-1{animation:peek-pulse 2.4s ease-in-out infinite}
-.peek.pulse .peek-2{animation:peek-pulse 2.4s ease-in-out .18s infinite}
-@keyframes peek-pulse{0%,100%{opacity:.55;transform:none}50%{opacity:1;transform:translateY(3px)}}
+.peek:hover{color:var(--ink)}
+.peek:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.peek-t{font-family:var(--hand);font-size:12.5px;font-weight:600;line-height:1;letter-spacing:.06em}
+.peek svg{display:block;width:26px;height:28px}
+.peek.shine{animation:peek-shine 2.2s cubic-bezier(.4,0,.6,1) infinite}
+@keyframes peek-shine{0%{-webkit-mask-position:0 100%;mask-position:0 100%}70%,100%{-webkit-mask-position:0 0;mask-position:0 0}}
 @media (max-width:899px){.peek{display:none!important}}
-@media (prefers-reduced-motion:reduce){.peek.pulse .peek-1,.peek.pulse .peek-2{animation:none}}
+@media (prefers-reduced-motion:reduce){.peek.shine{animation:none}}
