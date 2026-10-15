@@ -2134,9 +2134,9 @@ html:has(dialog.why[open]){overflow:hidden}
 @keyframes pk-load-in{from{opacity:0}}
 
 /* úvod: méně prázdného místa mezi kroky a „Vybranými případy“ */
-main.home .proc{padding-bottom:clamp(40px,5vw,64px)}
-main.home .proc + .canvas{padding-top:clamp(48px,6vw,80px)}
-main.home .proc-field::before{bottom:calc(-1*clamp(40px,5vw,64px) - clamp(24px,3vw,40px));
+main.home .proc{padding-bottom:clamp(48px,6vw,80px)}
+main.home .proc + .canvas{padding-top:clamp(56px,7vw,96px)}
+main.home .proc-field::before{bottom:calc(-1*clamp(48px,6vw,80px) - clamp(24px,3vw,40px));
   -webkit-mask-image:linear-gradient(transparent,#000 44px,#000 calc(100% - 90px),transparent);
   mask-image:linear-gradient(transparent,#000 44px,#000 calc(100% - 90px),transparent)}
 
