@@ -673,10 +673,11 @@ try{
   var targets=[].slice.call(document.querySelectorAll(".cs-me"));
   var steps=document.querySelector("main.home .proc-steps");
   [].forEach.call(document.querySelectorAll("main.home .proc-steps .pstep"),function(p,i){p.style.setProperty("--i",i);});
-  /* kroky naskočí, až je řada karet uprostřed okna, ať animace neruší čtení nadpisu nad nimi */
-  if(steps){steps.classList.add("pre");var tick=0;
-    var chk=function(){tick=0;var r=steps.getBoundingClientRect();
-      if(r.top+r.height/2<=innerHeight/2){steps.classList.add("in");removeEventListener("scroll",on);removeEventListener("resize",on);}};
+  /* kroky naskočí, až je nadpis nad nimi u horní hrany okna, ať animace neruší jeho čtení */
+  var hd=steps&&steps.closest(".proc").querySelector("h2:not(.lap-h)");
+  if(steps&&hd){steps.classList.add("pre");var tick=0;
+    var chk=function(){tick=0;
+      if(hd.getBoundingClientRect().top<=64){steps.classList.add("in");removeEventListener("scroll",on);removeEventListener("resize",on);}};
     var on=function(){if(!tick)tick=requestAnimationFrame(chk);};
     addEventListener("scroll",on,{passive:true});addEventListener("resize",on);chk();}
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;io.unobserve(e.target);e.target.classList.add("in");});},{threshold:.25,rootMargin:"0px 0px -6% 0px"});
