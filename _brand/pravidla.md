@@ -26,7 +26,7 @@ Web má pevné rozložení. Delší text ho rozbije.
 
 - **Pravopis:** americký (prioritization, organize, color, center).
 - **Čísla:** číslicemi („4 sessions“, „2 days“, „6 months“). Výjimka: začátek věty a ustálené „Thirty minutes“ na stránce Kontakt.
-- **Ceny:** „From CZK 49,000“, „From CZK 120,000 per month“. Čárka jako oddělovač tisíců.
+- **Ceny:** „From €2,900“, „From €7,500 per month“. V angličtině ceny v eurech, čárka jako oddělovač tisíců.
 - **Výčty:** s čárkou před and/or („Prague, Amsterdam, or online“).
 - **Nadpisy na stránce:** jako věta (velké jen první písmeno), s tečkou na konci, jak je zvykem na webu.
 - **Titulek stránky (`<title>`):** Title Case („Backlog Prioritization in 2 Days“).
