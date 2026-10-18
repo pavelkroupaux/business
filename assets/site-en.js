@@ -684,4 +684,16 @@ try{
   targets.forEach(function(t){t.classList.add("pre");io.observe(t);});
 })();
 
+/* Případy: položky časové osy naskakují jedna po druhé, když přijdou do záběru (po dvou a více naráz s malým odstupem). */
+(function(){
+  var its=[].slice.call(document.querySelectorAll(".tl-i"));
+  if(!its.length||!("IntersectionObserver" in window)||matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var io=new IntersectionObserver(function(es){
+    var b=es.filter(function(e){return e.isIntersecting;}).map(function(e){return e.target;});
+    b.sort(function(x,y){return its.indexOf(x)-its.indexOf(y);});
+    b.forEach(function(t,i){io.unobserve(t);t.style.setProperty("--d",(i*.14).toFixed(2)+"s");t.classList.add("in");});
+  },{rootMargin:"0px 0px -10% 0px",threshold:.15});
+  its.forEach(function(t){t.classList.add("pre");io.observe(t);});
+})();
+
 }catch(e){console.error(e);}
