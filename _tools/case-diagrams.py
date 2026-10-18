@@ -354,6 +354,139 @@ def breno(T, mobile):
     box(d, 20, 728, 300, 66, T["next"], T["next_s"], "n", 3)
     return d.svg()
 
+
+# ------------------------------------------------------------------ BRENO: před a po workshopu
+def chip(d, x, y, w, h, t, kind="n", i=None):
+    box(d, x, y, w, h, t, None, kind, None, i)
+
+def breno_plan(T, mobile):
+    """Plán spolupráce ve třech fázích (analýza před workshopem): setup, UX základy, aplikace a rozvoj."""
+    def phase(d, x, n, name, sub, dy=0):
+        i = d.tick(.5)
+        d.add(f'<g class="ia" style="--i:{i}"><circle cx="{x+11}" cy="{26+dy}" r="11" class="cdg-num"/><text x="{x+11}" y="{30+dy}" text-anchor="middle" class="cdg-numt">{n}</text>'
+              f'<text x="{x+30}" y="{31+dy}" class="dg-band">{esc(name)}</text>' + texts(x, 56 + dy, sub, "dg-s", "start") + "</g>")
+    if not mobile:
+        d = D(960, 520, "dg-d dg-plan", T["pl_aria"], step=.2)
+        Y = 266
+        d.add(f'<path class="ia dg-div" style="--i:{d.tick(.3)}" d="M282 14 V500"/>')
+        phase(d, 12, 1, T["ph1"], T["ph1_s"])
+        box(d, 12, Y-50, 128, 100, T["start"], None, "knot")
+        arrow(d, f"M140 {Y} H160", (162, Y), R)
+        box(d, 164, Y-35, 108, 70, T["audit"], None, "n")
+        box(d, 164, 346, 108, 64, T["audits"], T["audits_s"], "alt")
+        arrow(d, "M218 301 V344", (218, 346), Dn, k=.6)
+        box(d, 296, 346, 100, 64, T["da"], None, "alt")
+        arrow(d, "M262 301 C268 326 280 348 292 362", (294, 364), math.radians(40), k=.6)
+        phase(d, 296, 2, T["ph2"], T["ph2_s"])
+        arrow(d, f"M272 {Y} H292", (294, Y), R)
+        box(d, 296, Y-35, 100, 70, T["wsx"], None, "n")
+        for cy, t in ((202, T["rolesx"]), (266, T["ds"]), (330, T["ux"])):
+            arrow(d, f"M396 {Y} C410 {Y} 410 {cy} 420 {cy}", (422, cy), R, k=.5)
+            box(d, 424, cy-28, 116, 56, t, None, "n")
+        box(d, 568, 112, 124, 48, T["camp_ops"], None, "alt")
+        for cy, t in ((202, T["g1"]), (266, T["g2"]), (330, T["g3"]), (394, T["g4"])):
+            arrow(d, f"M540 266 C556 266 556 {cy} 564 {cy}", (566, cy), R, k=.4)
+            box(d, 568, cy-28, 124, 56, t, None, "n")
+        box(d, 568, 432, 124, 48, T["soc_ops"], None, "alt")
+        phase(d, 706, 3, T["ph3"], T["ph3_s"])
+        box(d, 706, 200, 112, 56, T["brand"], None, "end")
+        box(d, 706, 272, 112, 72, T["concept"], None, "end")
+        box(d, 830, 160, 112, 76, T["rev"], None, "n")
+        box(d, 830, 250, 112, 60, T["test"], None, "n")
+        box(d, 830, 324, 112, 60, T["camp"], None, "n")
+        arrow(d, "M218 231 V98 H698 V308 H702", (704, 308), R, "soft", k=.6)
+        arrow(d, "M346 410 V492 H760 V348", (760, 346), U, "soft", k=.6)
+        return d.svg()
+    d = D(340, 1120, "dg-m dg-plan", T["pl_aria"], step=.2)
+    phase(d, 20, 1, T["ph1"], T["ph1_s"])
+    box(d, 20, 96, 300, 56, T["start_m"], None, "knot")
+    arrow(d, "M170 152 V172", (170, 174), Dn)
+    box(d, 20, 178, 300, 50, T["audit"], None, "n")
+    arrow(d, "M95 228 V250", (95, 252), Dn, k=.5)
+    arrow(d, "M245 228 V250", (245, 252), Dn, k=.5)
+    box(d, 20, 256, 148, 64, T["audits"], T["audits_s"], "alt")
+    box(d, 172, 256, 148, 64, T["da"], None, "alt")
+    d.add(f'<path class="ia dg-div" style="--i:{d.tick(.3)}" d="M20 344 H320"/>')
+    phase(d, 20, 2, T["ph2"], T["ph2_s"], 358)
+    box(d, 20, 474, 300, 50, T["wsx"], None, "n")
+    for x in (20, 125, 230):
+        arrow(d, f"M170 524 C170 540 {x+45} 536 {x+45} 554", (x + 45, 556), Dn, k=.4)
+    for x, t in zip((20, 125, 230), (T["rolesx"], T["ds"], T["ux"])):
+        box(d, x, 558, 90, 60, t, None, "n")
+    arrow(d, "M170 618 V640", (170, 642), Dn, k=.5)
+    for k, t in enumerate((T["g1"], T["g2"], T["g3"], T["g4"])):
+        box(d, 20 + (k % 2) * 152, 646 + (k // 2) * 62, 148, 54, t, None, "n")
+    d.add(f'<path class="ia dg-div" style="--i:{d.tick(.3)}" d="M20 784 H320"/>')
+    phase(d, 20, 3, T["ph3"], T["ph3_s"], 798)
+    box(d, 20, 884, 148, 66, T["brand"], None, "end")
+    box(d, 172, 884, 148, 66, T["concept"], None, "end")
+    for x, t, h in ((20, T["rev"], 76), (122, T["test"], 76), (224, T["camp"], 76)):
+        box(d, x, 966, 96, h, t, None, "n")
+    box(d, 20, 1056, 148, 48, T["camp_ops"], None, "alt")
+    box(d, 172, 1056, 148, 48, T["soc_ops"], None, "alt")
+    return d.svg()
+
+def breno_jira(T, mobile):
+    """Předání týmu: stavy úkolu v Jiře od backlogu po hotovo, kdo za co odpovídá a smyčky zpět."""
+    cols = T["jira"]
+    if not mobile:
+        d = D(960, 470, "dg-d dg-jira", T["j_aria"], step=.2)
+        W, G, X0, Y0, H = 118, 18.5, 14, 70, 262
+        xs = [X0 + k * (W + G) for k in range(7)]
+        for k, (name, desc, roles) in enumerate(cols):
+            i = d.tick(.8)
+            end = k == 6
+            g = f'<g class="ia" style="--i:{i}"><path d="{rr(xs[k], Y0, W, H, 20)}" class="{"dg-end" if end else "dg-n"}"/>'
+            g += f'<text x="{xs[k]+W/2:.1f}" y="{Y0+34}" text-anchor="middle" class="dg-name{" dg-on" if end else ""}">{esc(name)}</text>'
+            g += texts(f"{xs[k]+W/2:.1f}", Y0 + 66, desc, "dg-sub" + (" dg-on" if end else ""))
+            for r, (rt, hot) in enumerate(roles):
+                ry = Y0 + H - 38 - (len(roles) - 1 - r) * 40
+                g += f'<path d="{rr(xs[k]+10, ry, W-20, 30, 15)}" class="{"dg-end" if hot else "cdg-chip"}"/>'
+                g += f'<text x="{xs[k]+W/2:.1f}" y="{ry+20}" text-anchor="middle" class="dg-s cdg-ink">{esc(rt)}</text>'
+            d.add(g + "</g>")
+            if k < 6:
+                arrow(d, f"M{xs[k]+W+1:.1f} 200 H{xs[k]+W+G-6:.1f}", (xs[k] + W + G - 4, 200), R, k=.4)
+        cx = [x + W / 2 for x in xs]
+        yb = Y0 + H
+        # Review -> Ready for dev, když není potřeba grooming
+        arrow(d, f"M{cx[3]:.1f} {Y0} V42 H{cx[5]:.1f} V{Y0-3}", (cx[5], Y0 - 2), Dn, "soft", k=.6)
+        d.add(f'<text class="ia dg-s dg-halo" style="--i:{d.tick(.3)}" x="{(cx[3]+cx[5])/2:.1f}" y="46" text-anchor="middle">{esc(T["l_skip"])}</text>')
+        loops = [(3, 2, 352, T["l_iter"], 0, 8), (4, 2, 380, T["l_design"], -6, -8), (4, 1, 408, T["l_spec"], 10, 0), (4, 0, 436, T["l_rev"], 26, 0)]
+        for src, dst, y, label, so, do in loops:
+            xa, xb = cx[src] + so, cx[dst] + do
+            arrow(d, f"M{xa:.1f} {yb} V{y} H{xb:.1f} V{yb+3}", (xb, yb + 2), U, "soft", k=.6)
+            d.add(f'<text class="ia dg-s dg-halo" style="--i:{d.tick(.3)}" x="{(xa+xb)/2:.1f}" y="{y+4}" text-anchor="middle">{esc(label)}</text>')
+        return d.svg()
+    d = D(340, 1090, "dg-m dg-jira", T["j_aria"], step=.2)
+    y = 16
+    for k, (name, desc, roles) in enumerate(cols):
+        end = k == 6
+        import textwrap
+        dl = textwrap.wrap(" ".join(desc), 40)
+        rl = " · ".join(r for r, _ in roles)
+        h = 40 + 17 * len(dl) + (4 if len(dl) > 1 else 0) + (22 if rl else 0)
+        i = d.tick(.8)
+        g = f'<g class="ia" style="--i:{i}"><path d="{rr(20, y, 300, h, 16)}" class="{"dg-end" if end else "dg-n"}"/>'
+        g += f'<text x="36" y="{y+26}" class="dg-name{" dg-on" if end else ""}">{esc(name)}</text>'
+        g += texts(36, y + 46, dl, "dg-sub" + (" dg-on" if end else ""), "start")
+        if rl:
+            g += f'<text x="36" y="{y+46+17*len(dl)+8}" class="dg-s cdg-ink">{esc(rl)}</text>'
+        d.add(g + "</g>")
+        if k < 6:
+            arrow(d, f"M170 {y+h} V{y+h+14}", (170, y + h + 16), Dn, k=.4)
+        y += h + 18
+    y += 6
+    band(d, 20, y + 10, T["j_loops"])
+    y += 22
+    for t in (T["l_iter"], T["l_design"], T["l_spec"], T["l_rev"], T["l_skip"]):
+        lines = [t] if len(t) < 36 else [t[: t.rfind(" ", 0, 36)], t[t.rfind(" ", 0, 36) + 1:]]
+        i = d.tick(.4)
+        h = 20 + 17 * len(lines)
+        d.add(f'<g class="ia" style="--i:{i}"><path d="{rr(20, y, 300, h, 12)}" class="cdg-alt"/>' + texts(36, y + 25, lines, "dg-s", "start") + "</g>")
+        y += h + 10
+    d.h = y + 6
+    return d.svg()
+
 CASES = {
  "heirloom": (heirloom, {
   "cs": dict(aria="Diagram: pivot z B2C na B2B. Místo čekání na obrazovky ve Figmě rozsah s vedením, AI prototyp z existujícího kódu a čtyři iterace s komentáři v prototypu. Výsledek: nový směr, rozsah a zadání.",
@@ -405,25 +538,76 @@ CASES = {
      b_note=["všechno má vysokou prioritu"], b_note_m=["všechno má vysokou prioritu"], roles=["vedení · vývoj · marketing"],
      ws="Workshop, 2 dny", d1="Co firma potřebuje", d1_s="den 1 · potřeby byznysu", d2="Role a pořadí", d2_s="den 2 · shoda na pořadí",
      order_band="Pořadí", order_n=["s argumenty u každé položky"], end="Shoda", end_s=["vedení,", "vývoj,", "marketing"],
-     next="Jak pracovat dál", next_s="backlog · roadmapa · nové funkce"),
+     next="Jak pracovat dál", next_s="backlog · roadmapa · nové funkce",
+     x1="Před workshopem: analýza", x2="Během workshopu", x3="Po workshopu: předání týmu",
+     photo1_alt="Stěna plná lepítek s otázkami a potřebami, seskupenými do kruhu", photo2_alt="Stůl s lepítky: úkoly s odhady a barevnými tečkami",
+     photos_cap="Lepítka z workshopu: otázky a potřeby na stěně, úkoly s odhady na stole.",
+     pl_aria="Diagram: plán spolupráce ve třech fázích. Setup: nízký konverzní poměr e-shopu, UX audit, další audity a D&A výzkum. UX základy: UX workshop, role a procesy, design system a UX návrhy, na nich grafika online kampaní, redesign e-shopu, e-mailing a grafika pro sociální sítě. Aplikace a rozvoj: brand strategie, kreativní komunikační koncept, revize UX, UX testování a kreativní řešení kampaní.",
+     ph1="Setup", ph1_s=["Analýza problémů","a potřeb, UX audit"], ph2="UX základy", ph2_s=["Role, procesy a priority (workshop),","design system a styleguide"], ph3="Aplikace a rozvoj", ph3_s=["Další rozšíření"],
+     start=["Nízký konverzní","poměr e-shopu"], start_m="Nízký konverzní poměr e-shopu", audit="UX audit", audits=["Další audity"], audits_s=["SEO, copy,","analytika"], da=["D&A","výzkum"], wsx="UX workshop",
+     rolesx=["Role a","procesy"], ds=["Design","system"], ux=["UX","návrhy"],
+     g1=["Grafika online","kampaní"], g2=["Redesign","e-shopu"], g3="E-mailing", g4=["Grafika pro","sociální sítě"], camp_ops=["Správa online","kampaní"], soc_ops=["Správa","social"],
+     brand=["Brand","strategie"], concept=["Kreativní","komunikační","koncept"], rev=["Revize UX a","definice","priorit"], test=["UX","testování","a návrhy"], camp=["Kreativní","řešení","kampaní"],
+     j_aria="Diagram: proces úkolu v Jiře od backlogu po hotovo. Backlog, Specification, Design, Review, Grooming, Ready for dev a Done, u každého stavu je napsáno, kdo za něj odpovídá. Zpět se vrací iterace z Review do Designu a úpravy designu a specifikace podle zpětné vazby tech leada. Když není potřeba grooming, jde Review rovnou do Ready for dev.",
+     jira=[("Backlog", ["Nejasná zadání,","nápady, věci","na později"], []),
+           ("Specification", ["Úkoly, které se","musí","specifikovat","pro designery"], [("Design lead", True)]),
+           ("Design", ["Jasné zadání","se všemi","podklady,","iterace"], [("Designer", True)]),
+           ("Review", ["Koncepty","designerů,","revidované","Design Leadem"], [("Design lead", True)]),
+           ("Grooming", ["Hotové designy","ke konzultaci","s tech leadem"], [("Product manager", False), ("Design lead", True)]),
+           ("Ready for dev", ["Hotové designy","pro scrum","mastera, který","je převede","do technické","Jiry"], [("Scrum master", True), ("Product manager", False)]),
+           ("Done", ["Když je","vyvinuto"], [])],
+     l_iter="Iterace", l_design="Úprava designu podle tech leada", l_spec="Úprava specifikace podle tech leada", l_rev="Když je design zcela revoluční a mimo architekturu", l_skip="Když není potřeba grooming", j_loops="Zpětné vazby"),
   "en": dict(aria="Diagram: a long backlog where everything is high priority. A 2-day workshop: day 1 what the business really needs, day 2 roles and order. Result: an order with the reasoning, agreed by leadership, engineering and marketing, and how to keep working.",
      b_band="Backlog", cards=["New e-shop", "Loyalty points", "Payments", "Delivery", "Catalog", "Mobile app"],
      b_note=["everything is high priority"], b_note_m=["everything is high priority"], roles=["leadership · engineering · marketing"],
      ws="Workshop, 2 days", d1="What the business needs", d1_s="day 1 · core needs", d2="Roles and order", d2_s="day 2 · agree on the order",
      order_band="Order", order_n=["with the reasoning for each item"], end="Agreement", end_s=["leadership,", "engineering,", "marketing"],
-     next="How to keep working", next_s="backlog · roadmap · new features"),
+     next="How to keep working", next_s="backlog · roadmap · new features",
+     x1="Before the workshop: analysis", x2="During the workshop", x3="After the workshop: handover to the team",
+     photo1_alt="A wall full of sticky notes with questions and needs, grouped in a circle", photo2_alt="A table with sticky notes: tasks with estimates and colored dots",
+     photos_cap="Workshop sticky notes: questions and needs on the wall, tasks with estimates on the table.",
+     pl_aria="Diagram: a plan in three phases. Setup: low e-shop conversion rate, UX audit, other audits and D&A research. UX foundations: UX workshop, roles and processes, design system and UX designs, and on them online campaign graphics, an e-shop redesign, e-mailing and social media graphics. Application and development: brand strategy, a creative communication concept, UX review, UX testing and creative campaign solutions.",
+     ph1="Setup", ph1_s=["Analysis of problems","and needs, UX audit"], ph2="UX foundations", ph2_s=["Roles, processes, priorities (workshop),","design system and style guide"], ph3="Application and growth", ph3_s=["Further expansion"],
+     start=["Low conversion","rate of the e-shop"], start_m="Low conversion rate of the e-shop", audit="UX audit", audits=["Other audits"], audits_s=["SEO, copy,","analytics"], da=["D&A","research"], wsx="UX workshop",
+     rolesx=["Roles and","processes"], ds=["Design","system"], ux=["UX","designs"],
+     g1=["Online campaign","graphics"], g2=["E-shop","redesign"], g3="E-mailing", g4=["Social media","graphics"], camp_ops=["Online campaign","management"], soc_ops=["Social media","management"],
+     brand=["Brand","strategy"], concept=["Creative","communication","concept"], rev=["UX review","and current","priorities"], test=["UX testing","and","designs"], camp=["Creative","campaign","solutions"],
+     j_aria="Diagram: the task process in Jira from backlog to done. Backlog, Specification, Design, Review, Grooming, Ready for dev and Done, with the owner written under each status. Iterations go back from Review to Design, and design and spec changes go back based on tech lead feedback. When grooming isn't needed, Review goes straight to Ready for dev.",
+     jira=[("Backlog", ["Vague tasks,","ideas, things","for later"], []),
+           ("Specification", ["Tasks that need","specifying","for designers"], [("Design lead", True)]),
+           ("Design", ["Clear brief,","all inputs,","iterations"], [("Designer", True)]),
+           ("Review", ["Concepts from","designers,","reviewed by","the Design Lead"], [("Design lead", True)]),
+           ("Grooming", ["Finished","designs for a","consult with","the tech lead"], [("Product manager", False), ("Design lead", True)]),
+           ("Ready for dev", ["Finished","designs for the","scrum master,","who turns them","into technical","Jira tasks"], [("Scrum master", True), ("Product manager", False)]),
+           ("Done", ["When it's built"], [])],
+     l_iter="Iteration", l_design="Design changes per tech lead", l_spec="Spec changes per tech lead feedback", l_rev="When the design is radically outside the architecture", l_skip="When grooming isn't needed", j_loops="Feedback loops")
  }),
 }
 
 SEC = {"cs": "Jak to proběhlo", "en": "How it happened"}
+WAIT = {"cs": "Spustí se po dokončení diagramu výše.", "en": "Starts when the diagram above finishes."}
+PHOTOS = {"breno": (("breno-workshop-lepitka-na-stene-f0865732.webp", 1200, 922, "photo1_alt"),
+                    ("breno-workshop-lepitka-na-stole-28e586b0.webp", 688, 876, "photo2_alt"))}
+
+def wait(lang):
+    return f'        <p class="dg-wait" aria-hidden="true"><span class="dg-wait-d"><i></i><i></i><i></i></span>{WAIT[lang]}</p>\n'
+
+def fig(a, b, lang, waits):
+    return f'      <figure class="lf-fig case-fig">\n        {a}\n        {b}\n' + (wait(lang) if waits else "") + '      </figure>\n'
 
 def figure(case, lang):
     fn, T = CASES[case]
     t = T[lang]
-    return (f'  <section class="case-dg">\n    <div class="wrap">\n      <p class="eyebrow tl-h">{SEC[lang]}</p>\n'
-            f'      <figure class="lf-fig case-fig">\n        {fn(t, False)}\n        {fn(t, True)}\n      </figure>\n'
-            + (f'      <p class="eyebrow tl-h case-dg-h2">{t["p_title"]}</p>\n      <figure class="lf-fig case-fig">\n        {heirloom_pipe(t, False)}\n        {heirloom_pipe(t, True)}\n      </figure>\n' if "p_title" in t else "")
-            + '    </div>\n  </section>\n')
+    out = (f'  <section class="case-dg">\n    <div class="wrap">\n      <p class="eyebrow tl-h">{SEC[lang]}</p>\n' + fig(fn(t, False), fn(t, True), lang, False))
+    if "p_title" in t:
+        out += f'      <p class="eyebrow tl-h case-dg-h2">{t["p_title"]}</p>\n' + fig(heirloom_pipe(t, False), heirloom_pipe(t, True), lang, True)
+    if case == "breno":
+        out += f'      <p class="eyebrow tl-h case-dg-h2">{t["x1"]}</p>\n' + fig(breno_plan(t, False), breno_plan(t, True), lang, True)
+        ph = "".join(f'<img src="/assets/img/{n}" width="{w}" height="{h}" alt="{esc(t[k])}" loading="lazy">' for n, w, h, k in PHOTOS[case])
+        out += (f'      <p class="eyebrow tl-h case-dg-h2">{t["x2"]}</p>\n      <figure class="lf-fig case-photos">\n        {ph}\n'
+                f'        <figcaption>{esc(t["photos_cap"])}</figcaption>\n      </figure>\n')
+        out += f'      <p class="eyebrow tl-h case-dg-h2">{t["x3"]}</p>\n' + fig(breno_jira(t, False), breno_jira(t, True), lang, True)
+    return out + '    </div>\n  </section>\n'
 
 if __name__ == "__main__":
     root = sys.argv[1] if len(sys.argv) > 1 else "."
