@@ -2156,3 +2156,15 @@ main.home .proc-steps.in::before{animation:pstep-line .6s ease .5s both}
 /* úvod: tlačítko „Jak to probíhá podrobně“ se ukáže až po kartách */
 main.home .proc-steps.pre ~ .row,main.home .proc-steps.pre ~ .bc-nav{visibility:hidden;opacity:0}
 main.home .proc-steps.in ~ .row,main.home .proc-steps.in ~ .bc-nav{visibility:visible;animation:pstep-line .5s ease .85s both}
+
+/* případy: druhý diagram čeká na první, do té doby ukazuje klidný prázdný stav (bez tlačítka, jen text a tři tečky) */
+.lf-fig{position:relative}
+.dg-wait{display:none;position:absolute;inset:0;margin:0;max-width:none;align-items:center;justify-content:center;gap:12px;
+  font-size:15px;color:var(--muted);text-align:center;pointer-events:none;transition:opacity .3s ease}
+@media(min-width:701px){.dg-wait{display:flex}}
+.dg-d.on ~ .dg-wait{opacity:0;visibility:hidden;transition:opacity .3s ease,visibility 0s .3s}
+.dg-wait-d{display:inline-flex;gap:5px}
+.dg-wait-d i{width:6px;height:6px;border-radius:50%;background:var(--faint);animation:dgw 1.2s ease-in-out infinite}
+.dg-wait-d i:nth-child(2){animation-delay:.15s}.dg-wait-d i:nth-child(3){animation-delay:.3s}
+@keyframes dgw{0%,70%,100%{opacity:.25}35%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.dg-wait-d i{animation:none;opacity:.6}}
