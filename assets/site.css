@@ -2152,3 +2152,7 @@ main.home .proc-steps.in::before{animation:pstep-line .6s ease .5s both}
 .cs-me.pre img,.cs-me.pre figcaption{opacity:0}
 .cs-me.in img{animation:me-in .8s cubic-bezier(.2,.8,.3,1) both}
 .cs-me.in figcaption{animation:me-cap .6s ease .5s both}
+
+/* úvod: tlačítko „Jak to probíhá podrobně“ se ukáže až po kartách */
+main.home .proc-steps.pre ~ .row,main.home .proc-steps.pre ~ .bc-nav{visibility:hidden;opacity:0}
+main.home .proc-steps.in ~ .row,main.home .proc-steps.in ~ .bc-nav{visibility:visible;animation:pstep-line .5s ease .85s both}
