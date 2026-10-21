@@ -39,7 +39,7 @@ Každá stránka je samostatný soubor, takže co je na víc místech, je potře
 - **Text na stránce** změň v české i anglické verzi (`…/index.html` a `en/…/index.html`).
 - **Hlavička a patička** jsou v každé stránce zvlášť (31 souborů). Změna menu nebo patičky = najít a nahradit ve všech.
 - **Titulek a popis pro Google** jsou v hlavě stránky: `<title>`, `<meta name="description">` a stejný text v `og:title`, `og:description`, `twitter:…`. Popis do 160 znaků.
-- **Ceny na homepage** jsou na kartách služeb schované jedním pravidlem na konci `assets/site.css` (`main.home .svc-price`). V HTML zůstávají, takže je stačí znovu zobrazit smazáním toho řádku. Na stránkách služeb ceny jsou.
+- **Ceny na homepage** jsou na kartách služeb schované jedním pravidlem na konci `assets/site.css` (`main.home .svc-price`). V HTML zůstávají, takže je stačí znovu zobrazit smazáním toho řádku a pravidla pod ním (nadpis karty na mobilu drží výšku miniatury, aby do ní nevjel text). Na stránkách služeb ceny jsou.
 - **Ceny** jsou i ve strukturovaných datech pro Google (`<script type="application/ld+json">` v hlavě stránky) a v `llms.txt`. Když se mění cena, změň ji i tam.
 - **Nová stránka**: zkopíruj podobnou složku, uprav obsah, `<title>`, popis, `<link rel="canonical">` a odkazy na jazykové verze (`hreflang`), a přidej adresu do `sitemap.xml`. V menu ji přidej do všech stránek.
 - **Odkazy uvnitř webu** piš s lomítkem na konci: `/services/audit/`.
@@ -125,7 +125,7 @@ Uprostřed patičky je odkaz na lab.pavelkroupa.com s baňkou (`a.foot-lab`). P�
 
 ## Tlačítko Reference
 
-Tlačítko Reference na úvodu vede na `/portfolio/#reference`. Skript (hledej `toRefs`) ukáže portfolio a pak plynule sjede na reference. Pod referencemi je odkaz na lab.pavelkroupa.com (`.lab-note`).
+Reference (10 doporučení s rozbalitelným textem, `#refs`) jsou jen na stránce O mně, pod fotkami z práce. Tlačítko Reference na úvodu a tlačítko „Všechny reference“ na Službách a v Portfoliu (`.refs-moved`) vedou na `/about/#reference`. Skript (hledej `toRefs`) ukáže stránku a pak plynule sjede na reference. V Portfoliu je pod tlačítkem odkaz na lab.pavelkroupa.com (`.lab-note`).
 
 ## Náhled před uložením
 

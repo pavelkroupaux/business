@@ -231,7 +231,7 @@ try{
     var k=Array.prototype.slice.call(t.children);
     k.forEach(function(c){var n=c.cloneNode(true);n.setAttribute("aria-hidden","true");n.setAttribute("tabindex","-1");t.appendChild(n);});
   });
-  /* tlačítko Reference na úvodu vede na /portfolio/#reference: stránka se ukáže a pak plynule (ease-in-out) sjede na reference */
+  /* tlačítko Reference na úvodu (a odkazy ze Služeb a Portfolia) vede na /about/#reference: stránka se ukáže a pak plynule (ease-in-out) sjede na reference */
   function toRefs(){
     if(location.hash!=="#reference"&&location.hash!=="#/reference") return;
     var r=document.getElementById("refs"); if(!r) return;
