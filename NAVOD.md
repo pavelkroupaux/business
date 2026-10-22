@@ -123,9 +123,11 @@ Pod perexem kroků na úvodu je odkaz „Proč to jde tak rychle?“ (anglicky �
 
 Uprostřed patičky je odkaz na lab.pavelkroupa.com s baňkou (`a.foot-lab`). Při najetí myší zčervená a baňka bublá, stejně jako odkaz Lab v hlavičce portfolia.
 
-## Tlačítko Reference
+## Reference
 
-Tlačítko Reference na úvodu vede na `/portfolio/#reference`. Skript (hledej `toRefs`) ukáže portfolio a pak plynule sjede na reference. Pod referencemi je odkaz na lab.pavelkroupa.com (`.lab-note`).
+Celý seznam doporučení je v Portfoliu (`#refs`). Na úvodu pod případy a na stránce Služby je místo něj proužek s pěti tvářemi a tlačítkem Reference (`a.ref-strip`, vzhled na konci `assets/site.css`). Když přibude nebo ubude doporučení, uprav v proužku počet („10 lidí…“) na obou místech, česky i anglicky. Stránky tří služeb mají každá jednu citaci (`div.case-ref`) pod ukázkou z praxe: Audit Martin Fišera, Decision Prototype Petr Zátopek, Fractional Ondřej Steklý.
+
+Proužek vede na `/portfolio/#reference`. Skript (hledej `toRefs`) ukáže portfolio a pak plynule sjede na reference. Pod referencemi je odkaz na lab.pavelkroupa.com (`.lab-note`).
 
 ## Náhled před uložením
 

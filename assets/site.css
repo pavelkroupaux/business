@@ -2198,3 +2198,14 @@ main.home .proc-steps.in ~ .row,main.home .proc-steps.in ~ .bc-nav{visibility:vi
 .case-ref + .case-cta{margin-top:28px}
 .case-note{text-align:center;max-width:none}
 .case-note a.lnk{display:inline;padding-top:0}
+
+/* úvod a Služby: proužek s tvářemi, odkaz na reference v Portfoliu */
+.ref-strip{display:flex;align-items:center;gap:20px;max-width:640px;margin:40px auto 0;padding:14px 16px 14px 20px;border-radius:980px;background:var(--surface);color:var(--ink);text-decoration:none}
+.rs-faces{display:flex;flex:none}
+.rs-faces img{display:block;width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--surface);margin-left:-12px}
+.rs-faces img:first-child{margin-left:0}
+.rs-txt{flex:1;font-family:var(--display);font-size:17px;line-height:1.35;letter-spacing:-.01em;text-align:left}
+.rs-btn{flex:none}
+.ref-strip:hover .rs-btn{border-color:var(--muted)}
+.svc-refs .ref-strip{margin-top:0}
+@media(max-width:600px){.ref-strip{flex-wrap:wrap;justify-content:center;border-radius:28px;padding:20px}.rs-txt{flex-basis:100%;text-align:center}}
