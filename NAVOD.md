@@ -125,7 +125,7 @@ Uprostřed patičky je odkaz na lab.pavelkroupa.com s baňkou (`a.foot-lab`). P�
 
 ## Tlačítko Reference
 
-Reference (10 doporučení s rozbalitelným textem, `#refs`) jsou jen na stránce O mně, pod fotkami z práce. Tlačítko Reference na úvodu a tlačítko „Všechny reference“ na Službách a v Portfoliu (`.refs-moved`) vedou na `/about/#reference`. Skript (hledej `toRefs`) ukáže stránku a pak plynule sjede na reference. V Portfoliu je pod tlačítkem odkaz na lab.pavelkroupa.com (`.lab-note`).
+Tlačítko Reference na úvodu vede na `/portfolio/#reference`. Skript (hledej `toRefs`) ukáže portfolio a pak plynule sjede na reference. Pod referencemi je odkaz na lab.pavelkroupa.com (`.lab-note`).
 
 ## Náhled před uložením
 
