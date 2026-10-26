@@ -4,6 +4,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Design systém · Pavel Kroupa</title>
 <meta name="robots" content="noindex, nofollow, noarchive">
+<style>html.pk-lock body>*:not(.pk-gate){display:none!important}.pk-gate{position:fixed;inset:0;display:grid;place-items:center;background:var(--ground,#fff);z-index:9999}.pk-gate form{display:flex;gap:8px;padding:0 16px}.pk-gate input{font:16px var(--display,system-ui);padding:10px 16px;border-radius:980px;border:1px solid var(--line,#ccc);background:var(--surface,#fff);color:var(--ink,#111);min-width:0}.pk-gate button{font:500 16px var(--display,system-ui);padding:10px 18px;border-radius:980px;border:0;background:#FFCE1B;color:#111;cursor:pointer}.pk-gate p{position:absolute;margin-top:76px;font:14px var(--display,system-ui);color:var(--faint,#777)}</style>
+<script>/* heslo na /ds: jen zábrana v prohlížeči, ne skutečná ochrana. Ukládá se otisk SHA-256, ne heslo. */
+(function(){var H="0bd0c3da3f7abd32b43371f56b63c5c649794651264d7ed21db4559994f59392",K="pk-ds-ok";try{if(sessionStorage.getItem(K)===H)return}catch(e){}
+var d=document.documentElement;d.classList.add("pk-lock");
+function hex(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return("0"+x.toString(16)).slice(-2)}).join("")}
+document.addEventListener("DOMContentLoaded",function(){var g=document.createElement("div");g.className="pk-gate";g.innerHTML='<form><input type="password" name="pw" placeholder="Heslo" aria-label="Heslo" autocomplete="current-password" autofocus><button type="submit">Odemknout</button></form><p hidden>Špatné heslo.</p>';document.body.appendChild(g);
+var f=g.firstChild,m=g.lastChild;f.addEventListener("submit",function(e){e.preventDefault();var v=f.pw.value;crypto.subtle.digest("SHA-256",new TextEncoder().encode(v)).then(function(b){if(hex(b)===H){try{sessionStorage.setItem(K,H)}catch(e){}d.classList.remove("pk-lock");g.remove()}else{m.hidden=false;f.pw.select()}})})})})();</script>
 <meta name="referrer" content="no-referrer">
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
