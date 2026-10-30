@@ -105,11 +105,11 @@ def length_check(ref):
                 found.append(f"{fname}: delší text ({len(a)} → {len(b)} znaků): {b[:90]}")
 
     for l in diff.splitlines() + ["@@"]:
-        if l.startswith("+++ "):
-            fname = l[6:]
-        elif l.startswith("@@"):
+        if l.startswith(("@@", "diff --git")):  # konec hunku, u nového souboru dřív, než se změní fname
             pair()
             minus, plus = [], []
+        elif l.startswith("+++ "):
+            fname = l[6:]
         elif l.startswith("-") and not l.startswith("---"):
             minus.append(l[1:])
         elif l.startswith("+"):
