@@ -23,7 +23,8 @@ Zásady pro psaní textů (hlas, zakázané vzorce, slovník, prompt pro AI) jso
 | `assets/site-cs.js`, `assets/site-en.js` | chování (přepínač režimu, animace, kreslení v úvodu, formulář). Liší se jen texty |
 | `assets/img/`, `assets/fonts/` | obrázky a písmo |
 | `_brand/` | zásady pro texty a prompt pro AI, nepublikuje se |
-| `_tools/` | pomocné skripty (kontrola textů, diagramy), nepublikuje se |
+| `_tools/` | pomocné skripty (kontrola textů, diagramy, PDF ke službám, obrázky pro sdílení), nepublikuje se |
+| `pdf/` | PDF ke službám ke stažení (dvě strany, česky i anglicky). Texty v `_tools/onepagers.data.cjs`, vytvoří je `node _tools/onepagers.cjs` |
 | `og/` | obrázky pro sdílení na sítích (1200 × 630 px), anglické v `og/en/` |
 | `linkedin/` | hlavička profilu, logo a titulní obrázek firemní stránky na LinkedInu. Vytvoří je `node _tools/linkedin-assets.cjs` |
 | `logo/`, `favicon.*`, `icon-*.png`, `apple-touch-icon.png` | loga a ikony |
@@ -40,7 +41,8 @@ Každá stránka je samostatný soubor, takže co je na víc místech, je potře
 - **Hlavička a patička** jsou v každé stránce zvlášť (33 souborů). Změna menu nebo patičky = najít a nahradit ve všech.
 - **Titulek a popis pro Google** jsou v hlavě stránky: `<title>`, `<meta name="description">` a stejný text v `og:title`, `og:description`, `twitter:…`. Popis do 160 znaků.
 - **Ceny na homepage** jsou na kartách služeb schované jedním pravidlem na konci `assets/site.css` (`main.home .svc-price`). V HTML zůstávají, takže je stačí znovu zobrazit smazáním toho řádku a pravidla pod ním (nadpis karty na mobilu drží výšku miniatury, aby do ní nevjel text). Na stránkách služeb ceny jsou.
-- **Ceny** jsou i ve strukturovaných datech pro Google (`<script type="application/ld+json">` v hlavě stránky) a v `llms.txt`. Když se mění cena, změň ji i tam.
+- **Ceny** jsou i ve strukturovaných datech pro Google (`<script type="application/ld+json">` v hlavě stránky), v `llms.txt` a v PDF ke službám (`_tools/onepagers.data.cjs`, pak `node _tools/onepagers.cjs`). Když se mění cena, změň ji všude.
+- **Ceny v dolarech** na anglickém webu ukazuje tooltip u eurové ceny. Ceník je na konci `assets/site-en.js` (objekt `USD`) a v `llms.txt`. Když se mění eurová cena, změň i dolarovou.
 - **Nová stránka**: zkopíruj podobnou složku, uprav obsah, `<title>`, popis, `<link rel="canonical">` a odkazy na jazykové verze (`hreflang`), a přidej adresu do `sitemap.xml`. V menu ji přidej do všech stránek.
 - **Odkazy uvnitř webu** piš s lomítkem na konci: `/services/audit/`.
 - **Obrázky** dávej do `assets/img/`, ideálně ve formátu WebP, s popisem v `alt`.
