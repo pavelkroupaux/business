@@ -74,7 +74,7 @@ Pavel Kroupa, Mezno 88, 257 86 Mezno, Česká republika. IČO 87977753. Neplátc
 
 ## English
 
-The same site in English. Prices are in euros (EUR) and apply to clients outside the Czech Republic.
+The same site in English. Prices are in euros (EUR) and apply to clients outside the Czech Republic. US dollar prices: Decision Audit from $2,100, Decision Prototype from $3,200 (2 days from $8,400, 1 week from $15,100), App Facelift from $5,500, and fractional leadership from $8,400 per month.
 
 - [Home](https://pavelkroupa.com/en/): I help teams decide what to build. A workshop with your decision-makers, a working prototype, and a finished spec. With AI, in days, not weeks.
 - [Decision Prototype](https://pavelkroupa.com/en/services/decision-prototype/): A decision you can click through. You bring an open question. You leave with a decision and a working prototype on the web that engineering can build from. 1 day from €2,900, 2 days from €7,500, 1 week from €13,500.
