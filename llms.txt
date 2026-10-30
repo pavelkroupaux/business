@@ -19,6 +19,7 @@ Web je česky na https://pavelkroupa.com/ a anglicky na https://pavelkroupa.com/
 
 - [Decision Prototype](https://pavelkroupa.com/services/decision-prototype/): Rozhodnutí, na které se dá kliknout. Přinesete nerozhodnutou věc, odnesete rozhodnutí a funkční prototyp na webu, podle kterého se dá stavět. Jeden den od 49 000 Kč, dva dny od 125 000 Kč, týden od 220 000 Kč. V každé délce: problém, lidé a cíl sepsané předem, workshop s lidmi, kteří rozhodují, funkční prototyp na webu s heslem a komentáři a zápis, co jsme rozhodli a proč.
 - [Audit rozhodnutí](https://pavelkroupa.com/services/audit/): Projdu váš produkt a na nahrávce obrazovky ukážu, co nefunguje a v jakém pořadí bych to opravoval. Pět pracovních dní, bez workshopu. Od 29 000 Kč. Dostanete nahrávku s komentářem, seznam podle priority a doporučení: já, nový člověk, nebo nikdo.
+- [Facelift aplikace](https://pavelkroupa.com/services/facelift/): Lepší UX a jednotný vzhled existující aplikace na design systému, bez přepisu kódu. Tři až čtyři týdny, od 75 000 Kč. Dostanete tokeny, upravené komponenty vaší UI knihovny, hlavní obrazovky se stavy a téma pro vývoj, ve Figmě nebo rovnou v kódu.
 - [Vedení produktu a designu na část úvazku](https://pavelkroupa.com/services/fractional/): Dva dny v týdnu sedím ve vašem týmu, nejméně tři měsíce. Rozhoduju s vámi u porad vedení i produktu a držím směr, aby se vývoj necyklil. Až přijmete někoho natrvalo, předám mu všechno písemně. Od 120 000 Kč měsíčně.
 
 Platíte za projekt, ne za hodiny. Konečnou nabídku pošlu po první schůzce. Každá spolupráce začíná třicetiminutovým hovorem, bez prezentace. Nejsem plátce DPH.
@@ -73,11 +74,12 @@ Pavel Kroupa, Mezno 88, 257 86 Mezno, Česká republika. IČO 87977753. Neplátc
 
 ## English
 
-The same site in English. Prices are in euros (EUR).
+The same site in English. Prices are in euros (EUR) and apply to clients outside the Czech Republic.
 
 - [Home](https://pavelkroupa.com/en/): I help teams decide what to build. A workshop with your decision-makers, a working prototype, and a finished spec. With AI, in days, not weeks.
 - [Decision Prototype](https://pavelkroupa.com/en/services/decision-prototype/): A decision you can click through. You bring an open question. You leave with a decision and a working prototype on the web that engineering can build from. 1 day from €2,900, 2 days from €7,500, 1 week from €13,500.
 - [Decision Audit](https://pavelkroupa.com/en/services/audit/): I review your product and show you, in a screen recording, what isn't working and the order I'd fix it in. 5 business days, no workshop. From €1,900.
+- [App Facelift](https://pavelkroupa.com/en/services/facelift/): Better UX and a consistent look for an existing app, built on a design system, without a rewrite. 3 to 4 weeks, from €4,900. You get tokens, updated components from your UI library, key screens with every state, and a theme for engineering, in Figma or directly in code.
 - [Fractional product and design leadership](https://pavelkroupa.com/en/services/fractional/): 2 days a week on your team, for at least 3 months, until you hire someone permanent. From €7,500 per month.
 - [Portfolio](https://pavelkroupa.com/en/portfolio/): Case studies from Heirloom (digital legacy, 2026), Coinmate (regulated crypto exchange, 2023–2026), WPP (express campaign audit, 2025), Leeaf (fertility treatment, 2020–2023), and BRENO (retail and e-commerce, 2023), with recommendations from LinkedIn.
 - [About](https://pavelkroupa.com/en/about/): 13 years of guiding teams to decisions. Banking, healthcare, crypto. Prague and Amsterdam.

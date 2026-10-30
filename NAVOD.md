@@ -14,7 +14,7 @@ Zásady pro psaní textů (hlas, zakázané vzorce, slovník, prompt pro AI) jso
 |---|---|
 | `index.html` | úvod |
 | `portfolio/index.html`, `portfolio/coinmate/index.html` … | portfolio a případy (heirloom, coinmate, wpp, leeaf, breno) |
-| `services/index.html`, `services/audit/index.html` … | služby (decision-prototype, audit, fractional) |
+| `services/index.html`, `services/audit/index.html` … | služby (decision-prototype, audit, facelift, fractional) |
 | `about/index.html`, `contact/index.html` | O mně, Kontakt |
 | `en/…` | anglická verze, stejné složky |
 | `404.html`, `en/404.html` | stránka „nenalezeno“ |
@@ -37,7 +37,7 @@ Adresy odpovídají složkám: `services/audit/index.html` je `pavelkroupa.com/s
 Každá stránka je samostatný soubor, takže co je na víc místech, je potřeba změnit na všech.
 
 - **Text na stránce** změň v české i anglické verzi (`…/index.html` a `en/…/index.html`).
-- **Hlavička a patička** jsou v každé stránce zvlášť (31 souborů). Změna menu nebo patičky = najít a nahradit ve všech.
+- **Hlavička a patička** jsou v každé stránce zvlášť (33 souborů). Změna menu nebo patičky = najít a nahradit ve všech.
 - **Titulek a popis pro Google** jsou v hlavě stránky: `<title>`, `<meta name="description">` a stejný text v `og:title`, `og:description`, `twitter:…`. Popis do 160 znaků.
 - **Ceny na homepage** jsou na kartách služeb schované jedním pravidlem na konci `assets/site.css` (`main.home .svc-price`). V HTML zůstávají, takže je stačí znovu zobrazit smazáním toho řádku a pravidla pod ním (nadpis karty na mobilu drží výšku miniatury, aby do ní nevjel text). Na stránkách služeb ceny jsou.
 - **Ceny** jsou i ve strukturovaných datech pro Google (`<script type="application/ld+json">` v hlavě stránky) a v `llms.txt`. Když se mění cena, změň ji i tam.

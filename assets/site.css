@@ -1371,9 +1371,9 @@ a.svc{position:relative}
 @media(max-width:900px){.tiers{grid-template-columns:1fr}.offer,.offer.no-price{grid-template-columns:1fr}
   .op-col+.op-col,.op-price+.op-col{border-left:0;border-top:1px solid var(--line)}}
 /* kroky auditu a části úvazku vedle sebe */
-#v-svc-audit .stp-list,#v-svc-fractional .stp-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:40px}
-#v-svc-audit .stp-row,#v-svc-fractional .stp-row{display:flex;flex-direction:column;gap:6px;border:0;padding:24px 24px 26px;background:var(--raise);border-radius:24px;box-shadow:var(--glass-shadow);text-align:left}
-@media(max-width:900px){#v-svc-audit .stp-list,#v-svc-fractional .stp-list{grid-template-columns:1fr}}
+#v-svc-audit .stp-list,#v-svc-fractional .stp-list,#v-svc-facelift .stp-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:40px}
+#v-svc-audit .stp-row,#v-svc-fractional .stp-row,#v-svc-facelift .stp-row{display:flex;flex-direction:column;gap:6px;border:0;padding:24px 24px 26px;background:var(--raise);border-radius:24px;box-shadow:var(--glass-shadow);text-align:left}
+@media(max-width:900px){#v-svc-audit .stp-list,#v-svc-fractional .stp-list,#v-svc-facelift .stp-list{grid-template-columns:1fr}}
 
 /* ---------- v5 kolo 13 ---------- */
 /* hlavička služby: vlevo text, vpravo infografika */
@@ -2210,3 +2210,6 @@ main.home .proc-steps.in ~ .row,main.home .proc-steps.in ~ .bc-nav{visibility:vi
 .svc-refs .ref-strip{margin-top:0}
 .svc-refs{padding-top:24px}
 @media(max-width:600px){.ref-strip{flex-wrap:wrap;justify-content:center;border-radius:28px;padding:20px}.rs-txt{flex-basis:100%;text-align:center}}
+/* vedení na část úvazku jako „průběžně“ pod projekty (karty služeb, přehled služeb) */
+.svc-cards+.case-cta,.picks+.case-cta{margin-top:18px}
+.svc-rows-k{margin:8px 0 -4px;max-width:none;justify-self:stretch;text-align:center}
