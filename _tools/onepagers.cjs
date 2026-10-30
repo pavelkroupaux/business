@@ -86,12 +86,40 @@ mark{background:linear-gradient(to top,#FFCE1B 42%,transparent 42%);color:inheri
 .pf{display:flex;justify-content:space-between;align-items:flex-end;margin-top:5mm;padding-top:3mm;border-top:1px solid #E1E0DA;font-size:8.2pt;color:#5B5B55}
 .pf b{color:#111}.pf img{height:9mm;width:auto}
 .spacer{flex:1}
+.hero{display:grid;grid-template-columns:1fr 54mm;gap:6mm;align-items:center;margin-bottom:4.8mm}
+.hero h1{max-width:none;font-size:23pt}.hero .lede{margin:0}
+.hero .art{width:54mm;height:auto;display:block}
+.webdiag{border:1px solid #E1E0DA;border-radius:4mm;padding:2.6mm 3mm;margin-bottom:2.6mm}
+.webdiag svg{display:block;width:100%;height:auto}
+.flow{display:grid;grid-template-columns:31mm 6mm 1fr 6mm 34mm;grid-template-rows:auto auto auto;align-items:center;border:1px solid #E1E0DA;border-radius:4mm;padding:4.4mm 4mm 4mm;margin-bottom:2.6mm}
+.flow i{align-self:end;display:block;font-style:normal;font-size:6.8pt;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#77776F;margin-bottom:1.8mm}
+.fin{border:1px solid #CFCEC8;border-radius:2.6mm;padding:2.2mm 2.6mm;margin-bottom:2.2mm}
+.fin b,.fout b{display:block;font-size:8.8pt;line-height:1.2}.fin span{display:block;font-size:7.4pt;color:#6b6b66;margin-top:.4mm}
+.fout{background:#111;color:#fff;border-radius:2.6mm;padding:2.4mm 2.8mm;margin-bottom:2.2mm}.fout span{display:block;font-size:7.4pt;color:#cfcfca;margin-top:.4mm}
+.fin:last-child,.fout:last-child{margin-bottom:0}
+.farr{text-align:center;font-size:13pt;line-height:1}
+.fl-loop,.fsteps{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:5mm}
+.fl-loop{grid-auto-flow:row}
+.fl-loop{min-height:2mm;margin-bottom:1.6mm}
+.fl-loop .one{border:0;margin:0;text-align:center}
+.fl-loop .one em{position:static;transform:none;display:inline-block;border:1.3px dashed #111;border-radius:3mm;padding:.5mm 2.4mm}
+.fl-loop .many{height:4.6mm;margin-top:2.6mm}
+.fl-loop .many{border:1.3px dashed #111;border-bottom:0;border-radius:2.4mm 2.4mm 0 0;margin:2.6mm 5mm 0;position:relative}
+.fl-loop em{position:absolute;left:50%;top:-2.3mm;transform:translateX(-50%);background:#fff;padding:0 1.8mm;font-style:normal;font-size:7.2pt;font-weight:700;white-space:nowrap}
+.fstep{border:1px solid #CFCEC8;border-radius:2.6mm;padding:2.6mm;position:relative;align-self:stretch}
+.fstep.first{background:#FFCE1B;border:1.4px solid #111}
+.fstep .t{display:block;font-size:6.8pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5B5B55;margin-bottom:1.2mm}
+.fstep.first .t{color:#3a3500}
+.fstep .n{display:inline-flex;width:5mm;height:5mm;border-radius:50%;background:#111;color:#fff;font-size:7.5pt;font-weight:800;align-items:center;justify-content:center;margin-bottom:1.2mm}
+.fstep b{display:block;font-size:9.6pt;line-height:1.2;margin-bottom:.9mm}
+.fstep .c{display:block;font-size:7.8pt;color:#3a3a36;line-height:1.35}
+.fstep:not(:last-child)::after{content:"→";position:absolute;right:-4.2mm;top:50%;transform:translateY(-50%);font-size:10.5pt}
 `;
 
 const head = (lang, n) => `<header class="ph"><span><b>Pavel Kroupa</b> · ${esc(UI[lang].sub)}</span><span>${n} / 2</span></header>`;
 const foot = (lang) => `<footer class="pf"><span><b>Pavel Kroupa</b> · contact@pavelkroupa.com · pavelkroupa.com<br>${esc(UI[lang].place)}</span><img src="/logo/pk/pk-svetle.svg" alt=""></footer>`;
 
-function page1(lang, t) {
+function page1(lang, t, art) {
   const u = UI[lang], p = t.price;
   const sit = t.situation.list ? `<ul>${t.situation.list.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : `<p>${esc(t.situation.text)}</p>`;
   let main = '';
@@ -101,7 +129,7 @@ function page1(lang, t) {
   main += `<div class="aff"><em>${esc(u.affects)}</em>${p.affects.map((x) => `<span>${esc(x)}</span>`).join('')}</div>`;
   if (p.note) main += `<p class="pnote">${esc(p.note)}</p>`;
   return `<section class="page">${head(lang, 1)}
-<p class="eyebrow">${esc(t.eyebrow)}</p><h1>${rich(t.h1)}</h1><p class="lede">${esc(t.lede)}</p>
+<p class="eyebrow">${esc(t.eyebrow)}</p><div class="hero"><div><h1>${rich(t.h1)}</h1><p class="lede">${esc(t.lede)}</p></div><img class="art" src="${art.ill}" alt=""></div>
 <div class="sit"><span class="pill">${esc(t.situation.label)}</span>${sit}</div>
 <p class="k">${esc(u.gets)}</p><div class="gets n${t.gets.length}">${t.gets.map(([a, b]) => `<div class="card"><b>${esc(a)}</b><span>${esc(b)}</span></div>`).join('')}</div>
 ${t.also ? `<p class="also">${esc(t.also)}</p>` : ''}
@@ -110,10 +138,22 @@ ${t.also ? `<p class="also">${esc(t.also)}</p>` : ''}
 <div class="spacer"></div>${foot(lang)}</section>`;
 }
 
-function page2(lang, t) {
+function flow(lang, f) {
+  const u = UI[lang], n = f.steps.length;
+  const loop = f.loop ? `<div class="fl-loop" style="grid-template-columns:repeat(${n},1fr)">${Array.from({ length: n }, (_, i) => i + 1).map((i) => i === f.loop[0] ? `<div class="${f.loop[0] === f.loop[1] ? 'one' : 'many'}" style="grid-column:${f.loop[0]} / ${f.loop[1] + 1}"><em>${esc(f.loop[2])}</em></div>` : (i > f.loop[0] && i <= f.loop[1]) ? '' : '<span></span>').join('')}</div>` : '<div class="fl-loop"></div>';
+  return `<div class="flow"><i>${esc(u.begin)}</i><span></span><i>${esc(u.work)}</i><span></span><i>${esc(u.gets)}</i>
+<span></span><span></span>${loop}<span></span><span></span>
+<div>${f.in.map(([a, b]) => `<div class="fin"><b>${esc(a)}</b><span>${esc(b)}</span></div>`).join('')}</div><div class="farr">→</div>
+<div class="fsteps">${f.steps.map(([tm, a, c], i) => `<div class="fstep${i ? '' : ' first'}"><span class="t">${esc(tm)}</span><span class="n">${i + 1}</span><b>${esc(a)}</b><span class="c">${esc(c)}</span></div>`).join('')}</div>
+<div class="farr">→</div><div>${f.out.map(([a, b]) => `<div class="fout"><b>${esc(a)}</b><span>${esc(b)}</span></div>`).join('')}</div></div>`;
+}
+
+function page2(lang, t, art) {
   const u = UI[lang];
-  let h = `<section class="page">${head(lang, 2)}<p class="k">${esc(u.how)}</p>
-<ol class="steps n${t.steps.length}">${t.steps.map(([a, b], i) => `<li><span class="no">${i + 1}</span><b>${esc(a)}</b><span>${esc(b)}</span></li>`).join('')}</ol>`;
+  let h = `<section class="page">${head(lang, 2)}<p class="k">${esc(u.how)}</p>`;
+  if (t.diagram) h += `<div class="webdiag">${art.diagram}</div>`;
+  else if (t.flow) h += flow(lang, t.flow);
+  else h += `<ol class="steps n${t.steps.length}">${t.steps.map(([a, b], i) => `<li><span class="no">${i + 1}</span><b>${esc(a)}</b><span>${esc(b)}</span></li>`).join('')}</ol>`;
   h += t.stepsNote ? `<p class="snote">${esc(t.stepsNote)}</p>` : '<div style="height:3mm"></div>';
   if (t.example) h += `<div class="ex"><p class="k">${esc(u.example)}</p><p>${esc(t.example.text)}</p><table><tr>${t.example.head.map((x) => `<th>${esc(x)}</th>`).join('')}</tr>${t.example.rows.map((r) => `<tr>${r.map((x) => `<td>${esc(x)}</td>`).join('')}</tr>`).join('')}</table></div>`;
   const cols = [];
@@ -128,14 +168,47 @@ function page2(lang, t) {
   return h;
 }
 
-const doc = (lang, t) => `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><title>Pavel Kroupa · ${esc(t.eyebrow)}</title><style>${CSS}</style></head><body>${page1(lang, t)}${page2(lang, t)}</body></html>`;
+const doc = (lang, t, art) => `<!doctype html><html lang="${lang}"><head><meta charset="utf-8"><title>Pavel Kroupa · ${esc(t.eyebrow)}</title><style>${CSS}</style></head><body>${page1(lang, t, art)}${page2(lang, t, art)}</body></html>`;
+
+// Obrázky ze stránky služby: ilustrace (.svc-hero-ill) vykreslená se styly webu jako PNG ve trojnásobném rozlišení,
+// a diagram postupu (figure.diagram) vložený jako vektor s písmem Inter.
+function serve(p, html) {
+  return p.route('**/*', async (r) => {
+    const u = new URL(r.request().url());
+    if (u.host !== 'pk.local') return r.abort();
+    if (u.pathname === '/') return r.fulfill({ body: html, contentType: 'text/html; charset=utf-8' });
+    const f = path.join(ROOT, decodeURIComponent(u.pathname));
+    if (!f.startsWith(ROOT) || !fs.existsSync(f)) return r.fulfill({ status: 404, body: '' });
+    const type = { '.css': 'text/css', '.woff2': 'font/woff2', '.svg': 'image/svg+xml' }[path.extname(f)];
+    r.fulfill({ body: fs.readFileSync(f), contentType: type || 'application/octet-stream' });
+  });
+}
+async function loadArt(browser, key, lang) {
+  const src = fs.readFileSync(path.join(ROOT, (lang === 'en' ? 'en/' : '') + `services/${key}/index.html`), 'utf8');
+  const m = src.match(/<div class="svc-hero-ill">(<svg class="ill [\s\S]*?<\/svg>)/);
+  if (!m) throw new Error(`ilustrace nenalezena: ${lang} ${key}`);
+  const svg = m[1].replace(/^<svg class="ill /, '<svg class="ill on ');
+  const p = await browser.newPage({ viewport: { width: 700, height: 500 }, deviceScaleFactor: 3 });
+  await serve(p, `<!doctype html><html data-theme="light"><head><meta charset="utf-8"><link rel="stylesheet" href="/assets/site.css">
+<style>html,body{margin:0;background:#fff}.box{width:640px;padding:10px}</style></head><body><div class="box">${svg}</div></body></html>`);
+  await p.goto('http://pk.local/', { waitUntil: 'networkidle' });
+  await p.evaluate(async () => { await document.fonts.ready; document.getAnimations().forEach((a) => { try { a.finish(); } catch (e) {} }); });
+  await p.waitForTimeout(100);
+  const ill = 'data:image/png;base64,' + (await (await p.$('svg.ill')).screenshot()).toString('base64');
+  await p.close();
+  const d = src.match(/<figure class="diagram">(<svg[\s\S]*?<\/svg>)/);
+  const diagram = d ? d[1].replace(/ width="\d+" height="\d+"/, '').replace(/font-family="[^"]*"/g, 'font-family="Inter, Helvetica, Arial, sans-serif"') : '';
+  return { ill, diagram };
+}
 
 (async () => {
   fs.mkdirSync(OUT, { recursive: true });
   if (PREVIEW) fs.mkdirSync(PREVIEW, { recursive: true });
   const browser = await chromium.launch(); let bad = 0;
   for (const s of SERVICES) for (const lang of ['cs', 'en']) {
-    const html = doc(lang, s[lang]);
+    const art = await loadArt(browser, s.key, lang);
+    if (s[lang].diagram && !art.diagram) throw new Error(`diagram nenalezen: ${lang} ${s.key}`);
+    const html = doc(lang, s[lang], art);
     const p = await browser.newPage({ viewport: { width: 794, height: 1123 } });
     await p.route('http://pk.local/**', async (r) => {
       const u = new URL(r.request().url());
