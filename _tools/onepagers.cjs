@@ -180,7 +180,7 @@ function page2(lang, t, art) {
   if (cols.length) h += `${G}<div class="two${cols.length === 1 ? ' one' : ''}">${cols.join('')}</div>`;
   if (t.it) h += `${G}<div class="it"><p class="k">${esc(t.itLabel || u.it)}</p><div class="cols">${t.it.map(([q, a]) => `<div><b>${esc(q)}</b><span>${link(a)}</span></div>`).join('')}</div></div>`;
   h += `${G}<p class="k">${esc(u.practice)}</p><div class="cases n${t.practice.length}">${t.practice.map(([, name, meta, text]) =>
-    `<div class="case"><div class="cm"><b>${esc(name)}</b>· ${esc(meta)}</div><span>${esc(text)}</span></div>`).join('')}</div>`;
+    `<div class="case"><div class="cm"><b>${esc(name)}</b>${meta ? `· ${esc(meta)}` : ''}</div><span>${esc(text)}</span></div>`).join('')}</div>`;
   if (t.quote) h += `<p class="quote">“${esc(t.quote[0])}”<small>${esc(t.quote[1])}, ${esc(t.quote[2])}</small></p>`;
   h += `${G}<div class="next"><div><p class="k">${esc(u.next)}</p><p>${esc(t.next)}</p></div><div class="mail"><a href="mailto:contact@pavelkroupa.com">contact@pavelkroupa.com</a><span><a href="${site(lang)}">pavelkroupa.com</a></span></div></div>${foot(lang)}</section>`;
   return h;
