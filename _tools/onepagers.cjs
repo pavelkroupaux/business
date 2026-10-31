@@ -1,7 +1,7 @@
 // PDF ke službám: dvě strany A4 pro toho, kdo schvaluje rozpočet (strana 1) a kdo to prověřuje (strana 2).
 // Spouštět z kořene repozitáře: node _tools/onepagers.cjs  → pdf/*.pdf
 // S PREVIEW=<složka> uloží i náhledy stran jako PNG. Texty jsou v _tools/onepagers.data.cjs.
-// Když se obsah nevejde na stranu, skript skončí chybou a řekne kde.
+// Když se obsah nevejde na stranu, PDF nezapíše, skript skončí chybou a řekne kde.
 const fs = require('fs'), path = require('path');
 const { chromium } = require('playwright');
 const { WHY, UI, SERVICES } = require('./onepagers.data.cjs');
@@ -243,8 +243,11 @@ async function loadArt(browser, key, lang) {
       return { page: i + 1, overflow: pg.scrollHeight > pg.clientHeight + 1 || foot.getBoundingClientRect().bottom > pg.getBoundingClientRect().bottom + 1, free: Math.round(free) };
     }));
     const file = s.file[lang];
-    over.forEach((o) => { if (o.overflow) { bad++; console.log(`PŘETÉKÁ ${file} strana ${o.page}`); } });
-    await p.pdf({ path: path.join(OUT, file), format: 'A4', printBackground: true, preferCSSPageSize: true });
+    const overflow = over.filter((o) => o.overflow);
+    overflow.forEach((o) => console.log(`PŘETÉKÁ ${file} strana ${o.page}, PDF nezapsáno`));
+    bad += overflow.length;
+    // Přetékající PDF se nezapíše, v pdf/ zůstane poslední dobrá verze. Náhled (PREVIEW) se uloží i tak, aby bylo vidět, co se nevešlo.
+    if (!overflow.length) await p.pdf({ path: path.join(OUT, file), format: 'A4', printBackground: true, preferCSSPageSize: true });
     if (PREVIEW) {
       const pages = await p.$$('.page');
       for (let i = 0; i < pages.length; i++) await pages[i].screenshot({ path: path.join(PREVIEW, file.replace('.pdf', `-${i + 1}.png`)) });

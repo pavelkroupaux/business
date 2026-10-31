@@ -725,6 +725,10 @@ try{
     var f=e.target.closest&&e.target.closest(".fx"); closeAll(f);
     if(f){e.preventDefault();e.stopPropagation();f.classList.toggle("on");}
   },true);
-  document.addEventListener("keydown",function(e){if(e.key==="Escape")closeAll(null);});
+  /* Escape skryje i tooltip otevřený najetím myší nebo fokusem; znovu se ukáže po dalším najetí nebo fokusu */
+  document.addEventListener("keydown",function(e){if(e.key!=="Escape")return;closeAll(null);
+    [].forEach.call(document.querySelectorAll(".fx:hover,.fx:focus"),function(x){x.classList.add("fx-x");});});
+  function unhide(e){var f=e.target.closest&&e.target.closest(".fx");if(f)f.classList.remove("fx-x");}
+  document.addEventListener("mouseover",unhide);document.addEventListener("focusin",unhide);
 })();
 }catch(e){console.error(e);}
