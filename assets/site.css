@@ -2226,3 +2226,5 @@ main.home .proc-steps.in ~ .row,main.home .proc-steps.in ~ .bc-nav{visibility:vi
 .tier-d{display:flex;align-items:center;gap:10px}
 .tier-cal{width:28px;height:28px;flex:none;color:var(--ink)}
 .tier-cal text{font-family:var(--display)}
+/* „Ceny a podmínky“ v úvodu služby skočí na blok s cenou na stejné stránce (#cena / #pricing) */
+#cena,#pricing{scroll-margin-top:96px}
