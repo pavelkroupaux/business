@@ -44,7 +44,7 @@ Prototyp není produkční kód. Používá vaše komponenty. Kód je na GitHubu
 
 ## Kde jsem pracoval
 
-- 2023–2026: Vedoucí produktového designu, Coinmate. Design systém od nuly, specifikace frontendu, podklady pro licenci MiCA a nová značka.
+- 2023–2026: Vedoucí produktového designu, Coinmate. Design systém postavený postupně, specifikace frontendu, podklady pro licenci MiCA a nová značka.
 - 2023–dosud: Zakládající designér a spoluzakladatel, Heirloom.
 - 2020–2023: Spoluzakladatel a zakládající designér, potom vedoucí produktového designu, Leeaf.
 - 2018–dosud: Na volné noze. Sprinty a výzkum pro Komerční banku, Českou spořitelnu, CEMEX a ESET. Workshop pro BRENO. Audity pro ESET, Jablotron a Centropol.
