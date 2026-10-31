@@ -10,6 +10,7 @@ const ROOT = process.cwd(), OUT = path.join(ROOT, 'pdf'), PREVIEW = process.env.
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const link = (s) => esc(s).replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2">$1</a>');
 const G = '<div class="gap"></div>';
+const cal = (n) => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5h12a3 3 0 0 1 3 3v2.5H3V7.5a3 3 0 0 1 3-3z" fill="#FFCE1B"/><rect x="3" y="4.5" width="18" height="16.5" rx="3" fill="none" stroke="#111" stroke-width="1.5"/><path d="M3 10h18" stroke="#111" stroke-width="1.5"/><path d="M8 2.6v3.6M16 2.6v3.6" stroke="#111" stroke-width="1.6" stroke-linecap="round"/><text x="12" y="18.6" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="8.4" font-weight="800" fill="#111">${n}</text></svg>`;
 const rich = (s) => esc(s).replace(/&lt;mark&gt;/g, '<mark>').replace(/&lt;\/mark&gt;/g, '</mark>');
 
 const CSS = `
@@ -23,7 +24,8 @@ body{font-family:Inter,"Helvetica Neue",Arial,sans-serif;color:#111;-webkit-prin
 .ph b{color:#111}
 .eyebrow{margin:0 0 3mm;font-size:8pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#5B5B55}
 h1{margin:0 0 4mm;font-size:25pt;line-height:1.08;letter-spacing:-.025em;font-weight:800;max-width:165mm}
-mark{background:linear-gradient(to top,#FFCE1B 42%,transparent 42%);color:inherit;padding:0 .04em}
+mark{background:none;color:inherit;padding:0 .04em;position:relative;z-index:0;white-space:nowrap}
+mark::before{content:"";position:absolute;left:0;right:0;bottom:.04em;height:.4em;background:#FFCE1B;z-index:-1}
 .lede{margin:0 0 5mm;font-size:11.5pt;line-height:1.5;color:#2b2b28;max-width:165mm}
 .k{margin:0 0 2.6mm;font-size:8pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#111}
 .sit{display:flex;gap:5mm;align-items:flex-start;background:#F3F2EE;border-radius:4mm;padding:3.4mm 5mm;margin-bottom:4.8mm}
@@ -88,6 +90,9 @@ mark{background:linear-gradient(to top,#FFCE1B 42%,transparent 42%);color:inheri
 .pf{display:flex;justify-content:space-between;align-items:flex-end;margin-top:5mm;padding-top:3mm;border-top:1px solid #E1E0DA;font-size:8.2pt;color:#5B5B55}
 .pf b{color:#111}.pf img{height:9mm;width:auto}
 .spacer{flex:1}
+.tier .cal{display:flex;align-items:center;gap:1.6mm;margin-bottom:.6mm}.tier .cal svg{width:7.4mm;height:7.4mm;flex:none}
+.incl{margin:0;font-size:7.5pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5B5B55}
+.it .cols{gap:0}.it .cols>div{padding:0 4.6mm}.it .cols>div:first-child{padding-left:0}.it .cols>div:last-child{padding-right:0}.it .cols>div+div{border-left:1px solid #D2D1CA}
 .gap{flex:1 1 0;max-height:8mm}
 a{color:inherit;text-decoration:underline;text-decoration-color:#FFCE1B;text-decoration-thickness:.55mm;text-underline-offset:.7mm}
 .next a,.pf a{text-decoration:none}
@@ -129,9 +134,9 @@ function page1(lang, t, art) {
   const u = UI[lang], p = t.price;
   const sit = t.situation.list ? `<ul>${t.situation.list.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : `<p>${esc(t.situation.text)}</p>`;
   let main = '';
-  if (p.tiers) main += `<div class="tiers">${p.tiers.map(([a, b, c]) => `<div class="tier"><i>${esc(a)}</i><b>${esc(b)}</b><span>${esc(c)}</span></div>`).join('')}</div>`;
+  if (p.tiers) main += `<div class="tiers">${p.tiers.map(([a, b, c], i) => `<div class="tier">${p.tierDays ? `<div class="cal">${cal(p.tierDays[i])}<i>${esc(a)}</i></div>` : `<i>${esc(a)}</i>`}<b>${esc(b)}</b><span>${esc(c)}</span></div>`).join('')}</div>`;
   if (p.text) main += `<p class="ptext">${esc(p.text)}</p>`;
-  if (p.included) main += `<ul class="inc">${p.included.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>`;
+  if (p.included) main += `${p.includedLabel ? `<p class="incl">${esc(p.includedLabel)}</p>` : ''}<ul class="inc">${p.included.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>`;
   main += `<div class="aff"><em>${esc(u.affects)}</em>${p.affects.map((x) => `<span>${esc(x)}</span>`).join('')}</div>`;
   if (p.note) main += `<p class="pnote">${esc(p.note)}</p>`;
   return `<section class="page">${head(lang, 1)}
@@ -140,7 +145,7 @@ ${G}<div class="sit"><span class="pill">${esc(t.situation.label)}</span>${sit}</
 ${G}<p class="k">${esc(u.gets)}</p><div class="gets n${t.gets.length}">${t.gets.map(([a, b]) => `<div class="card"><b>${esc(a)}</b><span>${esc(b)}</span></div>`).join('')}</div>
 ${t.also ? `<p class="also">${esc(t.also)}</p>` : ''}
 ${G}<p class="k">${esc(u.price)}</p><div class="price"><div class="pbox"><span class="amt">${esc(p.amount)}</span><span class="vat">${esc(p.vat)}</span><span class="term">${esc(p.term)}</span></div><div class="pmain">${main}</div></div>
-${G}<p class="k">${esc(WHY[lang].h)}</p><div class="why">${WHY[lang].items.map((it, i) => (i === 2 && t.why3 ? t.why3 : it)).map(([a, b]) => `<div><b>${esc(a)}</b><span>${esc(b)}</span></div>`).join('')}</div>
+${G}<p class="k">${esc((t.why || WHY[lang]).h)}</p><div class="why">${(t.why || WHY[lang]).items.map((it, i) => (i === 2 && t.why3 ? t.why3 : it)).map(([a, b]) => `<div><b>${esc(a)}</b><span>${esc(b)}</span></div>`).join('')}</div>
 <div class="spacer"></div>${foot(lang)}</section>`;
 }
 

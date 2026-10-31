@@ -1,7 +1,8 @@
 // Texty PDF ke službám (dvě strany A4, česky a anglicky). Vzhled je v _tools/onepagers.cjs.
 // Po změně: node _tools/onepagers.cjs (zapíše pdf/*.pdf). Ceny musí sedět s webem, llms.txt a JSON-LD.
 // <mark>…</mark> je zvýrazněné slovo v nadpisu. [text](https://…) je odkaz (v seznamu „nezahrnuje“ a v otázkách).
-// why3 nahradí třetí bod bloku „Proč externě a proč já“ u jedné služby. Postup na straně 2: flow (vstupy, kroky s časem, výstupy, loop = [od, do, popisek]),
+// why3 nahradí třetí bod bloku „Proč externě a proč já“ u jedné služby, why nahradí celý blok.
+// tierDays = čísla do ikon kalendáře u rozsahů; includedLabel = nadpis seznamu v ceně. Postup na straně 2: flow (vstupy, kroky s časem, výstupy, loop = [od, do, popisek]),
 // nebo diagram: 'web' = diagram postupu ze stránky služby. Ilustrace na straně 1 je ze stránky služby (.svc-hero-ill).
 
 const WHY = {
@@ -43,21 +44,22 @@ const SERVICES = [
     cs: {
       eyebrow: 'Decision Prototype · Rozhodnutí, na které se dá kliknout',
       h1: '<mark>Funkční prototyp</mark> za pár dní.',
-      lede: 'Sednu si s tím, kdo má zadání v hlavě, a doptám se, dokud není jasné, jak má služba fungovat. Pak z toho udělám funkční prototyp na webu. S týmem ho proklikáme, okomentujeme a posuneme se dál.',
+      lede: 'Sednu si s tím, kdo má zadání v hlavě, a doptám se, dokud není jasné, jak má služba fungovat. Pak z toho udělám funkční prototyp. S týmem ho proklikáme, okomentujeme a posuneme se dál.',
       situation: { label: 'Výchozí stav', text: 'Dva týdny schůzek a nic, na co by se dalo kliknout. Na schůzce se všichni shodnou, ale vývoj čeká, protože rozhodnutí zůstalo v hlavách a prezentacích.' },
       gets: [
-        ['Rozhodnutý rozsah', 'Co patří do první verze, které průchody jsou důležité a proč jste se tak rozhodli.'],
-        ['Jeden odkaz pro všechny', 'Prototyp na internetu, chráněný heslem. Každý ho otevře v prohlížeči a ke každé obrazovce napíše komentář.'],
+        ['Rozhodnutý rozsah', 'Co patří do první verze, které flows jsou důležité a proč jste se tak rozhodli.'],
+        ['Jeden odkaz pro všechny', 'Prototyp na internetu, chráněný heslem. Každý ho otevře v prohlížeči a ke každé obrazovce může napsat komentář.'],
         ['Podklad pro vývoj', 'Mapa obrazovek, všechny stavy a vaše skutečné barvy a komponenty.'],
       ],
       price: { amount: 'od 49 000 Kč', vat: 'bez DPH', term: 'Jedna cesta zákazníka · přesná cena po úvodní schůzce',
         tiers: [['Jeden den', 'Jedna otázka', 'Workshop a první verze, na kterou se dá kliknout.'],
                 ['Dva dny', 'Jedna nerozhodnutá věc', 'Workshop, prototyp a zápis, dotažené do konce.'],
                 ['Týden', 'Celá oblast produktu', 'Víc rozhovorů, workshopů a obrazovek. Postup je stejný.']],
+        tierDays: [1, 2, 7],
         affects: ['Rozsah', 'Složitost', 'Velikost produktu'], note: 'Platíte za projekt, ne za hodiny.' },
       diagram: 'web', // diagram postupu ze stránky služby (figure.diagram)
       stepsNote: 'Kolo se opakuje, dokud není rozhodnuto.',
-      needs: [['Ten, kdo rozhoduje', 'Na workshopu. Bez něj se rozhodnutí jen odloží.'], ['Lidé z oddělení', 'Ti, kdo cestu znají z praxe. Doptám se jich.'], ['IT a architekt', 'Komentují prototyp přímo u obrazovek.']],
+      needs: [['Ten, kdo rozhoduje', 'Na workshopu. Bez něj se rozhodnutí jen odloží.'], ['Lidé z oddělení', 'Ti, kdo produkt znají z praxe. Doptám se jich.'], ['IT a architekt', 'Komentují prototyp přímo u obrazovek.']],
       excl: ['Produkční kód. Vývoj staví podle prototypu až po rozhodnutí.', 'Vývoj a nasazení.', 'Dlouhodobé vedení produktu. Na to je [vedení na část úvazku](https://pavelkroupa.com/services/fractional/).'],
       it: [['Sahá to na produkční kód?', 'Ne. Používá vaše komponenty, vývoj podle něj staví až po rozhodnutí.'],
            ['Komu to patří?', 'Vám. Repozitář i odkaz po skončení převedu na vás.'],
@@ -69,7 +71,7 @@ const SERVICES = [
     en: {
       eyebrow: 'Decision Prototype · A decision you can click through',
       h1: 'A <mark>working prototype</mark> in a few days.',
-      lede: "I sit down with the person who has the requirements in their head and ask questions until it's clear how the service should work. Then I turn that into a working prototype on the web. Your team clicks through it, comments, and moves forward.",
+      lede: "I sit down with the person who has the requirements in their head and ask questions until it's clear how the service should work. Then I turn that into a working prototype. Your team clicks through it, comments, and moves forward.",
       situation: { label: 'Starting point', text: "2 weeks of meetings and nothing to click or test. Everyone agrees in the meeting, but engineering still waits, because the decision lives in people's heads and slide decks." },
       gets: [
         ['A decided scope', 'What goes into the first version, which flows matter, and why you decided that way.'],
@@ -80,10 +82,11 @@ const SERVICES = [
         tiers: [['1 day', '1 question', 'A workshop and a clickable first version.'],
                 ['2 days', '1 open question', 'A workshop, a prototype, and a decision log, resolved end to end.'],
                 ['1 week', 'An entire product area', 'More interviews, workshops, and screens, with the same process.']],
+        tierDays: [1, 2, 7],
         affects: ['Scope', 'Complexity', 'Product size'], note: 'You pay per project, not per hour.' },
       diagram: 'web',
       stepsNote: 'The round repeats until the decision is made.',
-      needs: [['The decision-maker', 'In the workshop. Without them, the decision only gets postponed.'], ['People from the departments', "Those who know the journey from daily work. I'll ask them."], ['IT and the architect', 'They comment on the prototype, screen by screen.']],
+      needs: [['The decision-maker', 'In the workshop. Without them, the decision only gets postponed.'], ['People from the departments', "Those who know the product from daily work. I'll ask them."], ['IT and the architect', 'They comment on the prototype, screen by screen.']],
       excl: ['Production code. Engineering builds from the prototype after the decision.', 'Development and deployment.', "Ongoing product leadership. That's what [fractional leadership](https://pavelkroupa.com/en/services/fractional/) is for."],
       it: [['Does it touch our production code?', "No. It uses your components, and engineering builds from it only after decisions are made."],
            ['Who owns it afterward?', 'You do. I transfer the repository and the link to you at the end.'],
@@ -227,9 +230,15 @@ const SERVICES = [
         ['Prototyp místo dokumentu', 'Schvalujete funkční prototyp na webu, ne další prezentaci.'],
       ],
       also: 'Průběžně dělám totéž co v projektech: audit, prototypy a design systém. Navíc sedím u porad vedení a držím směr.',
-      price: { amount: 'od 120 000 Kč měsíčně', vat: 'bez DPH', term: 'Dva dny v týdnu · nejméně tři měsíce',
-        included: ['Sedím u porad vedení i produktu', 'Rozsah dohodnutý dřív, než začne vývoj', 'Schvalujete prototyp, ne dokument', 'Písemné předání, až přijmete někoho natrvalo'],
-        affects: ['Rozsah', 'Velikost týmu'], note: 'Konečnou nabídku pošlu po první schůzce.' },
+      price: { amount: 'od 120 000 Kč měsíčně', vat: 'bez DPH · měsíční paušál', term: 'Dva dny v týdnu · nejméně tři měsíce',
+        includedLabel: 'V paušálu',
+        included: ['Dva dny v týdnu ve vašem týmu', 'Porady vedení i produktu', 'Workshopy, prototypy a zápis rozhodnutí', 'Písemné předání, až přijmete stálého člověka'],
+        affects: ['Velikost týmu'], note: 'Konečnou nabídku pošlu po první schůzce.' },
+      why: { h: 'Proč na část úvazku a proč já', items: [
+        ['Rozhodnutí nečekají na nábor', 'Začnu, zatímco hledáte stálého člověka.'],
+        ['Třináct let praxe', 'Pracoval jsem pro banky, energetiku, zdravotnictví i krypto.'],
+        ['Součást týmu', 'Dva dny v týdnu sedím na poradách vedení i produktu.'],
+        ['Předání se zápisem', 'Stálý člověk převezme každé rozhodnutí i s důvodem.']] },
       flow: { in: [['Produkt a tým', 'porady vedení i produktu'], ['Otevřená rozhodnutí', 'která čekají na člověka']],
               steps: [['První týden', 'Seznámení', 'Co je rozhodnuté a co ne'], ['Každý týden', 'Dva dny s týmem', 'Porady, workshopy, prototypy a zápis rozhodnutí'], ['Na konci', 'Předání', 'Všechno písemně stálému člověku']],
               loop: [2, 2, 'Opakuje se každý týden'],
@@ -254,9 +263,15 @@ const SERVICES = [
         ['A prototype instead of a document', 'You approve a working prototype on the web, not another slide deck.'],
       ],
       also: 'On an ongoing basis, I do the same work as in the projects: audits, prototypes, and design systems. On top of that, I join leadership meetings and keep the direction steady.',
-      price: { amount: 'From €7,500 per month', vat: 'excl. VAT', term: '2 days a week · at least 3 months',
-        included: ['I join both leadership and product meetings', 'Scope agreed before development starts', 'You approve a prototype, not a document', 'A written handover when you hire someone permanently'],
-        affects: ['Scope', 'Team size'], note: "I'll send a final quote after our first meeting." },
+      price: { amount: 'From €7,500 per month', vat: 'excl. VAT · monthly retainer', term: '2 days a week · at least 3 months',
+        includedLabel: 'The retainer covers',
+        included: ['2 days a week on your team', 'Leadership and product meetings', 'Workshops, prototypes, and a decision log', 'A written handover when you hire someone permanently'],
+        affects: ['Team size'], note: "I'll send a final quote after our first meeting." },
+      why: { h: 'Why part-time, and why me', items: [
+        ["Decisions don't wait for hiring", 'I start while you look for a permanent hire.'],
+        ['13 years of practice', "I've worked in banking, energy, healthcare, and crypto."],
+        ['Part of your team', '2 days a week, I sit in leadership and product meetings.'],
+        ['A handover with a record', 'Your permanent hire takes over every decision, with its reason.']] },
       flow: { in: [['Your product and team', 'leadership and product meetings'], ['Open decisions', 'waiting for someone to make them']],
               steps: [['Week 1', 'Onboarding', "What's decided and what isn't"], ['Every week', '2 days with the team', 'Meetings, workshops, prototypes, and a decision log'], ['At the end', 'Handover', 'Everything in writing for your permanent hire']],
               loop: [2, 2, 'Repeats every week'],
