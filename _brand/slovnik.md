@@ -9,6 +9,7 @@ tags: [brand, copywriting]
 |---|---|
 | Decision Prototype | Podtitul: „A decision you can click through.“ 1 day, 2 days, or a week. |
 | Decision Audit | 5 business days, no meetings. |
+| App Facelift | Česky „Facelift aplikace“. Postavený na design systému, bez přepisu kódu. 3 to 4 weeks. |
 | Fractional product and design leadership | Ve srovnávací tabulce zkráceně „Fractional product leadership“. |
 
 ## Pojmy

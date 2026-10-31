@@ -11,7 +11,7 @@ var CS = {};  /* slovník EN→CS z verze 4 smazán v kole 18 */
 
 (function(){
   /* ---------- routing ---------- */
-  var map={"/":"v-home","/portfolio":"v-portfolio","/reference":"v-portfolio","/work/heirloom":"v-case-heirloom","/work/coinmate":"v-case-coinmate","/work/leeaf":"v-case-leeaf","/work/breno":"v-case-breno","/work/wpp":"v-case-wpp","/services":"v-services","/services/decision-prototype":"v-svc-dp","/services/fractional":"v-svc-fractional","/services/audit":"v-svc-audit","/about":"v-about","/contact":"v-contact","/contact/decision-prototype":"v-contact","/contact/audit":"v-contact","/contact/fractional":"v-contact"};
+  var map={"/":"v-home","/portfolio":"v-portfolio","/reference":"v-portfolio","/work/heirloom":"v-case-heirloom","/work/coinmate":"v-case-coinmate","/work/leeaf":"v-case-leeaf","/work/breno":"v-case-breno","/work/wpp":"v-case-wpp","/services":"v-services","/services/decision-prototype":"v-svc-dp","/services/fractional":"v-svc-fractional","/services/audit":"v-svc-audit","/services/facelift":"v-svc-facelift","/about":"v-about","/contact":"v-contact","/contact/decision-prototype":"v-contact","/contact/audit":"v-contact","/contact/fractional":"v-contact"};
   function route(){
     var h=document.documentElement.getAttribute("data-route")||"/";
     if(h.charAt(0)!=="/")h="/";
@@ -696,4 +696,35 @@ try{
   its.forEach(function(t){t.classList.add("pre");io.observe(t);});
 })();
 
+}catch(e){console.error(e);}
+try{
+/* Ceny v eurech: tečkovaně podtržené, po najetí myší, fokusu nebo klepnutí ukážou cenu v dolarech.
+   Pevný zaokrouhlený ceník podle kurzu 1,119 z 30. 10. 2026; při změně ceny upravit i llms.txt. */
+(function(){
+  var USD={"1,900":"$2,100","2,900":"$3,200","4,900":"$5,500","7,500":"$8,400","13,500":"$15,100"};
+  var main=document.querySelector("main"); if(!main||!document.createTreeWalker) return;
+  var w=document.createTreeWalker(main,NodeFilter.SHOW_TEXT,null),nodes=[],n;
+  while((n=w.nextNode())){if(/€\d/.test(n.nodeValue)&&!n.parentNode.closest("script,style,svg,.fx"))nodes.push(n);}
+  nodes.forEach(function(t){
+    var s=t.nodeValue,re=/€(\d{1,3}(?:,\d{3})+)/g,m,last=0,hit=false,frag=document.createDocumentFragment();
+    while((m=re.exec(s))){
+      var u=USD[m[1]]; if(!u) continue; hit=true;
+      frag.appendChild(document.createTextNode(s.slice(last,m.index)));
+      var fx=document.createElement("span"); fx.className="fx"; fx.tabIndex=0; fx.textContent=m[0];
+      var tip=document.createElement("span"); tip.className="fx-tip"; tip.setAttribute("role","tooltip");
+      tip.innerHTML='<span class="vh">, or </span>'+u; fx.appendChild(tip); frag.appendChild(fx);
+      last=m.index+m[0].length;
+    }
+    if(!hit) return;
+    frag.appendChild(document.createTextNode(s.slice(last)));
+    t.parentNode.replaceChild(frag,t);
+  });
+  function closeAll(except){[].forEach.call(document.querySelectorAll(".fx.on"),function(x){if(x!==except)x.classList.remove("on");});}
+  /* klepnutí na cenu v kartě, která je odkazem, ukáže dolary a neotevře odkaz */
+  document.addEventListener("click",function(e){
+    var f=e.target.closest&&e.target.closest(".fx"); closeAll(f);
+    if(f){e.preventDefault();e.stopPropagation();f.classList.toggle("on");}
+  },true);
+  document.addEventListener("keydown",function(e){if(e.key==="Escape")closeAll(null);});
+})();
 }catch(e){console.error(e);}
