@@ -10,6 +10,12 @@ const ROOT = process.cwd(), OUT = path.join(ROOT, 'pdf'), PREVIEW = process.env.
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const link = (s) => esc(s).replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2">$1</a>');
 const G = '<div class="gap"></div>';
+const SQ = '<rect x="3.5" y="3.5" width="17" height="17" rx="3" fill="none" stroke="#111" stroke-width="1.5"/>';
+const ICON = {
+  part: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12V3.5h5.5a3 3 0 0 1 3 3V12z" fill="#FFCE1B"/><path d="M12 3.5V12h8.5" fill="none" stroke="#111" stroke-width="1.5"/>${SQ}</svg>`,
+  full: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="3" fill="#FFCE1B"/>${SQ}</svg>`,
+  dark: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5H12v17H6.5a3 3 0 0 1-3-3v-11a3 3 0 0 1 3-3z" fill="#FFCE1B"/><path d="M12 3.5h5.5a3 3 0 0 1 3 3v11a3 3 0 0 1-3 3H12z" fill="#111"/>${SQ}</svg>`,
+};
 const cal = (n) => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5h12a3 3 0 0 1 3 3v2.5H3V7.5a3 3 0 0 1 3-3z" fill="#FFCE1B"/><rect x="3" y="4.5" width="18" height="16.5" rx="3" fill="none" stroke="#111" stroke-width="1.5"/><path d="M3 10h18" stroke="#111" stroke-width="1.5"/><path d="M8 2.6v3.6M16 2.6v3.6" stroke="#111" stroke-width="1.6" stroke-linecap="round"/><text x="12" y="18.6" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="8.4" font-weight="800" fill="#111">${n}</text></svg>`;
 const rich = (s) => esc(s).replace(/&lt;mark&gt;/g, '<mark>').replace(/&lt;\/mark&gt;/g, '</mark>');
 
@@ -91,6 +97,7 @@ mark::before{content:"";position:absolute;left:0;right:0;bottom:.04em;height:.4e
 .pf b{color:#111}.pf img{height:9mm;width:auto}
 .spacer{flex:1}
 .tier .cal{display:flex;align-items:center;gap:1.6mm;margin-bottom:.6mm}.tier .cal svg{width:7.4mm;height:7.4mm;flex:none}
+.tiers{gap:0}.tier{padding:0 3mm}.tier:first-child{padding-left:0}.tier:last-child{padding-right:0}.tier+.tier{border-left:1px solid #E1E0DA}
 .incl{margin:0;font-size:7.5pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5B5B55}
 .it .cols{gap:0}.it .cols>div{padding:0 4.6mm}.it .cols>div:first-child{padding-left:0}.it .cols>div:last-child{padding-right:0}.it .cols>div+div{border-left:1px solid #D2D1CA}
 .gap{flex:1 1 0;max-height:8mm}
@@ -134,7 +141,7 @@ function page1(lang, t, art) {
   const u = UI[lang], p = t.price;
   const sit = t.situation.list ? `<ul>${t.situation.list.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>` : `<p>${esc(t.situation.text)}</p>`;
   let main = '';
-  if (p.tiers) main += `<div class="tiers">${p.tiers.map(([a, b, c], i) => `<div class="tier">${p.tierDays ? `<div class="cal">${cal(p.tierDays[i])}<i>${esc(a)}</i></div>` : `<i>${esc(a)}</i>`}<b>${esc(b)}</b><span>${esc(c)}</span></div>`).join('')}</div>`;
+  if (p.tiers) main += `<div class="tiers">${p.tiers.map(([a, b, c], i) => `<div class="tier">${p.tierDays ? `<div class="cal">${cal(p.tierDays[i])}<i>${esc(a)}</i></div>` : p.tierIcons ? `<div class="cal">${ICON[p.tierIcons[i]]}<i>${esc(a)}</i></div>` : `<i>${esc(a)}</i>`}<b>${esc(b)}</b><span>${esc(c)}</span></div>`).join('')}</div>`;
   if (p.text) main += `<p class="ptext">${esc(p.text)}</p>`;
   if (p.included) main += `${p.includedLabel ? `<p class="incl">${esc(p.includedLabel)}</p>` : ''}<ul class="inc">${p.included.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>`;
   main += `<div class="aff"><em>${esc(u.affects)}</em>${p.affects.map((x) => `<span>${esc(x)}</span>`).join('')}</div>`;
