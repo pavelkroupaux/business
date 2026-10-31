@@ -1,6 +1,7 @@
 // Texty PDF ke službám (dvě strany A4, česky a anglicky). Vzhled je v _tools/onepagers.cjs.
 // Po změně: node _tools/onepagers.cjs (zapíše pdf/*.pdf). Ceny musí sedět s webem, llms.txt a JSON-LD.
-// <mark>…</mark> je zvýrazněné slovo v nadpisu. Postup na straně 2: flow (vstupy, kroky s časem, výstupy, loop = [od, do, popisek]),
+// <mark>…</mark> je zvýrazněné slovo v nadpisu. [text](https://…) je odkaz (v seznamu „nezahrnuje“ a v otázkách).
+// why3 nahradí třetí bod bloku „Proč externě a proč já“ u jedné služby. Postup na straně 2: flow (vstupy, kroky s časem, výstupy, loop = [od, do, popisek]),
 // nebo diagram: 'web' = diagram postupu ze stránky služby. Ilustrace na straně 1 je ze stránky služby (.svc-hero-ill).
 
 const WHY = {
@@ -57,7 +58,7 @@ const SERVICES = [
       diagram: 'web', // diagram postupu ze stránky služby (figure.diagram)
       stepsNote: 'Kolo se opakuje, dokud není rozhodnuto.',
       needs: [['Ten, kdo rozhoduje', 'Na workshopu. Bez něj se rozhodnutí jen odloží.'], ['Lidé z oddělení', 'Ti, kdo cestu znají z praxe. Doptám se jich.'], ['IT a architekt', 'Komentují prototyp přímo u obrazovek.']],
-      excl: ['Produkční kód. Vývoj staví podle prototypu až po rozhodnutí.', 'Vývoj a nasazení.', 'Dlouhodobé vedení produktu. Na to je vedení na část úvazku.'],
+      excl: ['Produkční kód. Vývoj staví podle prototypu až po rozhodnutí.', 'Vývoj a nasazení.', 'Dlouhodobé vedení produktu. Na to je [vedení na část úvazku](https://pavelkroupa.com/services/fractional/).'],
       it: [['Sahá to na produkční kód?', 'Ne. Používá vaše komponenty, vývoj podle něj staví až po rozhodnutí.'],
            ['Komu to patří?', 'Vám. Repozitář i odkaz po skončení převedu na vás.'],
            ['Co od vás potřebuji?', 'Hlavně čas lidí, kteří rozhodují. Přístup k design systému pomůže, pokud to bezpečnostní pravidla dovolí.']],
@@ -83,7 +84,7 @@ const SERVICES = [
       diagram: 'web',
       stepsNote: 'The round repeats until the decision is made.',
       needs: [['The decision-maker', 'In the workshop. Without them, the decision only gets postponed.'], ['People from the departments', "Those who know the journey from daily work. I'll ask them."], ['IT and the architect', 'They comment on the prototype, screen by screen.']],
-      excl: ['Production code. Engineering builds from the prototype after the decision.', 'Development and deployment.', "Ongoing product leadership. That's what fractional leadership is for."],
+      excl: ['Production code. Engineering builds from the prototype after the decision.', 'Development and deployment.', "Ongoing product leadership. That's what [fractional leadership](https://pavelkroupa.com/en/services/fractional/) is for."],
       it: [['Does it touch our production code?', "No. It uses your components, and engineering builds from it only after decisions are made."],
            ['Who owns it afterward?', 'You do. I transfer the repository and the link to you at the end.'],
            ['What do you need from us?', 'Mainly time with your decision-makers. Access to your design system helps, if your security policies allow it.']],
@@ -97,6 +98,7 @@ const SERVICES = [
     file: { cs: 'Pavel-Kroupa_Audit-rozhodnuti_CZ.pdf', en: 'Pavel-Kroupa_Decision-Audit_EN.pdf' },
     cs: {
       eyebrow: 'Audit rozhodnutí · Pro firmy',
+      why3: ['Konkrétní nálezy', 'Každý nález ukážu na nahrávce, ne v obecné zprávě.'],
       h1: 'Zjistěte, co váš web nebo produkt <mark>brzdí</mark>.',
       lede: 'Projdu váš web nebo produkt očima zákazníka a nahraju komentované video. Uvidíte, kde lidé narážejí, a dostanete seznam, co opravit jako první.',
       situation: { label: 'Hodí se, když', list: ['tušíte, že web nebo aplikace nefunguje, ale tým se neshodne proč,', 'web vznikl rychle, třeba s pomocí AI, a chcete ověřit, co za vás rozhodla,', 'jste agentura a potřebujete pro klienta nezávislý pohled zvenčí.'] },
@@ -116,13 +118,14 @@ const SERVICES = [
       example: { text: 'Firma se dvěma značkami. Nabídka měla devět položek, každou s cenou zvlášť pro desktop a mobil, aby si firma mohla vybrat jen část.',
                  head: ['Část', 'Jak ji projdu', 'Zařízení'],
                  rows: [['Tři landing pages', 'Každou celou shora dolů', 'Desktop i mobil'], ['Web druhé značky', 'Šest konverzních cest, od vstupu po odeslání formuláře', 'Desktop i mobil']] },
-      excl: ['Workshop.', 'Odesílání formulářů a práci v zákaznických účtech po přihlášení.', 'Rozbor reklamních kampaní a dat z analytiky. Data beru jako kontext, ne jako předmět auditu.', 'Návrh nového řešení. Na audit může navázat Decision Prototype nebo facelift aplikace.'],
+      excl: ['Workshop.', 'Odesílání formulářů a práci v zákaznických účtech po přihlášení.', 'Rozbor reklamních kampaní a dat z analytiky. Data beru jako kontext, ne jako předmět auditu.', 'Návrh nového řešení. Na audit může navázat [Decision Prototype](https://pavelkroupa.com/services/decision-prototype/) nebo [facelift aplikace](https://pavelkroupa.com/services/facelift/).'],
       practice: [[null, 'WPP', 'Expresní audit kampaně', 'Audit kampaně na desktopu i mobilu před spuštěním. Kampaň opravená dřív, než šla ven.'],
                  [LEEAF, 'Leeaf', 'Audit cesty k předplatnému', '17 změn a plán měření na třech obrazovkách.']],
       next: 'Napište mi a domluvíme si půlhodinový hovor zdarma. Zjistíme, jestli vám audit pomůže a co by měl zahrnout.',
     },
     en: {
       eyebrow: 'Decision Audit · For companies',
+      why3: ['Specific findings', 'I show every finding in the recording, not in a generic report.'],
       h1: "Find out what's <mark>holding back</mark> your website or product.",
       lede: "I go through your website or product as a customer and record a narrated video. You'll see where people get stuck, and you'll get a list of what to fix first.",
       situation: { label: 'Right for you if', list: ["you sense the website or app isn't working, but the team can't agree why,", 'the website was built fast, maybe with AI, and you want to check what it decided for you,', "you're an agency and need an independent outside view for a client."] },
@@ -142,7 +145,7 @@ const SERVICES = [
       example: { text: 'A company with 2 brands. The quote had 9 items, each priced separately for desktop and mobile, so the company could pick just a part.',
                  head: ['Part', 'How I review it', 'Devices'],
                  rows: [['3 landing pages', 'Each page top to bottom', 'Desktop and mobile'], ["The second brand's website", '6 conversion journeys, from entry to a submitted form', 'Desktop and mobile']] },
-      excl: ['A workshop.', 'Submitting forms or working in customer accounts after login.', 'Analysis of ad campaigns and analytics data. I use data as context, not as the subject of the audit.', 'Designing a new solution. A Decision Prototype or an App Facelift can follow the audit.'],
+      excl: ['A workshop.', 'Submitting forms or working in customer accounts after login.', 'Analysis of ad campaigns and analytics data. I use data as context, not as the subject of the audit.', 'Designing a new solution. A [Decision Prototype](https://pavelkroupa.com/en/services/decision-prototype/) or an [App Facelift](https://pavelkroupa.com/en/services/facelift/) can follow the audit.'],
       practice: [[null, 'WPP', 'An express campaign audit', 'A campaign audit on desktop and mobile before launch. The campaign was fixed before it went out.'],
                  [LEEAF, 'Leeaf', 'Auditing the path to subscription', '17 changes and a tracking plan across 3 screens.']],
       next: "Write to me and we'll set up a free 30-minute call. We'll find out whether an audit will help you and what it should cover.",
@@ -172,7 +175,7 @@ const SERVICES = [
               out: [['Design systém', 'tokeny · komponenty · dokumentace'], ['Větev pro vývoj', 'téma · seznam změn']] },
       stepsNote: 'Moje práce nezabere celý ten čas. Délku určují hlavně připomínky a schválení na vaší straně.',
       needs: [['Přístup', 'K aplikaci a k repozitáři, nebo k Figmě.'], ['Odpovědi do dvou dnů', 'Na otázky k obrazovkám a ke komponentám.'], ['Vývojáře na schůzkách', 'Krátká schůzka jednou týdně a převzetí větve na konci.']],
-      excl: ['Nové funkce. Na ty je Decision Prototype.', 'Vlastní komponenty mimo knihovnu. Počítám je zvlášť.', 'Sloučení do produkce. Co a kdy sloučíte, rozhodujete vy.'],
+      excl: ['Nové funkce. Na ty je [Decision Prototype](https://pavelkroupa.com/services/decision-prototype/).', 'Vlastní komponenty mimo knihovnu. Počítám je zvlášť.', 'Sloučení do produkce. Co a kdy sloučíte, rozhodujete vy.'],
       it: [['Musíme přepsat komponenty?', 'Ne. Upravím vzhled a výchozí nastavení komponent knihovny, kterou používáte.'],
            ['Potřebujeme Figmu?', 'Ne. Pracuju ve Figmě, nebo rovnou v kódu s živou dokumentací.'],
            ['Používáte AI?', 'Ano, vlastní AI nástroje, rámec a postup. O vzhledu a UX ale rozhoduju já. V nabídce popíšu, s jakými soubory AI pracuje.']],
@@ -201,7 +204,7 @@ const SERVICES = [
               out: [['A design system', 'tokens · components · docs'], ['A branch for engineering', 'theme · list of changes']] },
       stepsNote: "My work doesn't fill that time. Most of it goes to feedback and approvals on your side.",
       needs: [['Access', 'To the app and the repository, or to Figma.'], ['Answers within 2 days', 'To questions about screens and components.'], ['A developer in the calls', 'A short weekly call, and taking over the branch at the end.']],
-      excl: ["New features. That's what a Decision Prototype is for.", 'Custom components outside the library. I price them separately.', 'Merging to production. You decide what to merge and when.'],
+      excl: ["New features. That's what a [Decision Prototype](https://pavelkroupa.com/en/services/decision-prototype/) is for.", 'Custom components outside the library. I price them separately.', 'Merging to production. You decide what to merge and when.'],
       it: [['Do we have to rewrite components?', 'No. I change the look and default settings of the components in the library you use.'],
            ['Do we need Figma?', 'No. I work in Figma or directly in code with live documentation.'],
            ['Do you use AI?', 'Yes, my own AI tools, framework, and process. I make the calls on the look and UX. My quote explains which files AI works with.']],
@@ -236,7 +239,7 @@ const SERVICES = [
       itLabel: 'Otázky vedení',
       it: [['Na jak dlouho?', 'Nejméně na tři měsíce. Končí předáním, až přijmete někoho natrvalo.'],
            ['Kolik času u nás strávíte?', 'Dva dny v týdnu ve vašem týmu, na poradách vedení i produktu.'],
-           ['Co když potřebujeme jen jeden projekt?', 'Pak se hodí audit, Decision Prototype nebo facelift aplikace. Mají pevný rozsah a cenu.']],
+           ['Co když potřebujeme jen jeden projekt?', 'Pak se hodí [audit](https://pavelkroupa.com/services/audit/), [Decision Prototype](https://pavelkroupa.com/services/decision-prototype/) nebo [facelift aplikace](https://pavelkroupa.com/services/facelift/). Mají pevný rozsah a cenu.']],
       quote: ['at a time when we did not have the product function covered internally, was able to step in and take on a significant part of product management as well', 'Ondřej Steklý', 'CPO, Coinmate'],
       next: 'Napište mi. Na třicetiminutovém hovoru vám řeknu, jestli vám můžu pomoct.',
     },
@@ -263,7 +266,7 @@ const SERVICES = [
       itLabel: 'Questions from leadership',
       it: [['For how long?', 'At least 3 months. It ends with a handover when you hire someone permanently.'],
            ['How much time do you spend with us?', '2 days a week on your team, in leadership and product meetings.'],
-           ['What if we need just one project?', 'Then a Decision Audit, a Decision Prototype, or an App Facelift fits. Each has a fixed scope and price.']],
+           ['What if we need just one project?', 'Then a [Decision Audit](https://pavelkroupa.com/en/services/audit/), a [Decision Prototype](https://pavelkroupa.com/en/services/decision-prototype/), or an [App Facelift](https://pavelkroupa.com/en/services/facelift/) fits. Each has a fixed scope and price.']],
       quote: ['at a time when we did not have the product function covered internally, was able to step in and take on a significant part of product management as well', 'Ondřej Steklý', 'CPO, Coinmate'],
       next: "Write to me. In a 30-minute call, I'll tell you whether I can help.",
     },

@@ -8,6 +8,8 @@ const { WHY, UI, SERVICES } = require('./onepagers.data.cjs');
 
 const ROOT = process.cwd(), OUT = path.join(ROOT, 'pdf'), PREVIEW = process.env.PREVIEW;
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const link = (s) => esc(s).replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2">$1</a>');
+const G = '<div class="gap"></div>';
 const rich = (s) => esc(s).replace(/&lt;mark&gt;/g, '<mark>').replace(/&lt;\/mark&gt;/g, '</mark>');
 
 const CSS = `
@@ -86,6 +88,9 @@ mark{background:linear-gradient(to top,#FFCE1B 42%,transparent 42%);color:inheri
 .pf{display:flex;justify-content:space-between;align-items:flex-end;margin-top:5mm;padding-top:3mm;border-top:1px solid #E1E0DA;font-size:8.2pt;color:#5B5B55}
 .pf b{color:#111}.pf img{height:9mm;width:auto}
 .spacer{flex:1}
+.gap{flex:1 1 0;max-height:8mm}
+a{color:inherit;text-decoration:underline;text-decoration-color:#FFCE1B;text-decoration-thickness:.55mm;text-underline-offset:.7mm}
+.next a,.pf a{text-decoration:none}
 .hero{display:grid;grid-template-columns:1fr 54mm;gap:6mm;align-items:center;margin-bottom:4.8mm}
 .hero h1{max-width:none;font-size:23pt}.hero .lede{margin:0}
 .hero .art{width:54mm;height:auto;display:block}
@@ -117,7 +122,8 @@ mark{background:linear-gradient(to top,#FFCE1B 42%,transparent 42%);color:inheri
 `;
 
 const head = (lang, n) => `<header class="ph"><span><b>Pavel Kroupa</b> · ${esc(UI[lang].sub)}</span><span>${n} / 2</span></header>`;
-const foot = (lang) => `<footer class="pf"><span><b>Pavel Kroupa</b> · contact@pavelkroupa.com · pavelkroupa.com<br>${esc(UI[lang].place)}</span><img src="/logo/pk/pk-svetle.svg" alt=""></footer>`;
+const site = (lang) => (lang === 'en' ? 'https://pavelkroupa.com/en/' : 'https://pavelkroupa.com/');
+const foot = (lang) => `<footer class="pf"><span><b>Pavel Kroupa</b> · <a href="mailto:contact@pavelkroupa.com">contact@pavelkroupa.com</a> · <a href="${site(lang)}">pavelkroupa.com</a><br>${esc(UI[lang].place)}</span><img src="/logo/pk/pk-svetle.svg" alt=""></footer>`;
 
 function page1(lang, t, art) {
   const u = UI[lang], p = t.price;
@@ -130,11 +136,11 @@ function page1(lang, t, art) {
   if (p.note) main += `<p class="pnote">${esc(p.note)}</p>`;
   return `<section class="page">${head(lang, 1)}
 <p class="eyebrow">${esc(t.eyebrow)}</p><div class="hero"><div><h1>${rich(t.h1)}</h1><p class="lede">${esc(t.lede)}</p></div><img class="art" src="${art.ill}" alt=""></div>
-<div class="sit"><span class="pill">${esc(t.situation.label)}</span>${sit}</div>
-<p class="k">${esc(u.gets)}</p><div class="gets n${t.gets.length}">${t.gets.map(([a, b]) => `<div class="card"><b>${esc(a)}</b><span>${esc(b)}</span></div>`).join('')}</div>
+${G}<div class="sit"><span class="pill">${esc(t.situation.label)}</span>${sit}</div>
+${G}<p class="k">${esc(u.gets)}</p><div class="gets n${t.gets.length}">${t.gets.map(([a, b]) => `<div class="card"><b>${esc(a)}</b><span>${esc(b)}</span></div>`).join('')}</div>
 ${t.also ? `<p class="also">${esc(t.also)}</p>` : ''}
-<p class="k">${esc(u.price)}</p><div class="price"><div class="pbox"><span class="amt">${esc(p.amount)}</span><span class="vat">${esc(p.vat)}</span><span class="term">${esc(p.term)}</span></div><div class="pmain">${main}</div></div>
-<p class="k">${esc(WHY[lang].h)}</p><div class="why">${WHY[lang].items.map(([a, b]) => `<div><b>${esc(a)}</b><span>${esc(b)}</span></div>`).join('')}</div>
+${G}<p class="k">${esc(u.price)}</p><div class="price"><div class="pbox"><span class="amt">${esc(p.amount)}</span><span class="vat">${esc(p.vat)}</span><span class="term">${esc(p.term)}</span></div><div class="pmain">${main}</div></div>
+${G}<p class="k">${esc(WHY[lang].h)}</p><div class="why">${WHY[lang].items.map((it, i) => (i === 2 && t.why3 ? t.why3 : it)).map(([a, b]) => `<div><b>${esc(a)}</b><span>${esc(b)}</span></div>`).join('')}</div>
 <div class="spacer"></div>${foot(lang)}</section>`;
 }
 
@@ -155,16 +161,16 @@ function page2(lang, t, art) {
   else if (t.flow) h += flow(lang, t.flow);
   else h += `<ol class="steps n${t.steps.length}">${t.steps.map(([a, b], i) => `<li><span class="no">${i + 1}</span><b>${esc(a)}</b><span>${esc(b)}</span></li>`).join('')}</ol>`;
   h += t.stepsNote ? `<p class="snote">${esc(t.stepsNote)}</p>` : '<div style="height:3mm"></div>';
-  if (t.example) h += `<div class="ex"><p class="k">${esc(u.example)}</p><p>${esc(t.example.text)}</p><table><tr>${t.example.head.map((x) => `<th>${esc(x)}</th>`).join('')}</tr>${t.example.rows.map((r) => `<tr>${r.map((x) => `<td>${esc(x)}</td>`).join('')}</tr>`).join('')}</table></div>`;
+  if (t.example) h += `${G}<div class="ex"><p class="k">${esc(u.example)}</p><p>${esc(t.example.text)}</p><table><tr>${t.example.head.map((x) => `<th>${esc(x)}</th>`).join('')}</tr>${t.example.rows.map((r) => `<tr>${r.map((x) => `<td>${esc(x)}</td>`).join('')}</tr>`).join('')}</table></div>`;
   const cols = [];
   if (t.needs) cols.push(`<div class="needs"><p class="k">${esc(u.needs)}</p>${t.needs.map(([a, b]) => `<div><b>${esc(a)}</b><span>${esc(b)}</span></div>`).join('')}</div>`);
-  if (t.excl) cols.push(`<div><p class="k">${esc(u.excl)}</p><ul class="excl">${t.excl.map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>`);
-  if (cols.length) h += `<div class="two${cols.length === 1 ? ' one' : ''}">${cols.join('')}</div>`;
-  if (t.it) h += `<div class="it"><p class="k">${esc(t.itLabel || u.it)}</p><div class="cols">${t.it.map(([q, a]) => `<div><b>${esc(q)}</b><span>${esc(a)}</span></div>`).join('')}</div></div>`;
-  h += `<p class="k">${esc(u.practice)}</p><div class="cases n${t.practice.length}">${t.practice.map(([, name, meta, text]) =>
+  if (t.excl) cols.push(`<div><p class="k">${esc(u.excl)}</p><ul class="excl">${t.excl.map((x) => `<li>${link(x)}</li>`).join('')}</ul></div>`);
+  if (cols.length) h += `${G}<div class="two${cols.length === 1 ? ' one' : ''}">${cols.join('')}</div>`;
+  if (t.it) h += `${G}<div class="it"><p class="k">${esc(t.itLabel || u.it)}</p><div class="cols">${t.it.map(([q, a]) => `<div><b>${esc(q)}</b><span>${link(a)}</span></div>`).join('')}</div></div>`;
+  h += `${G}<p class="k">${esc(u.practice)}</p><div class="cases n${t.practice.length}">${t.practice.map(([, name, meta, text]) =>
     `<div class="case"><div class="cm"><b>${esc(name)}</b>· ${esc(meta)}</div><span>${esc(text)}</span></div>`).join('')}</div>`;
   if (t.quote) h += `<p class="quote">“${esc(t.quote[0])}”<small>${esc(t.quote[1])}, ${esc(t.quote[2])}</small></p>`;
-  h += `<div class="next"><div><p class="k">${esc(u.next)}</p><p>${esc(t.next)}</p></div><div class="mail">contact@pavelkroupa.com<span>pavelkroupa.com</span></div></div>${foot(lang)}</section>`;
+  h += `${G}<div class="next"><div><p class="k">${esc(u.next)}</p><p>${esc(t.next)}</p></div><div class="mail"><a href="mailto:contact@pavelkroupa.com">contact@pavelkroupa.com</a><span><a href="${site(lang)}">pavelkroupa.com</a></span></div></div>${foot(lang)}</section>`;
   return h;
 }
 
