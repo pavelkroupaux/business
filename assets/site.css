@@ -2221,3 +2221,8 @@ main.home .proc-steps.in ~ .row,main.home .proc-steps.in ~ .bc-nav{visibility:vi
   box-shadow:0 4px 14px rgba(0,0,0,.18);opacity:0;visibility:hidden;transform:translate(-50%,3px);pointer-events:none;transition:opacity .15s,transform .15s,visibility .15s}
 .fx:hover .fx-tip,.fx:focus-visible .fx-tip,.fx.on .fx-tip{opacity:1;visibility:visible;transform:translate(-50%,0)}
 @media(prefers-reduced-motion:reduce){.fx-tip{transition:none}}
+
+/* Decision Prototype: kalendář u délky (Jeden den, Dva dny, Týden+) */
+.tier-d{display:flex;align-items:center;gap:10px}
+.tier-cal{width:28px;height:28px;flex:none;color:var(--ink)}
+.tier-cal text{font-family:var(--display)}
