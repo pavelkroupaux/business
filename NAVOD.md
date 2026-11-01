@@ -18,7 +18,7 @@ Zásady pro psaní textů (hlas, zakázané vzorce, slovník, prompt pro AI) jso
 | `about/index.html`, `contact/index.html` | O mně, Kontakt |
 | `en/…` | anglická verze, stejné složky |
 | `404.html`, `en/404.html` | stránka „nenalezeno“ |
-| `ds/index.html` | design systém (barvy, písmo, komponenty), není veřejně odkazovaný |
+| `ds/index.html` | jen přesměrování: design systém (barvy, písmo, komponenty) je na https://ds.pavelkroupa.com/pavelkroupa/, repozitář `pavelkroupaux/design-system` |
 | `assets/site.css` | celý vzhled webu. Barvy a písmo jsou proměnné na začátku (`:root`) |
 | `assets/site-cs.js`, `assets/site-en.js` | chování (přepínač režimu, animace, kreslení v úvodu, formulář). Liší se jen texty |
 | `assets/img/`, `assets/fonts/` | obrázky a písmo |
@@ -48,7 +48,7 @@ Každá stránka je samostatný soubor, takže co je na víc místech, je potře
 - **Nová stránka**: zkopíruj podobnou složku, uprav obsah, `<title>`, popis, `<link rel="canonical">` a odkazy na jazykové verze (`hreflang`), a přidej adresu do `sitemap.xml`. V menu ji přidej do všech stránek.
 - **Odkazy uvnitř webu** piš s lomítkem na konci: `/services/audit/`.
 - **Obrázky** dávej do `assets/img/`, ideálně ve formátu WebP, s popisem v `alt`.
-- **Vzhled**: barvy jen z proměnných v `assets/site.css` (`--ink`, `--fix` a další, přehled je na `/ds/`). Vyzkoušet ve světlém i tmavém režimu a na mobilu (320 px).
+- **Vzhled**: barvy jen z proměnných v `assets/site.css` (`--ink`, `--fix` a další, přehled je na ds.pavelkroupa.com/pavelkroupa/). Vyzkoušet ve světlém i tmavém režimu a na mobilu (320 px).
 - Prohlížeč si styl a skripty pamatuje asi 10 minut. Když změna není hned vidět, obnov stránku s Shift.
 
 ## Kontakt
@@ -111,7 +111,7 @@ Jen světlý a tmavý. Dokud návštěvník neklikne, web se řídí nastavením
 
 V úvodu u nadpisu „Pak z toho postavím funkční prototyp“ se nejdřív kolem rozsvítí drobné hořčicové jiskry a uprostřed na chvilku prokmitne „MAGIC“ s pruhem světla, pak se nadpis napíše písmeno po písmenu stejnou rychlostí jako nadpis nad notebookem. Přehraje se jednou, když je nadpis zhruba v polovině obrazovky. Pořadí: rychle se nakreslí šipka nad nadpisem a rozsvítí se jiskry a „MAGIC“, nadpis se napíše, žluté zvýraznění se protáhne pod slovy a teprve potom se otevře notebook pod ním a rozjede animaci (skript nadpisu mu pošle událost `lapgo`, notebook je do té doby zavřený). Skript je na konci `site-cs.js` / `site-en.js` (hledej `mg-burst`), vzhled v `assets/site.css` pod „kouzlo před nadpisem“. S omezeným pohybem se šipka nakreslí a nadpis napíše, jen jiskry a „MAGIC“ vynechá.
 
-Spinner `.pk-spin` je zmenšená úvodní kresba: tenká zamotaná linka, rovná čára a lepík s fajfkou jako v logu. Vzor HTML je na `/ds/` v části Pohyb, v portfoliu se ukáže při odemykání.
+Spinner `.pk-spin` je zmenšená úvodní kresba: tenká zamotaná linka, rovná čára a lepík s fajfkou jako v logu. Vzor HTML je v design systému (ds.pavelkroupa.com/pavelkroupa/) v části Pohyb, v portfoliu se ukáže při odemykání.
 
 Na webu slouží jako loader při pomalém načítání (`.pk-load`). Krátký skript v hlavě každé stránky (hned za `site.css`, hledej `pk-load`, je ve všech 31 stránkách) ho po 0,6 s ukáže uprostřed obrazovky, pokud stránka ještě není hotová. Zmizí, jakmile se spustí skript webu (`site-cs.js` / `site-en.js` hned na začátku volá `pkReady`), nejpozději po 8 s. Prohlížeč nic nevykreslí, dokud nestáhne `site.css`, takže čas se počítá až od té chvíle. Na rychlém připojení se loader vůbec neukáže.
 

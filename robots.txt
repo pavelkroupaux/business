@@ -1,6 +1,6 @@
 # pavelkroupa.com
 # Web je veřejný. Vyhledávače i AI asistenti ho můžou číst celý,
-# kromě interní stránky /ds (design systém).
+# kromě /ds (přesměrování na interní design systém na ds.pavelkroupa.com).
 
 User-agent: *
 Allow: /
