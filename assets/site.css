@@ -2235,3 +2235,8 @@ a:focus-visible .fx .fx-tip{opacity:1;visibility:visible;transform:translate(-50
 .op-pdf{display:inline-flex;align-items:center;gap:7px;margin-top:12px;font-size:14.5px;font-weight:500;color:var(--muted);text-decoration:none}
 .op-pdf svg{width:18px;height:18px;flex:none}
 .op-pdf:hover,.op-pdf:focus-visible{color:var(--ink);text-decoration:underline;text-decoration-color:var(--fix);text-decoration-thickness:2px;text-underline-offset:.25em}
+/* Přepínač jazyka (EN / CS) ve stejné velikosti a na stejném účaří jako odkazy v menu */
+.ctl{align-items:center}
+.ctl a.lang{font-size:13px;line-height:normal;padding:6px 9px;font-weight:500;letter-spacing:.04em;position:relative;top:-.5px}
+@media(max-width:480px){.ctl a.lang{font-size:12.5px}}
+@media(max-width:380px){.ctl a.lang{font-size:12px}}
