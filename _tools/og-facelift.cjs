@@ -12,8 +12,10 @@ const TXT = {
         h: 'A better app<br>without <span class="fix">rewriting</span><br>the code.', s: 'A design system for engineering,<br>with or without Figma. From €4,900.' },
 };
 
+// Písmo Inter je přibalené v _tools/fonts (nezávisí na tom, co je nainstalované v počítači).
+const FACES = [['Regular', 400], ['Medium', 500], ['SemiBold', 600], ['Bold', 700], ['ExtraBold', 800]].map(([n, w]) => `@font-face{font-family:Inter;font-weight:${w};font-style:normal;src:url(/_tools/fonts/Inter-${n}.woff2) format("woff2")}`).join('');
 const page = (lang, t, ill) => `<!doctype html><html lang="${lang}" data-theme="light"><head><meta charset="utf-8">
-<link rel="stylesheet" href="/assets/site.css"><style>
+<link rel="stylesheet" href="/assets/site.css"><style>${FACES}
 html,body{margin:0;width:1200px;height:630px;overflow:hidden;background:#fff}
 body{position:relative;font-family:Inter,var(--display);color:var(--ink);
   background-image:radial-gradient(var(--grid) 1.4px,transparent 1.4px);background-size:26px 26px;background-position:13px 13px}

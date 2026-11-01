@@ -489,19 +489,19 @@ def breno_jira(T, mobile):
 
 CASES = {
  "heirloom": (heirloom, {
-  "cs": dict(aria="Diagram: pivot z B2C na B2B. Místo čekání na obrazovky ve Figmě rozsah s vedením, AI prototyp z existujícího kódu a čtyři iterace s komentáři v prototypu. Výsledek: nový směr, rozsah a zadání.",
+  "cs": dict(aria="Diagram: pivot z B2C na B2B. Místo čekání na obrazovky ve Figmě rozsah s vedením, AI prototyp z existujícího kódu a pět iterací s komentáři v prototypu. Výsledek: nový směr, rozsah a zadání.",
      start="Pivot z B2C na B2B", start_s="rozsah a zadání?", alt_band="Co se čekalo", alt="Obrazovky ve Figmě", alt_s=["čekání, spory až ve vývoji"],
      alt_m="Figma", alt_m_s="čekání", s1="Rozsah s vedením", s1_m="Rozsah s vedením", s1_s="facilitované otázky", s2="AI prototyp z kódu", s2_s="repozitář a design systém",
-     ring=["4 iterace", "s komentáři"], end="Nový směr", end_s=["rozsah a zadání", "bez sporů ve vývoji"],
+     ring=["5 iterací", "s komentáři"], end="Nový směr", end_s=["rozsah a zadání", "bez sporů ve vývoji"],
      p_title="Pipeline pro definici produktu",
      p_aria="Diagram pipeline pro definici produktu: facilitace rozsahu s vedením, AI prototyp z repozitáře a design systému, hosting na Vercelu napojený na repozitář a komentáře přímo v prototypu. Zpětná vazba se vrací do další verze. Výsledek: rychlejší iterace a spolupráce bez schůzek.",
      p1="Facilitace", p1_s="rozsah s vedením", p_in=["repozitář", "design systém"], p2="AI prototyp", p2_s="postavený z kódu",
      p3="Hosting na Vercelu", p3_s="napojený repozitář", p4="Komentáře", p4_s="přímo v prototypu",
      p_loop=["zpětná vazba → další iterace"], p_end=["Rychlejší", "iterace"], p_end_s=["asynchronní", "spolupráce"]),
-  "en": dict(aria="Diagram: a pivot from B2C to B2B. Instead of waiting for Figma screens: scope with leadership, an AI prototype from the existing code, and 4 iterations with comments in the prototype. Result: a new direction, scope and spec.",
+  "en": dict(aria="Diagram: a pivot from B2C to B2B. Instead of waiting for Figma screens: scope with leadership, an AI prototype from the existing code, and 5 iterations with comments in the prototype. Result: a new direction, scope and spec.",
      start="B2C to B2B pivot", start_s="scope and spec?", alt_band="What was expected", alt="Screens in Figma", alt_s=["waiting, conflicts in dev"],
      alt_m="Figma", alt_m_s="waiting", s1="Scope with leaders", s1_m="Scope with leaders", s1_s="facilitated questions", s2="AI prototype", s2_s="from the codebase",
-     ring=["4 iterations", "with comments"], end="New direction", end_s=["scope and spec", "no conflicts in dev"],
+     ring=["5 iterations", "with comments"], end="New direction", end_s=["scope and spec", "no conflicts in dev"],
      p_title="Product definition pipeline",
      p_aria="Diagram of the product definition pipeline: facilitating the scope with leadership, an AI prototype built from the repository and design system, hosting on Vercel connected to the repository, and comments right in the prototype. Feedback goes into the next version. Result: faster iterations and async collaboration.",
      p1="Facilitation", p1_s="scope with leaders", p_in=["repository", "design system"], p2="AI prototype", p2_s="built from code",

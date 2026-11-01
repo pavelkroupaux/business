@@ -376,13 +376,10 @@ try{
 }catch(e){console.error(e);}
 try{
 /* Kontakt: e-mail s předvyplněným předmětem a začátkem zprávy (bez skriptu zůstává prostý odkaz). */
-(function(){var a=document.getElementById("mail-go");if(a)a.href="mailto:contact@pavelkroupa.com?subject="+encodeURIComponent("Dotaz z webu")+"&body="+encodeURIComponent("Zasekli jsme se na: ");})();
-
-}catch(e){console.error(e);}
-try{
-(function(){var sel=document.getElementById("ct-service");if(!sel)return;
-  function pick(){var s=new URLSearchParams(location.search).get("service");[].some.call(sel.options,function(o){if(o.value===s){sel.value=s;return true;}});}
-  window.addEventListener("hashchange",pick);pick();})();
+(function(){var a=document.getElementById("mail-go");if(!a)return;
+  /* služba z odkazu „Domluvit schůzku“ (?service=…) se propíše do předmětu e-mailu */
+  var N={"decision-prototype":"Decision Prototype","audit":"Audit rozhodnutí","facelift":"Facelift aplikace","fractional":"Vedení produktu na část úvazku"},n=N[new URLSearchParams(location.search).get("service")];
+  a.href="mailto:contact@pavelkroupa.com?subject="+encodeURIComponent("Dotaz z webu"+(n?": "+n:""))+"&body="+encodeURIComponent("Zasekli jsme se na: ");})();
 
 }catch(e){console.error(e);}
 try{

@@ -19,7 +19,10 @@ const ICON = {
 const cal = (n) => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4.5h12a3 3 0 0 1 3 3v2.5H3V7.5a3 3 0 0 1 3-3z" fill="#FFCE1B"/><rect x="3" y="4.5" width="18" height="16.5" rx="3" fill="none" stroke="#111" stroke-width="1.5"/><path d="M3 10h18" stroke="#111" stroke-width="1.5"/><path d="M8 2.6v3.6M16 2.6v3.6" stroke="#111" stroke-width="1.6" stroke-linecap="round"/><text x="12" y="18.6" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="8.4" font-weight="800" fill="#111">${n}</text></svg>`;
 const rich = (s) => esc(s).replace(/&lt;mark&gt;/g, '<mark>').replace(/&lt;\/mark&gt;/g, '</mark>');
 
+// Písmo Inter je přibalené v _tools/fonts (nezávisí na tom, co je nainstalované v počítači).
+const FACES = [['Regular', 400], ['Medium', 500], ['SemiBold', 600], ['Bold', 700], ['ExtraBold', 800]].map(([n, w]) => `@font-face{font-family:Inter;font-weight:${w};font-style:normal;src:url(/_tools/fonts/Inter-${n}.woff2) format("woff2")}`).join('');
 const CSS = `
+${FACES}
 @page{size:A4;margin:0}
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:#fff}
@@ -228,13 +231,7 @@ async function loadArt(browser, key, lang) {
     if (s[lang].diagram && !art.diagram) throw new Error(`diagram nenalezen: ${lang} ${s.key}`);
     const html = doc(lang, s[lang], art);
     const p = await browser.newPage({ viewport: { width: 794, height: 1123 } });
-    await p.route('http://pk.local/**', async (r) => {
-      const u = new URL(r.request().url());
-      if (u.pathname === '/') return r.fulfill({ body: html, contentType: 'text/html; charset=utf-8' });
-      const f = path.join(ROOT, decodeURIComponent(u.pathname));
-      if (!f.startsWith(ROOT) || !fs.existsSync(f)) return r.fulfill({ status: 404, body: '' });
-      r.fulfill({ body: fs.readFileSync(f), contentType: f.endsWith('.svg') ? 'image/svg+xml' : 'application/octet-stream' });
-    });
+    await serve(p, html);
     await p.goto('http://pk.local/', { waitUntil: 'networkidle' });
     await p.evaluate(() => document.fonts.ready);
     const over = await p.evaluate(() => [...document.querySelectorAll('.page')].map((pg, i) => {

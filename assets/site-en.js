@@ -376,13 +376,10 @@ try{
 }catch(e){console.error(e);}
 try{
 /* Kontakt: e-mail s předvyplněným předmětem a začátkem zprávy (bez skriptu zůstává prostý odkaz). */
-(function(){var a=document.getElementById("mail-go");if(a)a.href="mailto:contact@pavelkroupa.com?subject="+encodeURIComponent("Inquiry from the website")+"&body="+encodeURIComponent("We are stuck on: ");})();
-
-}catch(e){console.error(e);}
-try{
-(function(){var sel=document.getElementById("ct-service");if(!sel)return;
-  function pick(){var s=new URLSearchParams(location.search).get("service");[].some.call(sel.options,function(o){if(o.value===s){sel.value=s;return true;}});}
-  window.addEventListener("hashchange",pick);pick();})();
+(function(){var a=document.getElementById("mail-go");if(!a)return;
+  /* služba z odkazu „Domluvit schůzku“ (?service=…) se propíše do předmětu e-mailu */
+  var N={"decision-prototype":"Decision Prototype","audit":"Decision Audit","facelift":"App Facelift","fractional":"Fractional product leadership"},n=N[new URLSearchParams(location.search).get("service")];
+  a.href="mailto:contact@pavelkroupa.com?subject="+encodeURIComponent("Inquiry from the website"+(n?": "+n:""))+"&body="+encodeURIComponent("We are stuck on: ");})();
 
 }catch(e){console.error(e);}
 try{
@@ -701,16 +698,18 @@ try{
 /* Ceny v eurech: tečkovaně podtržené, po najetí myší, fokusu nebo klepnutí ukážou cenu v dolarech.
    Pevný zaokrouhlený ceník podle kurzu 1,119 z 30. 10. 2026; při změně ceny upravit i llms.txt. */
 (function(){
-  var USD={"1,900":"$2,100","2,900":"$3,200","4,900":"$5,500","7,500":"$8,400","13,500":"$15,100"};
+  var USD={"1,900":"$2,100","2,900":"$3,200","4,900":"$5,500","7,500":"$8,400"};
   var main=document.querySelector("main"); if(!main||!document.createTreeWalker) return;
   var w=document.createTreeWalker(main,NodeFilter.SHOW_TEXT,null),nodes=[],n;
   while((n=w.nextNode())){if(/€\d/.test(n.nodeValue)&&!n.parentNode.closest("script,style,svg,.fx"))nodes.push(n);}
   nodes.forEach(function(t){
     var s=t.nodeValue,re=/€(\d{1,3}(?:,\d{3})+)/g,m,last=0,hit=false,frag=document.createDocumentFragment();
+    /* cena uvnitř odkazu (karta služby) nedostane vlastní zastávku Tab, dolary ukáže fokus celé karty */
+    var inLink=!!t.parentNode.closest("a");
     while((m=re.exec(s))){
       var u=USD[m[1]]; if(!u) continue; hit=true;
       frag.appendChild(document.createTextNode(s.slice(last,m.index)));
-      var fx=document.createElement("span"); fx.className="fx"; fx.tabIndex=0; fx.textContent=m[0];
+      var fx=document.createElement("span"); fx.className="fx"; if(!inLink) fx.tabIndex=0; fx.textContent=m[0];
       var tip=document.createElement("span"); tip.className="fx-tip"; tip.setAttribute("role","tooltip");
       tip.innerHTML='<span class="vh">, or </span>'+u; fx.appendChild(tip); frag.appendChild(fx);
       last=m.index+m[0].length;
@@ -727,8 +726,8 @@ try{
   },true);
   /* Escape skryje i tooltip otevřený najetím myší nebo fokusem; znovu se ukáže po dalším najetí nebo fokusu */
   document.addEventListener("keydown",function(e){if(e.key!=="Escape")return;closeAll(null);
-    [].forEach.call(document.querySelectorAll(".fx:hover,.fx:focus"),function(x){x.classList.add("fx-x");});});
-  function unhide(e){var f=e.target.closest&&e.target.closest(".fx");if(f)f.classList.remove("fx-x");}
+    [].forEach.call(document.querySelectorAll(".fx:hover,.fx:focus,a:focus .fx"),function(x){x.classList.add("fx-x");});});
+  function unhide(e){var t=e.target,f=t.closest&&t.closest(".fx");[].forEach.call(f?[f]:(t.querySelectorAll?t.querySelectorAll(".fx"):[]),function(x){x.classList.remove("fx-x");});}
   document.addEventListener("mouseover",unhide);document.addEventListener("focusin",unhide);
 })();
 }catch(e){console.error(e);}
